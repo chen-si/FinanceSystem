@@ -25,8 +25,9 @@
                 <li class="dropdown dropdown-profile" style="margin-right: 20px">
                     <a href="javascript:void(0)" data-toggle="dropdown"> <img
                             id="img" class="img-avatar img-avatar-48 m-r-10" src="./images/pic.jpg"
-                            th:src="@{/images/pic2.jpg}" th:alt="${session.loginAdmin.username}"/>
-                        <span th:text="${session.loginAdmin.username}">
+                            th:src="@{/images/pic2.jpg}" th:alt="${username}"/>
+                        <span th:text="${username}">
+<!--                            session.loginAdmin.username-->
 								<span class="caret"></span>
 						</span>
                     </a>

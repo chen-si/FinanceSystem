@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.admin.userinfo.UserMapper">
+    <resultMap type="com.heu.finance.pojo.admin.userinfo.User" id="UserResultMap">
+        <!-- 先配置 User 的属性 -->
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="realname" property="realname" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="IDcard" property="IDcard" />
+        <result column="status" property="status" />
+        <result column="reputation" property="reputation" />
+        <result column="paypwd" property="paypwd" />
+    </resultMap>
+
+    <update id="updateUserInfos" parameterType="com.heu.finance.pojo.admin.userinfo.User">
+        update user set password = #{password},phone = #{phone} , realname = #{realname} , email = #{email}
+        where id = #{id};
+    </update>
+
+    <select id="selectAllUser" resultType="com.heu.finance.pojo.admin.userinfo.User">
+        select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation from user
+    </select>
+
+    <select id="getUserById" resultType="com.heu.finance.pojo.admin.userinfo.User">
+        select username, realname, password, IDcard, phone, email, paypwd, status, reputation from user
+        where id = #{id};
+    </select>
+
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        delete from user where id = #{id}
+    </delete>
+
+    <insert id="insertUser" parameterType="com.heu.finance.pojo.admin.userinfo.User">
+        <!--int after                     string before-->
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into user(username, realname, password, IDcard, phone, email, paypwd, status, reputation)
+        values (#{username},#{realname},#{password},#{IDcard},#{phone},#{email},#{paypwd},#{status},#{reputation});
+    </insert>
+
+</mapper>

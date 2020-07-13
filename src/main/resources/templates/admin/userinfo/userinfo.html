@@ -101,7 +101,7 @@
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/userinfo/toUserInfo.html(pageNum=${userPageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/user/userlist(pageNum=${userPageInfo.pageNum},pageSize=${i})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -123,11 +123,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/userinfo/toUserInfo.html(pageNum=1,pageSize=${userPageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/user/userlist(pageNum=1,pageSize=${userPageInfo.pageSize})}">首页</a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/userinfo/toUserInfo.html(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/user/userlist(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -139,17 +139,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != userPageInfo.pageNum}"
-                                                   th:href="@{/admin/userinfo/toUserInfo.html(pageNum=${page_Num},pageSize=${userPageInfo.pageSize})}">
+                                                   th:href="@{/admin/user/userlist(pageNum=${page_Num},pageSize=${userPageInfo.pageSize})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/userinfo/toUserInfo.html(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/user/userlist(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/userinfo/toUserInfo.html(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/user/userlist(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -415,7 +415,7 @@
 
         //2、发送ajax请求保存用户
         $.ajax({
-            url: "/user/addUser",
+            url: "/admin/user/addUser",
             type: "POST",
             data: $("#userAddModal form").serialize(),
             success: function (result) {
@@ -426,7 +426,7 @@
                     setTimeout(function () {
                         var pageNum = [[${userPageInfo.pages}]];
                         var pageSize = [[${userPageInfo.pageSize}]];
-                        location.href = "/admin/userinfo/toUserInfo.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        location.href = "/admin/user/userlist?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('用户新增失败！');
@@ -451,7 +451,7 @@
     //根据id查出用户信息并显示
     function getUserInfo(id) {
         $.ajax({
-            url: "/user/getUserById/" + id,
+            url: "/admin/user/getUserById/" + id,
             type: "GET",
             success: function (result) {
                 var user = result.extend.user;
@@ -519,7 +519,7 @@
 
         //2、发送ajax请求保存更新的员工数据
         $.ajax({
-            url: "/user/updateUserProfile/" + $(this).attr("update-id"),
+            url: "/admin/user/updateUserProfile/" + $(this).attr("update-id"),
             type: "PUT",
             data: $("#userUpdateModal form").serialize(),
             success: function (result) {
@@ -529,7 +529,7 @@
                     setTimeout(function () {
                         var pageNum = [[${userPageInfo.pageNum}]];
                         var pageSize = [[${userPageInfo.pageSize}]];
-                        location.href = "/admin/userinfo/toUserInfo.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        location.href = "/admin/user/userlist?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('用户信息修改失败！');
@@ -552,7 +552,7 @@
                     btnClass: 'btn-primary',
                     action: function () {
                         $.ajax({
-                            url: "/user/deleteUserById/" + id,
+                            url: "/admin/user/deleteUserById/" + id,
                             type: "DELETE",
                             success: function (result) {
                                 if (result.code === 100) {
@@ -560,7 +560,7 @@
                                     setTimeout(function () {
                                         var pageNum = [[${userPageInfo.pageNum}]];
                                         var pageSize = [[${userPageInfo.pageSize}]];
-                                        location.href = "/admin/userinfo/toUserInfo.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        location.href = "/admin/user/userlist?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
                                     $.alert('删除该用户失败!');
