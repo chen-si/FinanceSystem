@@ -185,7 +185,7 @@
                         btnClass: 'btn-primary',
                         action: function () {
                             $.ajax({
-                                url: "/user/updateUserStatus/" + id,
+                                url: "/admin/updateUserStatus/" + id,
                                 type: "PUT",
                                 success: function (result) {
                                     if (result.code === 100) {

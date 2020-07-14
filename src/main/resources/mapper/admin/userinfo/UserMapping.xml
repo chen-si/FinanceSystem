@@ -30,6 +30,10 @@
         select username, realname, password, IDcard, phone, email, paypwd, status, reputation from user
         where id = #{id};
     </select>
+    <select id="selectUserByUsername" resultType="com.heu.finance.pojo.admin.userinfo.User">
+        select id,username, realname, password from user
+        where username = #{username}
+    </select>
 
     <delete id="deleteUserById" parameterType="java.lang.Integer">
         delete from user where id = #{id}
@@ -42,6 +46,13 @@
         </selectKey>
         insert into user(username, realname, password, IDcard, phone, email, paypwd, status, reputation)
         values (#{username},#{realname},#{password},#{IDcard},#{phone},#{email},#{paypwd},#{status},#{reputation});
+    </insert>
+    <insert id="newUser">
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into user (username,password)
+        values (#{username},#{password})
     </insert>
 
 </mapper>

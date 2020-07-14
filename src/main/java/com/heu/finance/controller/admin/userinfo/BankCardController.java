@@ -11,10 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/bankCard")
+@RequestMapping("/admin")
 public class BankCardController {
     private BankCardService bankCardService;
 
@@ -25,7 +26,7 @@ public class BankCardController {
     @RequestMapping("/bankCardList")
     public String selectAllBankCard(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                     @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
-                                    Model model){
+                                    Model model, HttpServletRequest request){
         PageHelper.startPage(pageNum,pageSize);
 
         List<BankCard> list = bankCardService.selectAllBankCard();
@@ -38,10 +39,12 @@ public class BankCardController {
         //System.out.println(list);
         model.addAttribute("bankcardPageInfo",pageInfo);
         model.addAttribute("bankcardList",list);
+
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","userInfoActive");
-        model.addAttribute("activeUrl2","userInfoActive");
-        model.addAttribute("username","username");
+        model.addAttribute("activeUrl2","bankcardActive");
+        model.addAttribute("username",request.getSession().getAttribute("username"));
+
         return "admin/userinfo/bankcard";
     }
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.admin.finance.FundProductMapper">
+    <resultMap type="com.heu.finance.pojo.admin.finance.FundProduct" id="FundProductResultMap">
+        <!-- 先配置 BankCard 的属性 -->
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="fundDesc" property="fundDesc" />
+        <result column="type" property="type" />
+        <result column="dailyGrowth" property="dailyGrowth" />
+        <result column="monthlyGrowth" property="monthlyGrowth" />
+        <result column="annualGrowth" property="annualGrowth" />
+        <result column="leastMoney" property="leastMoney" />
+        <result column="invesTerm" property="invesTerm" />
+    </resultMap>
+    <insert id="insertFundProduct">
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into fund_product(type, code, fundDesc, dailyGrowth, monthlyGrowth, annualGrowth,
+        leastMoney, invesTerm)
+        values (#{type},#{code},#{fundDesc},#{dailyGrowth},#{monthlyGrowth},#{annualGrowth},
+        #{leastMoney},#{invesTerm})
+    </insert>
+
+    <update id="updateFundProductInfos">
+        update fund_product set  code = #{code},type = #{type},fundDesc = #{fundDesc},
+        dailyGrowth = #{dailyGrowth},monthlyGrowth = #{monthlyGrowth},annualGrowth = #{annualGrowth},
+        leastMoney = #{leastMoney}, invesTerm = #{invesTerm}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFundProductById">
+        delete from fund_product where id = #{id}
+    </delete>
+
+    <select id="selectAllFundProduct" resultType="com.heu.finance.pojo.admin.finance.FundProduct">
+        select id, type, code, fundDesc, dailyGrowth, monthlyGrowth,
+               annualGrowth, leastMoney, invesTerm from fund_product
+    </select>
+
+    <select id="getFundProductById" resultType="com.heu.finance.pojo.admin.finance.FundProduct">
+        select id, type, code, fundDesc, dailyGrowth, monthlyGrowth,
+               annualGrowth, leastMoney, invesTerm from fund_product
+        where id = #{id};
+    </select>
+</mapper>

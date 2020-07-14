@@ -10,10 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/user")
+@RequestMapping("/admin")
 public class UserController {
     private UserService userService;
 
@@ -25,7 +26,7 @@ public class UserController {
     @RequestMapping("/userlist")
     public String selectUserAll(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
-                                Model model){
+                                Model model, HttpServletRequest request){
 //        System.out.println(pageNum+" "+pageSize);
         PageHelper.startPage(pageNum,pageSize);
 
@@ -35,13 +36,14 @@ public class UserController {
             list = userService.selectAllUser();
         }
         PageInfo<User> pageInfo = new PageInfo<>(list);
-        System.out.println(list);
         model.addAttribute("userPageInfo",pageInfo);
         model.addAttribute("userList",list);
+
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","userInfoActive");
         model.addAttribute("activeUrl2","userInfoActive");
-        model.addAttribute("username","username");
+
+        model.addAttribute("username",request.getSession().getAttribute("username"));
 
         return "admin/userinfo/userinfo";
     }

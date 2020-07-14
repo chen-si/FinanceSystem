@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.admin.finance.TermFinancialMapper">
+    <insert id="insertTermFinancial">
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into term_financial(name, invesTerm, leastMoney, profit, annualIncome)
+        values (#{name},#{invesTerm},#{leastMoney},#{profit},#{annualIncome})
+    </insert>
+    <update id="updateTermFinancialInfos">
+        update term_financial set name = #{name},invesTerm = #{invesTerm},leastMoney = #{leastMoney},
+                                  profit = #{profit},annualIncome = #{annualIncome}
+        where id = #{id}
+    </update>
+    <delete id="deleteTermFinancialById">
+        delete from term_financial where id = #{id}
+    </delete>
+
+    <select id="selectAllTermFinancial" resultType="com.heu.finance.pojo.admin.finance.TermFinancial">
+        select id, name, invesTerm, leastMoney, profit, annualIncome from term_financial
+    </select>
+
+    <select id="getTermFinancialById" resultType="com.heu.finance.pojo.admin.finance.TermFinancial">
+        select id, name, invesTerm, leastMoney, profit, annualIncome from term_financial
+        where id = #{id}
+    </select>
+</mapper>

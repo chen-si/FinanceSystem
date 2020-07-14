@@ -97,7 +97,7 @@
                 </div>
             </form>
             <div style="margin-left: 110px">
-                <a th:href="@{/index.html}">已有账号？去登录</a>
+                <a th:href="@{/}">已有账号？去登录</a>
             </div>
 
         </div>
@@ -253,7 +253,7 @@
 
         if (verifyUsername() && verifyCaptcha() && verifyRepassword()) {
             $.ajax({
-                url: "/login/register",
+                url: "/Register/userRegister",
                 type: "POST",
                 data: {
                     "username": $("#username").val(),
@@ -262,7 +262,7 @@
                 success: function (result) {
                     if (result.code === 100) {
                         var url = result.extend.url;
-                        //alert(url);
+                        alert('注册成功，马上去登录吧！！！');
                         location.href = url;
                     } else {
                         show_validate_msg("#password", "error",

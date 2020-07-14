@@ -91,7 +91,7 @@
                 </div>
             </form>
             <div style="margin-left: 100px">
-                <a th:href="@{/toregister.html}">还没有账号？去注册</a>
+                <a th:href="@{/Register/}">还没有账号？去注册</a>
             </div>
 
         </div>
@@ -161,7 +161,7 @@
             return false;
         } else {
             $.ajax({
-                url: "/login/loginVerifyUsername/"+username,
+                url: "/loginVerifyUsername/"+username,
                 type: "GET",
                 success: function (result) {
                     if (result.code === 200) {
@@ -212,7 +212,7 @@
 
         if (verifyUsername() && verifyCaptcha()) {
             $.ajax({
-                url: "/login/verifyLogin",
+                url: "/verifyLogin",
                 type: "GET",
                 data: {
                     "username": $("#username").val(),

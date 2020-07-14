@@ -96,7 +96,7 @@
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/bankCard/bankCardList(pageNum=${bankcardPageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/bankCardList(pageNum=${bankcardPageInfo.pageNum},pageSize=${i})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -118,11 +118,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/bankCard/bankCardList(pageNum=1,pageSize=${bankcardPageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/bankCardList(pageNum=1,pageSize=${bankcardPageInfo.pageSize})}">首页</a>
                                             </li>
 
                                             <li th:if="${bankcardPageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/bankCard/bankCardList(pageNum=${bankcardPageInfo.pageNum}-1,pageSize=${bankcardPageInfo.pageSize})}"
+                                                    th:href="@{/admin/bankCardList(pageNum=${bankcardPageInfo.pageNum}-1,pageSize=${bankcardPageInfo.pageSize})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -134,17 +134,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != bankcardPageInfo.pageNum}"
-                                                   th:href="@{/admin/bankCard/bankCardList(pageNum=${page_Num},pageSize=${bankcardPageInfo.pageSize})}">
+                                                   th:href="@{/admin/bankCardList(pageNum=${page_Num},pageSize=${bankcardPageInfo.pageSize})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${bankcardPageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/bankCard/bankCardList(pageNum=${bankcardPageInfo.pageNum}+1,pageSize=${bankcardPageInfo.pageSize})}"
+                                                    th:href="@{/admin/bankCardList(pageNum=${bankcardPageInfo.pageNum}+1,pageSize=${bankcardPageInfo.pageSize})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/bankCard/bankCardList(pageNum=${bankcardPageInfo.pages},pageSize=${bankcardPageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/bankCardList(pageNum=${bankcardPageInfo.pages},pageSize=${bankcardPageInfo.pageSize})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -321,7 +321,7 @@
 
         //2、发送ajax请求保存更新的银行卡数据
         $.ajax({
-            url: "/admin/bankCard/updateBankCard/" + $(this).attr("update-id"),
+            url: "/admin/updateBankCard/" + $(this).attr("update-id"),
             type: "PUT",
             data: $("#bankcardUpdateModal form").serialize(),
             success: function (result) {
@@ -331,7 +331,7 @@
                     setTimeout(function () {
                         var pageNum = [[${bankcardPageInfo.pageNum}]];
                         var pageSize = [[${bankcardPageInfo.pageSize}]];
-                        location.href = "/admin/bankCard/bankCardList?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        location.href = "/admin/bankCardList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('银行卡信息修改失败！');
@@ -354,7 +354,7 @@
                     btnClass: 'btn-primary',
                     action: function () {
                         $.ajax({
-                            url: "/admin/bankCard/deleteBankCard/" + id,
+                            url: "/admin/deleteBankCard/" + id,
                             type: "DELETE",
                             success: function (result) {
                                 if (result.code === 100) {
@@ -362,7 +362,7 @@
                                     setTimeout(function () {
                                         var pageNum = [[${bankcardPageInfo.pageNum}]];
                                         var pageSize = [[${bankcardPageInfo.pageSize}]];
-                                        location.href = "/admin/bankCard/bankCardList?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        location.href = "/admin/bankCardList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
                                     $.alert('删除该银行卡失败!');
