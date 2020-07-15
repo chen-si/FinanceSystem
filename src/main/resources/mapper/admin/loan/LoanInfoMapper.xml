@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.admin.LoanInfoMapper">
+
+    <select id="selectLoanInfoAll" resultType="com.heu.finance.pojo.LoanInfo">
+        select loan.id,username,IDcard,phone,amount,term,loanStatus
+        from user,loan
+        where user.id = loanId
+    </select>
+
+
+
+</mapper>
