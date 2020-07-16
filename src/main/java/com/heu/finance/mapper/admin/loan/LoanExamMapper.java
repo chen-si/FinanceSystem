@@ -1,11 +1,13 @@
 package com.heu.finance.mapper.admin.loan;
 
-import com.heu.finance.pojo.LoanExam;
+import com.heu.finance.pojo.admin.loan.LoanExam;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface LoanExamMapper {
 
     public List<LoanExam> selectLoanExamAll();

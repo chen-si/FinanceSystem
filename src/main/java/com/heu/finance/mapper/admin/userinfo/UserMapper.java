@@ -23,4 +23,13 @@ public interface UserMapper {
     int deleteUserById(Integer id);
 
     User selectUserByUsername(String username);
+
+    void updateUserStatus(User user);
+
+    List<User> selectUserReputationAll();
+
+    User selectUserReputationById(Integer id);
+
+    int updateUserProfile(User user);
+
 }

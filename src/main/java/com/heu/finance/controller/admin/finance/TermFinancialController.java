@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class TermFinancialController {
     private TermFinancialService termFinancialService;
 

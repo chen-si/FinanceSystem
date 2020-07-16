@@ -1,25 +1,17 @@
 package com.heu.finance.mapper.admin.finance;
 
-import com.demo.pojo.Bank;
+import com.heu.finance.pojo.admin.finance.Bank;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface BankMapper {
-    @Select("select * from bank")
-    public List<Bank> selectBankAll();
-
-    @Insert("insert into bank(name,type,assets,bankDesc) values(#{name},#{type},#{assets},#{bankdesc})")
-    public int addBank(Bank bank);
-
-    @Select("select * from bank where id = #{id}")
-    public Bank selectBankById(Integer id);
-
-    @Update("update bank set name=#{name},type=#{type},assets=#{assets},bankdesc=#{bankdesc} where id = #{id}")
-    public int updateBank(Bank bank);
-
-    @Delete("delete from bank where id = #{id}")
-    public int deleteBankById(Integer id);
-
+    List<Bank> selectBankAll();
+    int addBank(Bank bank);
+    Bank selectBankById(Integer id);
+    int updateBank(Bank bank);
+    int deleteBankById(Integer id);
 }

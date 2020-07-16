@@ -51,7 +51,7 @@
                                             <tbody>
                                             <tr>
                                                 <td class="p-l-20">
-                                                    <label th:if="${!#lists.contains(permissionsList,'user:finance')}"
+                                                    <label th:if="${!#lists.contains( permissionsList ,'user:finance')}"
                                                            class="lyear-checkbox checkbox-primary">
                                                         <input name="permissions[]" type="checkbox"
                                                                class="checkbox-parent checkbox-child" dataid="id-1-6"
@@ -272,7 +272,7 @@
                 if (result.code === 100) {
                     $.alert('提交成功！');
                     setTimeout(function () {
-                        location.href = "/admin/permission/toUserPermissions.html";
+                        location.href = "/admin/UserPermissions";
                     }, 1000);
                 } else {
                     $.alert('提交失败!');

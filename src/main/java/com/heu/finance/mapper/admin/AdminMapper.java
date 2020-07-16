@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminMapper {
     Admin selectUserByUserName(String username);
+    void updateAdminStatus(Admin admin);
 }

@@ -21,6 +21,15 @@
         update user set password = #{password},phone = #{phone} , realname = #{realname} , email = #{email}
         where id = #{id};
     </update>
+    <update id="updateUserStatus">
+        update user set status = #{status}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserProfile">
+        update user set reputation = #{reputation}
+        where id = #{id}
+    </update>
 
     <select id="selectAllUser" resultType="com.heu.finance.pojo.admin.userinfo.User">
         select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation from user
@@ -30,10 +39,21 @@
         select username, realname, password, IDcard, phone, email, paypwd, status, reputation from user
         where id = #{id};
     </select>
+
     <select id="selectUserByUsername" resultType="com.heu.finance.pojo.admin.userinfo.User">
         select id,username, realname, password from user
         where username = #{username}
     </select>
+
+    <select id="selectUserReputationAll" resultType="com.heu.finance.pojo.admin.userinfo.User">
+        select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation from user
+    </select>
+
+    <select id="selectUserReputationById" resultType="com.heu.finance.pojo.admin.userinfo.User">
+        select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation
+        from user where id = #{id}
+    </select>
+
 
     <delete id="deleteUserById" parameterType="java.lang.Integer">
         delete from user where id = #{id}

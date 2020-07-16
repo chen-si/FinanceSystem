@@ -1,8 +1,9 @@
 package com.heu.finance.service.impl.admin.finance;
 
-import com.demo.mapper.BankMapper;
-import com.demo.pojo.Bank;
-import com.demo.service.BankService;
+
+import com.heu.finance.mapper.admin.finance.BankMapper;
+import com.heu.finance.pojo.admin.finance.Bank;
+import com.heu.finance.service.admin.finance.BankService;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,8 +3,8 @@ package com.heu.finance.controller.admin.finance;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.ChangeMoney;
-import com.heu.finance.service.ChangeMoneyService;
+import com.heu.finance.pojo.admin.finance.ChangeMoney;
+import com.heu.finance.service.admin.finance.ChangeMoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class ChangMoneyController {
 
     @Autowired
     private ChangeMoneyService changeMoneyService;
 
-    @RequestMapping("/changemoneylist")
+    @RequestMapping("/changeMoneyList")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                        Model model) {
@@ -39,24 +37,25 @@ public class ChangMoneyController {
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "changemoneyActive");
+
         model.addAttribute("username", "username");
         return "admin/finance/changemoney";
 
 
     }
     //新增
-    @RequestMapping("/admin/addChangeMoney")
+    @RequestMapping("/addChangeMoney")
     @ResponseBody
     public Msg insertChangeMoney(ChangeMoney changeMoney){
         int i = changeMoneyService.addChangeMoney(changeMoney);
         if (i==1){
             return Msg.success();
         }else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
     //修改回显
-    @RequestMapping("/admin/getChangeMoneyInfoById/{id}")
+    @RequestMapping("/getChangeMoneyInfoById/{id}")
     @ResponseBody
     public Msg getChangeMoneyInfoById(@PathVariable("id") Integer id){
         ChangeMoney changeMoney = changeMoneyService.selectChangeMoneyById(id);
@@ -64,7 +63,7 @@ public class ChangMoneyController {
     }
 
     //修改
-    @RequestMapping("/admin/updateChangeMoney/{id}")
+    @RequestMapping("/updateChangeMoney/{id}")
     @ResponseBody
     public Msg alterChangeMoney(@PathVariable("id") Integer id,@RequestParam("name") String name,@RequestParam("annualIncome") Double annualIncome,@RequestParam("peiIncome") Double peiIncome,@RequestParam("invesMoney") Double invesMoney,@RequestParam("invesTerm") String invesTerm){
         ChangeMoney changeMoney = new ChangeMoney();
@@ -78,19 +77,19 @@ public class ChangMoneyController {
         if (j==1){
             return Msg.success();
         }else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 
     //删除
-    @RequestMapping("admin/deleteChangeMoneyById/{id}")
+    @RequestMapping("/deleteChangeMoneyById/{id}")
     @ResponseBody
     public Msg deleteChangeMoneyById(@PathVariable("id") Integer id){
         int k = changeMoneyService.deleteChangeMoney(id);
         if(k==1){
             return Msg.success();
         }else {
-            return Msg.fail();
+            return Msg.failed();
         }
 
     }

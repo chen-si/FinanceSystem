@@ -93,7 +93,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}"><a th:text="${i}"
-                                                                                              th:href="@{/admin/index.html(pageNum=${userPageInfo.pageNum},pageSize=${i})}"></a>
+                                                                                              th:href="@{/admin/main(pageNum=${userPageInfo.pageNum},pageSize=${i})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -115,11 +115,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/index.html(pageNum=1,pageSize=${userPageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/main(pageNum=1,pageSize=${userPageInfo.pageSize})}">首页</a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/index.html(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -131,17 +131,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != userPageInfo.pageNum}"
-                                                   th:href="@{/admin/index.html(pageNum=${page_Num},pageSize=${userPageInfo.pageSize})}">
+                                                   th:href="@{/admin/main(pageNum=${page_Num},pageSize=${userPageInfo.pageSize})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/index.html(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/index.html(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -191,7 +191,7 @@
                                     if (result.code === 100) {
                                         var pageNum = [[${userPageInfo.pageNum}]];
                                         var pageSize = [[${userPageInfo.pageSize}]];
-                                        location.href = "/admin/index.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        location.href = "/admin/main?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     } else {
                                         $.alert('用户强制下线操作失败!');
                                     }

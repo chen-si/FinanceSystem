@@ -10,7 +10,7 @@
 <aside class="lyear-layout-sidebar" id="leftbaraside">
     <div id="logo" class="sidebar-header">
         <a class="navbar-brand" style="font-size: 20px"
-           th:href="@{/admin/index.html}">后台管理系统</a>
+           th:href="@{/admin/main}">后台管理系统</a>
     </div>
     <div class="lyear-layout-sidebar-scroll">
         <nav class="sidebar-main">
@@ -28,7 +28,7 @@
                         <li shiro:hasPermission="admin:bankCard" th:class="${activeUrl2=='bankcardActive'?'active':''}"><a
                                 th:href="@{/admin/bankCardList}">银行卡</a></li>
                         <li shiro:hasPermission="admin:reputation" th:class="${activeUrl2=='reputationActive'?'active':''}"><a
-                                th:href="@{/admin/reputationList.html}">个人征信</a></li>
+                                th:href="@{/admin/reputationList}">个人征信</a></li>
                     </ul>
                 </li>
                 <li shiro:hasPermission="admin:finance" class="nav-item nav-item-has-subnav"
@@ -36,15 +36,15 @@
                 ><a href="javascript:void(0)"><i class="mdi mdi-skype-business"></i>理财产品管理</a>
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="admin:changeMoney" th:class="${activeUrl2=='changemoneyActive'?'active':''}"><a
-                                th:href="@{/admin/changeMoneyList.html}">零钱理财</a></li>
+                                th:href="@{/admin/changeMoneyList}">零钱理财</a></li>
                         <li shiro:hasPermission="admin:payMoney" th:class="${activeUrl2=='paymoneyActive'?'active':''}"><a
-                                th:href="@{/admin/payMoneyList.html}">工资理财</a></li>
+                                th:href="@{/admin/payMoneyList}">工资理财</a></li>
                         <li shiro:hasPermission="admin:termFinancial" th:class="${activeUrl2=='termfinancialActive'?'active':''}"><a
                                 th:href="@{/admin/termFinancialList}">期限理财</a></li>
                         <li shiro:hasPermission="admin:fundProduct" th:class="${activeUrl2=='fundproductActive'?'active':''}"><a
                                 th:href="@{/admin/fundProductList}">基金理财</a></li>
                         <li shiro:hasPermission="admin:bank" th:class="${activeUrl2=='bankctive'?'active':''}"><a
-                                th:href="@{/admin/bankList.html}">精选银行</a></li>
+                                th:href="@{/admin/bankList}">精选银行</a></li>
                     </ul>
                 </li>
                 <li shiro:hasPermission="admin:permission" class="nav-item nav-item-has-subnav"
@@ -62,9 +62,9 @@
                 ><a href="javascript:void(0)"><i class="mdi mdi-comment-text"></i>网贷管理</a>
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="admin:loanExam" th:class="${activeUrl2=='loanexamActive'?'active':''}"><a
-                                th:href="@{/admin/LoanexamList.html}">网贷审核</a></li>
+                                th:href="@{/admin/loanExamList}">网贷审核</a></li>
                         <li shiro:hasPermission="admin:loanInfo" th:class="${activeUrl2=='loaninfoActive'?'active':''}"><a
-                                th:href="@{/admin/LoaninfoList.html}">网贷信息</a></li>
+                                th:href="@{/admin/loanInfoList}">网贷信息</a></li>
                     </ul>
                 </li>
             </ul>

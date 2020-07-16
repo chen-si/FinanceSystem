@@ -47,14 +47,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="finance:${financeList}">
-                                            <td th:text="${(finacnePageInfo.pageNum - 1) * finacnePageInfo.pageSize+financeStat.index+1}"></td>
+                                        <tr th:each="finance:${list}">
+                                            <td th:text="${(financePageInfo.pageNum - 1) * financePageInfo.pageSize+financeStat.index+1}"></td>
                                             <td th:if="${finance.type==1}" th:text="国债"></td>
                                             <td th:if="${finance.type==2}" th:text="期货"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.monthmoney,1,2)}"></td>
-                                            <td th:if="${finance.autointo==1}" th:text="是"></td>
-                                            <td th:if="${finance.autointo==2}" th:text="否"></td>
-                                            <td th:text="${finance.investerm}"></td>
+                                            <td th:text="${#numbers.formatDecimal(finance.monthMoney,1,2)}"></td>
+                                            <td th:if="${finance.autoInto==1}" th:text="是"></td>
+                                            <td th:if="${finance.autoInto==2}" th:text="否"></td>
+                                            <td th:text="${finance.invesTerm}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
                                                         th:attr="update-id=${finance.id}">
@@ -87,7 +87,7 @@
                                             <span>页次：</span>
                                         </button>
                                         <button class="btn btn-default">
-                                            <span th:text="${finacnePageInfo.pageNum}+'/'+${finacnePageInfo.pages}+'页'"></span>
+                                            <span th:text="${financePageInfo.pageNum}+'/'+${financePageInfo.pages}+'页'"></span>
                                         </button>
                                         <button class="btn btn-default">
                                             <span>每页显示：</span>
@@ -97,13 +97,13 @@
                                                     class="btn btn-default dropdown-toggle"
                                                     data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false"><span
-                                                    th:text="${finacnePageInfo.pageSize}"></span>
+                                                    th:text="${financePageInfo.pageSize}"></span>
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/finance/toPayMoney.html(pageNum=${finacnePageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum},pageSize=${i})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -114,7 +114,7 @@
                                             <span>总记录数：</span>
                                         </button>
                                         <button class="btn btn-default">
-                                            <span th:text="${finacnePageInfo.total}+'条'"></span>
+                                            <span th:text="${financePageInfo.total}+'条'"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -125,33 +125,33 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/finance/toPayMoney.html(pageNum=1,pageSize=${finacnePageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/payMoneyList(pageNum=1,pageSize=${financePageInfo.pageSize})}">首页</a>
                                             </li>
 
-                                            <li th:if="${finacnePageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/finance/toPayMoney.html(pageNum=${finacnePageInfo.pageNum}-1,pageSize=${finacnePageInfo.pageSize})}"
+                                            <li th:if="${financePageInfo.hasPreviousPage }"><a
+                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum}-1,pageSize=${financePageInfo.pageSize})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
-                                            <li th:each="page_Num:${finacnePageInfo.navigatepageNums }"
-                                                th:class="${page_Num == finacnePageInfo.pageNum?'active':''}">
-                                                <a th:if="${page_Num == finacnePageInfo.pageNum}"
+                                            <li th:each="page_Num:${financePageInfo.navigatepageNums }"
+                                                th:class="${page_Num == financePageInfo.pageNum?'active':''}">
+                                                <a th:if="${page_Num == financePageInfo.pageNum}"
                                                    th:text="${page_Num}"
                                                    th:href="@{#}">
                                                 </a>
                                                 <a th:text="${page_Num}"
-                                                   th:if="${page_Num != finacnePageInfo.pageNum}"
-                                                   th:href="@{/admin/finance/toPayMoney.html(pageNum=${page_Num},pageSize=${finacnePageInfo.pageSize})}">
+                                                   th:if="${page_Num != financePageInfo.pageNum}"
+                                                   th:href="@{/admin/payMoneyList(pageNum=${page_Num},pageSize=${financePageInfo.pageSize})}">
                                                 </a>
                                             </li>
 
-                                            <li th:if="${finacnePageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/finance/toPayMoney.html(pageNum=${finacnePageInfo.pageNum}+1,pageSize=${finacnePageInfo.pageSize})}"
+                                            <li th:if="${financePageInfo.hasNextPage }"><a
+                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum}+1,pageSize=${financePageInfo.pageSize})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/finance/toPayMoney.html(pageNum=${finacnePageInfo.pages},pageSize=${finacnePageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pages},pageSize=${financePageInfo.pageSize})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -199,7 +199,7 @@
                                             <label class="col-sm-2 control-label">每月金额设定(元)：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="monthmoney_add_input" name="monthmoney"
+                                                       id="monthmoney_add_input" name="monthMoney"
                                                        placeholder="请输入每月转入的金额：">
                                                 <span class="help-block"></span>
                                             </div>
@@ -212,11 +212,11 @@
                                             <div class="col-sm-6">
                                                 <div class="example-box">
                                                     <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
+                                                        <input type="radio" name="autoInto"
                                                                value="1" checked="checked"><span>是</span>
                                                     </label>
                                                     <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
+                                                        <input type="radio" name="autoInto"
                                                                value="2"> <span>否</span>
                                                     </label>
                                                 </div>
@@ -230,7 +230,7 @@
                                             <label class="col-sm-2 control-label">投资期限：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="investerm_add_input" name="investerm"
+                                                       id="investerm_add_input" name="invesTerm"
                                                        placeholder="请输入投资期限：">
                                                 <span class="help-block"></span>
                                             </div>
@@ -290,7 +290,7 @@
                                             <label class="col-sm-2 control-label">每月金额设定(元)：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="monthmoney_update_input" name="monthmoney"
+                                                       id="monthmoney_update_input" name="monthMoney"
                                                        placeholder="请输入每月转入的金额：">
                                                 <span class="help-block"></span>
                                             </div>
@@ -303,11 +303,11 @@
                                             <div class="col-sm-6">
                                                 <div class="example-box">
                                                     <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
+                                                        <input type="radio" name="autoInto"
                                                                value="1" checked="checked"><span>是</span>
                                                     </label>
                                                     <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
+                                                        <input type="radio" name="autoInto"
                                                                value="2"> <span>否</span>
                                                     </label>
                                                 </div>
@@ -321,7 +321,7 @@
                                             <label class="col-sm-2 control-label">投资期限：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="investerm_update_input" name="investerm"
+                                                       id="investerm_update_input" name="invesTerm"
                                                        placeholder="请输入投资期限：">
                                                 <span class="help-block"></span>
                                             </div>
@@ -415,9 +415,9 @@
                     $("#addModal").modal('hide');
                     $.alert('工资理财产品添加成功！');
                     setTimeout(function () {
-                        var pageNum = [[${finacnePageInfo.pages}]];
-                        var pageSize = [[${finacnePageInfo.pageSize}]];
-                        location.href = "/admin/finance/toPayMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        var pageNum = [[${financePageInfo.pages}]];
+                        var pageSize = [[${financePageInfo.pageSize}]];
+                        location.href = "/admin/payMoneyList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('工资理财产品添加失败！');
@@ -452,10 +452,10 @@
 
                 $("#updateModal input[name=type]").val(
                     [ payMoney.type ]);
-                $("#monthmoney_update_input").val(payMoney.monthmoney);
+                $("#monthmoney_update_input").val(payMoney.monthMoney);
                 $("#updateModal input[name=autointo]").val(
                     [ payMoney.autointo ]);
-                $("#investerm_update_input").val(payMoney.investerm);
+                $("#investerm_update_input").val(payMoney.invesTerm);
             }
         });
     }
@@ -502,9 +502,9 @@
                     $("#updateModal").modal('hide');
                     $.alert('工资理财产品信息修改成功！');
                     setTimeout(function () {
-                        var pageNum = [[${finacnePageInfo.pageNum}]];
-                        var pageSize = [[${finacnePageInfo.pageSize}]];
-                        location.href = "/admin/finance/toPayMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        var pageNum = [[${financePageInfo.pageNum}]];
+                        var pageSize = [[${financePageInfo.pageSize}]];
+                        location.href = "/admin/payMoneyList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('工资理财产品信息修改失败！');
@@ -539,9 +539,9 @@
                                 if (result.code === 100) {
                                     $.alert('删除该工资理财产品成功！');
                                     setTimeout(function () {
-                                        var pageNum = [[${finacnePageInfo.pageNum}]];
-                                        var pageSize = [[${finacnePageInfo.pageSize}]];
-                                        location.href = "/admin/finance/toPayMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        var pageNum = [[${financePageInfo.pageNum}]];
+                                        var pageSize = [[${financePageInfo.pageSize}]];
+                                        location.href = "/admin/payMoneyList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
                                     $.alert('删除该工资理财产品失败!');

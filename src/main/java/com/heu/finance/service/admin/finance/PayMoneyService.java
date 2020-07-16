@@ -1,6 +1,6 @@
 package com.heu.finance.service.admin.finance;
 
-import com.heu.finance.pojo.PayMoney;
+import com.heu.finance.pojo.admin.finance.PayMoney;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

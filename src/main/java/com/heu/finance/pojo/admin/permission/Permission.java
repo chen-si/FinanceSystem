@@ -1,6 +1,6 @@
 package com.heu.finance.pojo.admin.permission;
 
-public class Permissions {
+public class Permission {
     private Integer id;
     private String permission;
 

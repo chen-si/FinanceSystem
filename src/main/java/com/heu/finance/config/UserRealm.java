@@ -1,7 +1,9 @@
-package com.heu.finance.pojo.admin.permission;
+package com.heu.finance.config;
 
 
 import com.heu.finance.pojo.admin.Admin;
+import com.heu.finance.pojo.admin.permission.AdminPermissions;
+import com.heu.finance.pojo.admin.permission.UserPermissions;
 import com.heu.finance.pojo.admin.userinfo.User;
 import com.heu.finance.service.LoginService;
 import com.heu.finance.service.admin.permission.AdminPermissionService;
@@ -51,7 +53,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("执行了=>授权doGetAuthorizationInfo");
+        //System.out.println("执行了=>授权doGetAuthorizationInfo");
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 

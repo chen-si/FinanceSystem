@@ -1,6 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.admin.permission.UserPermissionMapper">
+    <resultMap id="UserPermissionResultMap" type="com.heu.finance.pojo.admin.permission.UserPermissions">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <collection property="permission" ofType="com.heu.finance.pojo.admin.permission.Permission">
+            <id column="permissionId" property="id"/>
+            <result column="permission" property="permission" />
+        </collection>
+    </resultMap>
 
-</beans>
+    <insert id="addUserPermissions">
+        insert into user_permissions(userId, permissionId)
+        values (#{userId},#{permissionId})
+    </insert>
+    <delete id="deleteUserPermission">
+        delete from user_permissions where userId = #{userId} and permissionId = #{permissionId}
+    </delete>
+
+    <select id="getUserPermissionsByUserId" resultType="com.heu.finance.pojo.admin.permission.UserPermissions" resultMap="UserPermissionResultMap">
+        select up.id id, userId ,up.permissionId permissionId,p.permission permission
+        from user_permissions up join permissions p on up.permissionId = p.id
+        where userId = #{id}
+    </select>
+    <select id="selectAllUserPermission" resultType="com.heu.finance.pojo.admin.permission.Permission">
+        select id,permission from permissions
+        where permission like 'user:%'
+    </select>
+</mapper>

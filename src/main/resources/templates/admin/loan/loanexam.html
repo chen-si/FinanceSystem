@@ -50,23 +50,23 @@
                                         <tbody>
                                         <tr th:each="loan:${loanList}">
                                             <td th:text="${(loanPageInfo.pageNum - 1) * loanPageInfo.pageSize+loanStat.index+1}"></td>
-                                            <td th:text="${loan.user.username}"></td>
+                                            <td th:text="${loan.username}"></td>
                                             <td th:text="${#numbers.formatDecimal(loan.amount,1,2)}+'元'"></td>
                                             <td th:text="${loan.term}+'天'"></td>
-                                            <td th:text="${loan.user.reputation}"></td>
-                                            <td th:if="${loan.applystatus==0}" th:text="未审核"></td>
-                                            <td th:if="${loan.applystatus==1}" th:text="审核未通过"></td>
-                                            <td th:if="${loan.applystatus==2}" th:text="审核通过"></td>
+                                            <td th:text="${loan.reputation}"></td>
+                                            <td th:if="${loan.applyStatus==0}" th:text="未审核"></td>
+                                            <td th:if="${loan.applyStatus==1}" th:text="审核未通过"></td>
+                                            <td th:if="${loan.applyStatus==2}" th:text="审核通过"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm pass_update_btn"
-                                                        th:attr="update-id=${loan.id},update-name=${loan.user.username},
-                                                        update-amount=${loan.amount},update-applystatus=${loan.applystatus}">
+                                                        th:attr="update-id=${loan.id},update-name=${loan.username},
+                                                        update-amount=${loan.amount},update-applystatus=${loan.applyStatus}">
 															<span class="glyphicon glyphicon-ok"
                                                                   aria-hidden="true"></span> 审核通过
                                                 </button>
                                                 <button class="btn btn-danger btn-sm notpass_update_btn"
-                                                        th:attr="update-id=${loan.id},update-name=${loan.user.username},
-                                                        update-amount=${loan.amount},update-applystatus=${loan.applystatus}">
+                                                        th:attr="update-id=${loan.id},update-name=${loan.username},
+                                                        update-amount=${loan.amount},update-applystatus=${loan.applyStatus}">
 															<span class="glyphicon glyphicon-remove"
                                                                   aria-hidden="true"></span> 审核不通过
                                                 </button>
@@ -103,7 +103,7 @@
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/loan/toLoanexam.html(pageNum=${loanPageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/loanExamList(pageNum=${loanPageInfo.pageNum},pageSize=${i})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -125,11 +125,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/loan/toLoanexam.html(pageNum=1,pageSize=${loanPageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/loanExamList(pageNum=1,pageSize=${loanPageInfo.pageSize})}">首页</a>
                                             </li>
 
                                             <li th:if="${loanPageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/loan/toLoanexam.html(pageNum=${loanPageInfo.pageNum}-1,pageSize=${loanPageInfo.pageSize})}"
+                                                    th:href="@{/admin/loanExamList(pageNum=${loanPageInfo.pageNum}-1,pageSize=${loanPageInfo.pageSize})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -141,17 +141,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != loanPageInfo.pageNum}"
-                                                   th:href="@{/admin/loan/toLoanexam.html(pageNum=${page_Num},pageSize=${loanPageInfo.pageSize})}">
+                                                   th:href="@{/admin/loanExamList(pageNum=${page_Num},pageSize=${loanPageInfo.pageSize})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${loanPageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/loan/toLoanexam.html(pageNum=${loanPageInfo.pageNum}+1,pageSize=${loanPageInfo.pageSize})}"
+                                                    th:href="@{/admin/loanExamList(pageNum=${loanPageInfo.pageNum}+1,pageSize=${loanPageInfo.pageSize})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/loan/toLoanexam.html(pageNum=${loanPageInfo.pages},pageSize=${loanPageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/loanExamList(pageNum=${loanPageInfo.pages},pageSize=${loanPageInfo.pageSize})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -198,7 +198,7 @@
                         btnClass: 'btn-primary',
                         action: function () {
                             $.ajax({
-                                url: "/loan/passApplyStatus/" + id,
+                                url: "/admin/passApplyStatus/" + id,
                                 type: "put",
                                 success: function (result) {
                                     if (result.code === 100) {
@@ -206,7 +206,7 @@
                                         setTimeout(function () {
                                             var pageNum = [[${loanPageInfo.pageNum}]];
                                             var pageSize = [[${loanPageInfo.pageSize}]];
-                                            location.href = "/admin/loan/toLoanexam.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                            location.href = "/admin/loanExamList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                         }, 1000);
                                     } else {
                                         $.alert('通过审核修改失败!');
@@ -233,7 +233,7 @@
                         btnClass: 'btn-primary',
                         action: function () {
                             $.ajax({
-                                url: "/loan/passApplyStatus/" + id,
+                                url: "/admin/passApplyStatus/" + id,
                                 type: "put",
                                 success: function (result) {
                                     if (result.code === 100) {
@@ -241,7 +241,7 @@
                                         setTimeout(function () {
                                             var pageNum = [[${loanPageInfo.pageNum}]];
                                             var pageSize = [[${loanPageInfo.pageSize}]];
-                                            location.href = "/admin/loan/toLoanexam.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                            location.href = "/admin/loanExamList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                         }, 1000);
                                     } else {
                                         $.alert('通过审核修改失败!');
@@ -291,7 +291,7 @@
                                         setTimeout(function () {
                                             var pageNum = [[${loanPageInfo.pageNum}]];
                                             var pageSize = [[${loanPageInfo.pageSize}]];
-                                            location.href = "/admin/loan/toLoanexam.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                            location.href = "/admin/loanExamList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                         }, 1000);
                                     } else {
                                         $.alert('未通过审核修改失败!');

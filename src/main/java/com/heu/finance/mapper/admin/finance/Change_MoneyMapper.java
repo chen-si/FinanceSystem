@@ -1,6 +1,6 @@
 package com.heu.finance.mapper.admin.finance;
 
-import com.heu.finance.pojo.ChangeMoney;
+import com.heu.finance.pojo.admin.finance.ChangeMoney;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

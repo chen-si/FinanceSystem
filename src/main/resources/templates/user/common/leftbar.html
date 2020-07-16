@@ -25,9 +25,9 @@
                         个人理财</a>
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="user:changeMoney" th:class="${activeUrl2=='changeMoneyActive'?'active':''}"><a
-                                th:href="@{/user/finance/toChangeMoney.html}">零钱理财</a></li>
+                                th:href="@{/user/changeMoneyList}">零钱理财</a></li>
                         <li shiro:hasPermission="user:payMoney" th:class="${activeUrl2=='payMoneyActive'?'active':''}"><a
-                                th:href="@{/user/finance/toPayMoney.html}">工资理财</a></li>
+                                th:href="@{/user/payMoneyList}">工资理财</a></li>
                         <li shiro:hasPermission="user:termFinancial" th:class="${activeUrl2=='termFinancialActive'?'active':''}"><a
                                 th:href="@{/user/finance/toTermFinancial.html}">期限理财</a></li>
                         <li shiro:hasPermission="user:fundProduct" th:class="${activeUrl2=='fundProductActive'?'active':''}"><a

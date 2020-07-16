@@ -19,4 +19,9 @@ public class LoginServiceImpl implements LoginService {
     public Admin selectUserByUserName(String username) {
         return adminMapper.selectUserByUserName(username);
     }
+
+    @Override
+    public void updateAdminStatus(Admin admin) {
+        adminMapper.updateAdminStatus(admin);
+    }
 }

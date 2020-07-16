@@ -51,4 +51,25 @@ public class UserServiceImpl implements UserService {
     public void newUser(User user) {
         userMapper.newUser(user);
     }
+
+    @Override
+    public void updateUserStatus(User user) {
+        userMapper.updateUserStatus(user);
+    }
+
+    @Override
+    public List<User> selectUserReputationAll (){
+        return userMapper.selectUserReputationAll();
+    }
+
+    @Override
+    public User selectUserReputationById(Integer id) {
+        return userMapper.selectUserReputationById(id);
+    }
+
+    @Override
+    public int updateUserProfile(User user) {
+        return userMapper.updateUserProfile(user);
+    }
+
 }

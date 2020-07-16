@@ -3,10 +3,9 @@ package com.heu.finance.controller.admin.finance;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.ChangeMoney;
-import com.heu.finance.pojo.PayMoney;
-import com.heu.finance.service.ChangeMoneyService;
-import com.heu.finance.service.PayMoneyService;
+
+import com.heu.finance.pojo.admin.finance.PayMoney;
+import com.heu.finance.service.admin.finance.PayMoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 @Controller
+@RequestMapping("/admin")
 public class PayMoneyController {
 
     @Autowired
     private PayMoneyService payMoneyService;
 
-    @RequestMapping("/paymoneylist")
+    @RequestMapping("/payMoneyList")
     public String selectPayMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                     Model model) {
@@ -43,19 +43,19 @@ public class PayMoneyController {
     }
 
     //新增
-    @RequestMapping("/admin/addPayMoney")
+    @RequestMapping("/addPayMoney")
     @ResponseBody
     public Msg insertPayMoney(PayMoney payMoney) {
         int i = payMoneyService.addPayMoney(payMoney);
         if (i == 1) {
             return Msg.success();
         } else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 
     //修改回显
-    @RequestMapping("/admin/getPayMoneyInfoById/{id}")
+    @RequestMapping("/getPayMoneyInfoById/{id}")
     @ResponseBody
     public Msg getPayMoneyInfoById(@PathVariable("id") Integer id) {
         PayMoney payMoney = payMoneyService.selectPayMoneyById(id);
@@ -63,9 +63,13 @@ public class PayMoneyController {
     }
 
     //更新
-    @RequestMapping("/admin/updatePayMoney/{id}")
+    @RequestMapping("/updatePayMoney/{id}")
     @ResponseBody
-    public Msg updatePayMoney(@PathVariable("id") Integer id, @RequestParam("type") Integer type, @RequestParam("monthMoney") Double monthMoney, @RequestParam("autoInto") Integer autoInto, @RequestParam("invesTerm") String invesTerm) {
+    public Msg updatePayMoney(@PathVariable("id") Integer id,
+                              @RequestParam("type") Integer type,
+                              @RequestParam("monthMoney") Double monthMoney,
+                              @RequestParam("autoInto") Integer autoInto,
+                              @RequestParam("invesTerm") String invesTerm) {
         PayMoney payMoney = new PayMoney();
         payMoney.setId(id);
         payMoney.setType(type);
@@ -76,19 +80,19 @@ public class PayMoneyController {
         if (j == 1) {
             return Msg.success();
         } else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 
     //删除
-    @RequestMapping("/admin/deletePayMoneyById/{id}")
+    @RequestMapping("/deletePayMoneyById/{id}")
     @ResponseBody
     public Msg deletePayMoneyById(@PathVariable("id") Integer id) {
         int k = payMoneyService.deletePayMoney(id);
         if (k == 1) {
             return Msg.success();
         } else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 }

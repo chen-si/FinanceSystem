@@ -1,10 +1,11 @@
 package com.heu.finance.controller.admin.finance;
 
-import com.demo.common.Msg;
-import com.demo.pojo.Bank;
-import com.demo.service.BankService;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.heu.finance.common.Msg;
+import com.heu.finance.pojo.admin.finance.Bank;
+import com.heu.finance.service.admin.finance.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class BankController {
     @Autowired
     private BankService bankService;
 
-    @RequestMapping("/admin/finance/toBank.html")
+    @RequestMapping("/bankList")
     public String selectBankAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                 Model model){
@@ -39,26 +41,25 @@ public class BankController {
         return "admin/finance/bank";
     }
 
-    @RequestMapping("/admin/addBank")
+    @RequestMapping("/addBank")
     @ResponseBody
-    public Msg insertBank(Bank bank)
-    {
+    public Msg insertBank(Bank bank) {
         int i = bankService.addBank(bank);
         if(i==1){
             return Msg.success();
         }else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 
-    @RequestMapping("/admin/getBankInfoById/{id}")
+    @RequestMapping("/getBankInfoById/{id}")
     @ResponseBody
     public Msg getBankInfoById(@PathVariable("id") Integer id){
         Bank bank = bankService.selectBankById(id);
         return Msg.success().add("bank", bank);
     }
 
-    @RequestMapping("/admin/updateBank/{update-id}")
+    @RequestMapping("/updateBank/{update-id}")
     @ResponseBody
     public Msg updateBank(Bank bank, @PathVariable("update-id") Integer id){
         bank.setId(id);
@@ -66,18 +67,18 @@ public class BankController {
         if(i==1){
             return Msg.success();
         }else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 
-    @RequestMapping("/admin/deleteBankById/{id}")
+    @RequestMapping("/deleteBankById/{id}")
     @ResponseBody
     public Msg deleteBankById(@PathVariable("id") Integer id){
         int i =bankService.deleteBankById(id);
         if(i==1){
             return Msg.success();
         }else {
-            return Msg.fail();
+            return Msg.failed();
         }
     }
 }

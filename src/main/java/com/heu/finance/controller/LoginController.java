@@ -5,6 +5,9 @@ import com.heu.finance.pojo.admin.Admin;
 import com.heu.finance.pojo.admin.userinfo.User;
 import com.heu.finance.service.LoginService;
 import com.heu.finance.service.admin.userinfo.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -57,27 +60,16 @@ public class LoginController {
     public Msg verifyLogin(@RequestParam(value = "username") String username,
                            @RequestParam(value = "password") String password,
                            HttpServletRequest request){
-        System.out.println(username+"  "+password);
-        Admin admin = loginService.selectUserByUserName(username);
-        if (admin != null){
-            if (admin.getPassword().equals(password)){
-                request.getSession().setAttribute("username",username);
-                return Msg.success().add("url","/admin/main");
-            }else{
-                return Msg.failed();
-            }
-        }else{
-            User user = userService.selectUserByUsername(username);
-            if (user != null){
-                if (user.getPassword().equals(password)){
-                    request.getSession().setAttribute("username",username);
-                    return Msg.success().add("url","/user/main");
-                }
-                return Msg.failed();
-            }
-            return Msg.failed();
-        }
+        System.out.println(username+"   "+password);
+        Subject subject = SecurityUtils.getSubject();
 
+        UsernamePasswordToken token =  new UsernamePasswordToken(username,password);
+        subject.login(token);
+        Subject s = SecurityUtils.getSubject();
+        if(s.hasRole("admin")){
+            return Msg.success().add("url","/admin/main");
+        }
+        return Msg.success().add("url","/user/main");
     }
 
 }

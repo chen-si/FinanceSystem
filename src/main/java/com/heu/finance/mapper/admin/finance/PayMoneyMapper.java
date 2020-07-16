@@ -1,11 +1,13 @@
 package com.heu.finance.mapper.admin.finance;
 
-import com.heu.finance.pojo.PayMoney;
+import com.heu.finance.pojo.admin.finance.PayMoney;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface PayMoneyMapper {
 
     public List<PayMoney> selectPayMoneyAll();

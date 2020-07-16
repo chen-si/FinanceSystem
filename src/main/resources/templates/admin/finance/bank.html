@@ -102,7 +102,7 @@
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/finance/toBank.html(pageNum=${finacnePageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/bankList(pageNum=${finacnePageInfo.pageNum},pageSize=${i})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -124,11 +124,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/finance/toBank.html(pageNum=1,pageSize=${finacnePageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/bankList(pageNum=1,pageSize=${finacnePageInfo.pageSize})}">首页</a>
                                             </li>
 
                                             <li th:if="${finacnePageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/finance/toBank.html(pageNum=${finacnePageInfo.pageNum}-1,pageSize=${finacnePageInfo.pageSize})}"
+                                                    th:href="@{/admin/bankList(pageNum=${finacnePageInfo.pageNum}-1,pageSize=${finacnePageInfo.pageSize})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -140,17 +140,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != finacnePageInfo.pageNum}"
-                                                   th:href="@{/admin/finance/toBank.html(pageNum=${page_Num},pageSize=${finacnePageInfo.pageSize})}">
+                                                   th:href="@{/admin/bankList(pageNum=${page_Num},pageSize=${finacnePageInfo.pageSize})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${finacnePageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/finance/toBank.html(pageNum=${finacnePageInfo.pageNum}+1,pageSize=${finacnePageInfo.pageSize})}"
+                                                    th:href="@{/admin/bankList(pageNum=${finacnePageInfo.pageNum}+1,pageSize=${finacnePageInfo.pageSize})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/finance/toBank.html(pageNum=${finacnePageInfo.pages},pageSize=${finacnePageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/bankList(pageNum=${finacnePageInfo.pages},pageSize=${finacnePageInfo.pageSize})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -408,7 +408,7 @@
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pages}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
-                        location.href = "/admin/finance/toBank.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        location.href = "/admin/bankList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('推荐银行新增失败！');
@@ -514,7 +514,7 @@
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pageNum}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
-                        location.href = "/admin/finance/toBank.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        location.href = "/admin/bankList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('推荐银行信息修改失败！');
@@ -545,7 +545,7 @@
                                     setTimeout(function () {
                                         var pageNum = [[${finacnePageInfo.pageNum}]];
                                         var pageSize = [[${finacnePageInfo.pageSize}]];
-                                        location.href = "/admin/finance/toBank.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        location.href = "/admin/bankList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
                                     $.alert('删除该推荐银行失败!');

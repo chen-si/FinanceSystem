@@ -3,19 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heu.finance.mapper.admin.Change_MoneyMapper">
+<mapper namespace="com.heu.finance.mapper.admin.finance.Change_MoneyMapper">
 
-    <select id="selectChangeMoneyAll" resultType="com.heu.finance.pojo.ChangeMoney">
+    <select id="selectChangeMoneyAll" resultType="com.heu.finance.pojo.admin.finance.ChangeMoney">
         select * from change_money
     </select>
 
     <!--新增-->
-    <insert id="addChangeMoney" parameterType="com.heu.finance.pojo.ChangeMoney" >
+    <insert id="addChangeMoney" parameterType="com.heu.finance.pojo.admin.finance.ChangeMoney" >
         insert into change_money(name,annualIncome,peiIncome,invesMoney,invesTerm) values (#{name}, #{annualIncome},#{peiIncome},#{invesMoney},#{invesTerm});
     </insert>
 
     <!--按id查询-->
-    <select id="selectChangeMoneyById" resultType="com.heu.finance.pojo.ChangeMoney" parameterType="java.lang.Integer">
+    <select id="selectChangeMoneyById" resultType="com.heu.finance.pojo.admin.finance.ChangeMoney" parameterType="java.lang.Integer">
         select * from  change_money  where id = #{id}
     </select>
 

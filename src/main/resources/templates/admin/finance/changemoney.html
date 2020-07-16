@@ -48,13 +48,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="finance:${financeList}">
-                                            <td th:text="${(finacnePageInfo.pageNum - 1) * finacnePageInfo.pageSize+financeStat.index+1}"></td>
+                                        <tr th:each="finance:${list}">
+                                            <td th:text="${(financePageInfo.pageNum - 1) * financePageInfo.pageSize+financeStat.index+1}"></td>
                                             <td th:text="${finance.name}"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.annualincome*100,1,3)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.peiincome,1,2)}+'元'"></td>
-                                            <td th:text="${finance.invesmoney}+'元'"></td>
-                                            <td th:text="${finance.investerm}"></td>
+                                            <td th:text="${#numbers.formatDecimal(finance.annualIncome*100,1,3)}+'%'"></td>
+                                            <td th:text="${#numbers.formatDecimal(finance.peiIncome,1,2)}+'元'"></td>
+                                            <td th:text="${finance.invesMoney}+'元'"></td>
+                                            <td th:text="${finance.invesTerm}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
                                                         th:attr="update-id=${finance.id}">
@@ -71,276 +71,275 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
 
-                            <!-- 显示分页信息 -->
-                            <div class="row">
+                                <!-- 显示分页信息 -->
+                                <div class="row">
 
-                                <!-- 新增按钮 -->
-                                <div class="col-md-1" style="margin-left: 24px">
-                                    <button id="add_modal_btn" class="btn btn-primary">新增</button>
-                                </div>
+                                    <!-- 新增按钮 -->
+                                    <div class="col-md-1" style="margin-left: 24px">
+                                        <button id="add_modal_btn" class="btn btn-primary">新增</button>
+                                    </div>
 
-                                <div class="col-md-5">
-                                    <div class="btn-group">
-                                        <button class="btn btn-default">
-                                            <span>页次：</span>
-                                        </button>
-                                        <button class="btn btn-default">
-                                            <span th:text="${finacnePageInfo.pageNum}+'/'+${finacnePageInfo.pages}+'页'"></span>
-                                        </button>
-                                        <button class="btn btn-default">
-                                            <span>每页显示：</span>
-                                        </button>
+                                    <div class="col-md-5">
                                         <div class="btn-group">
-                                            <button id="btnGroupDrop1"
-                                                    class="btn btn-default dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false"><span
-                                                    th:text="${finacnePageInfo.pageSize}"></span>
-                                                <span class="caret"></span>
+                                            <button class="btn btn-default">
+                                                <span>页次：</span>
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li th:each="i:${#numbers.sequence(1,10)}">
-                                                    <a th:text="${i}"
-                                                       th:href="@{/admin/finance/toChangeMoney.html(pageNum=${finacnePageInfo.pageNum},pageSize=${i})}"></a>
+                                            <button class="btn btn-default">
+                                                <span th:text="${financePageInfo.pageNum}+'/'+${financePageInfo.pages}+'页'"></span>
+                                            </button>
+                                            <button class="btn btn-default">
+                                                <span>每页显示：</span>
+                                            </button>
+                                            <div class="btn-group">
+                                                <button id="btnGroupDrop1"
+                                                        class="btn btn-default dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false"><span
+                                                        th:text="${financePageInfo.pageSize}"></span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li th:each="i:${#numbers.sequence(1,10)}">
+                                                        <a th:text="${i}"
+                                                           th:href="@{/admin/changeMoneyList(pageNum=${financePageInfo.pageNum},pageSize=${i})}"></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class="btn btn-default">
+                                                <span>条</span>
+                                            </button>
+                                            <button class="btn btn-default">
+                                                <span>总记录数：</span>
+                                            </button>
+                                            <button class="btn btn-default">
+                                                <span th:text="${financePageInfo.total}+'条'"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- 分页条信息 -->
+                                    <div class="col-md-5">
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination pagination-lg pull-right"
+                                                style="margin-top: 0">
+                                                <li>
+                                                    <a th:href="@{/admin/changeMoneyList(pageNum=1,pageSize=${financePageInfo.pageSize})}">首页</a>
+                                                </li>
+
+                                                <li th:if="${financePageInfo.hasPreviousPage }"><a
+                                                        th:href="@{/admin/changeMoneyList(pageNum=${financePageInfo.pageNum}-1,pageSize=${financePageInfo.pageSize})}"
+                                                        aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                                                </a></li>
+
+                                                <li th:each="page_Num:${financePageInfo.navigatepageNums }"
+                                                    th:class="${page_Num == financePageInfo.pageNum?'active':''}">
+                                                    <a th:if="${page_Num == financePageInfo.pageNum}"
+                                                       th:text="${page_Num}"
+                                                       th:href="@{#}">
+                                                    </a>
+                                                    <a th:text="${page_Num}"
+                                                       th:if="${page_Num != financePageInfo.pageNum}"
+                                                       th:href="@{/admin/changeMoneyList(pageNum=${page_Num},pageSize=${financePageInfo.pageSize})}">
+                                                    </a>
+                                                </li>
+
+                                                <li th:if="${financePageInfo.hasNextPage }"><a
+                                                        th:href="@{/admin/changeMoneyList(pageNum=${financePageInfo.pageNum}+1,pageSize=${financePageInfo.pageSize})}"
+                                                        aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                                                </a></li>
+
+                                                <li><a
+                                                        th:href="@{/admin/changeMoneyList(pageNum=${financePageInfo.pages},pageSize=${financePageInfo.pageSize})}">末页</a>
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <button class="btn btn-default">
-                                            <span>条</span>
-                                        </button>
-                                        <button class="btn btn-default">
-                                            <span>总记录数：</span>
-                                        </button>
-                                        <button class="btn btn-default">
-                                            <span th:text="${finacnePageInfo.total}+'条'"></span>
-                                        </button>
+                                        </nav>
                                     </div>
                                 </div>
 
-                                <!-- 分页条信息 -->
-                                <div class="col-md-5">
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination pagination-lg pull-right"
-                                            style="margin-top: 0">
-                                            <li>
-                                                <a th:href="@{/admin/finance/toChangeMoney.html(pageNum=1,pageSize=${finacnePageInfo.pageSize})}">首页</a>
-                                            </li>
-
-                                            <li th:if="${finacnePageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/finance/toChangeMoney.html(pageNum=${finacnePageInfo.pageNum}-1,pageSize=${finacnePageInfo.pageSize})}"
-                                                    aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                                            </a></li>
-
-                                            <li th:each="page_Num:${finacnePageInfo.navigatepageNums }"
-                                                th:class="${page_Num == finacnePageInfo.pageNum?'active':''}">
-                                                <a th:if="${page_Num == finacnePageInfo.pageNum}"
-                                                   th:text="${page_Num}"
-                                                   th:href="@{#}">
-                                                </a>
-                                                <a th:text="${page_Num}"
-                                                   th:if="${page_Num != finacnePageInfo.pageNum}"
-                                                   th:href="@{/admin/finance/toChangeMoney.html(pageNum=${page_Num},pageSize=${finacnePageInfo.pageSize})}">
-                                                </a>
-                                            </li>
-
-                                            <li th:if="${finacnePageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/finance/toChangeMoney.html(pageNum=${finacnePageInfo.pageNum}+1,pageSize=${finacnePageInfo.pageSize})}"
-                                                    aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-                                            </a></li>
-
-                                            <li><a
-                                                    th:href="@{/admin/finance/toChangeMoney.html(pageNum=${finacnePageInfo.pages},pageSize=${finacnePageInfo.pageSize})}">末页</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
                             </div>
-
                         </div>
-                    </div>
 
-                    <!-- 新增零钱理财的模态框 -->
-                    <div class="modal fade" id="addModal" tabindex="-1"
-                         role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="modal-title">新增零钱理财产品</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <!--要提交的表单 -->
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">产品名称：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="name_add_input" name="name"
-                                                       placeholder="请输入产品名称：">
-                                                <span class="help-block"></span>
+                        <!-- 新增零钱理财的模态框 -->
+                        <div class="modal fade" id="addModal" tabindex="-1"
+                             role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">新增零钱理财产品</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--要提交的表单 -->
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">产品名称：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="name_add_input" name="name"
+                                                           placeholder="请输入产品名称：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">七日年化收益率：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="annualincome_add_input" name="annualIncome"
+                                                           placeholder="请输入七日年化收益率：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">七日年化收益率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="annualincome_add_input" name="annualincome"
-                                                       placeholder="请输入七日年化收益率：">
-                                                <span class="help-block"></span>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">每万元收益：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="peiincome_add_input" name="peiIncome"
+                                                           placeholder="请输入每万元收益：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">起投金额（元）：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="invesmoney_add_input" name="invesMoney"
+                                                           placeholder="请输入起投金额：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">每万元收益：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="peiincome_add_input" name="peiincome"
-                                                       placeholder="请输入每万元收益：">
-                                                <span class="help-block"></span>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">投资期限：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="investerm_add_input" name="invesTerm"
+                                                           placeholder="请输入投资期限：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">起投金额（元）：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="invesmoney_add_input" name="invesmoney"
-                                                       placeholder="请输入起投金额：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="investerm_add_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default"
-                                            data-dismiss="modal">关闭
-                                    </button>
-                                    <button type="button" class="btn btn-primary"
-                                            id="save_btn">保存
-                                    </button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                id="save_btn">保存
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 修改用户的模态框 -->
-                    <div class="modal fade" id="updateModal" tabindex="-1"
-                         role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="modal-title">修改零钱理财产品信息</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <!--要提交的表单 -->
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">产品名称：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="name_update_input" name="name"
-                                                       placeholder="请输入产品名称：">
-                                                <span class="help-block"></span>
+                        <!-- 修改用户的模态框 -->
+                        <div class="modal fade" id="updateModal" tabindex="-1"
+                             role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">修改零钱理财产品信息</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--要提交的表单 -->
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">产品名称：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="name_update_input" name="name"
+                                                           placeholder="请输入产品名称：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">七日年化收益率：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="annualincome_update_input" name="annualIncome"
+                                                           placeholder="请输入七日年化收益率：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">七日年化收益率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="annualincome_update_input" name="annualincome"
-                                                       placeholder="请输入七日年化收益率：">
-                                                <span class="help-block"></span>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">每万元收益：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="peiincome_update_input" name="peiIncome"
+                                                           placeholder="请输入每万元收益：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">起投金额（元）：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="invesmoney_update_input" name="invesMoney"
+                                                           placeholder="请输入起投金额：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">每万元收益：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="peiincome_update_input" name="peiincome"
-                                                       placeholder="请输入每万元收益：">
-                                                <span class="help-block"></span>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">投资期限：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control"
+                                                           id="investerm_update_input" name="invesTerm"
+                                                           placeholder="请输入投资期限：">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <em style="color: red">*</em>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">起投金额（元）：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="invesmoney_update_input" name="invesmoney"
-                                                       placeholder="请输入起投金额：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="investerm_update_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default"
-                                            data-dismiss="modal">关闭
-                                    </button>
-                                    <button type="button" class="btn btn-primary"
-                                            id="update_btn">更新
-                                    </button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                id="update_btn">更新
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </main>
@@ -452,9 +451,9 @@
                     $("#addModal").modal('hide');
                     $.alert('零钱理财产品新增成功！');
                     setTimeout(function () {
-                        var pageNum = [[${finacnePageInfo.pages}]];
-                        var pageSize = [[${finacnePageInfo.pageSize}]];
-                        location.href = "/admin/finance/toChangeMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        var pageNum = [[${financePageInfo.pages}]];
+                        var pageSize = [[${financePageInfo.pageSize}]];
+                        location.href = "/admin/changeMoneyList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('零钱理财产品新增失败！');
@@ -488,10 +487,10 @@
                 reset_form("#updateModal form");
 
                 $("#name_update_input").val(changeMoney.name);
-                $("#annualincome_update_input").val(changeMoney.annualincome);
-                $("#peiincome_update_input").val(changeMoney.peiincome);
-                $("#invesmoney_update_input").val(changeMoney.invesmoney);
-                $("#investerm_update_input").val(changeMoney.investerm);
+                $("#annualincome_update_input").val(changeMoney.annualIncome);
+                $("#peiincome_update_input").val(changeMoney.peiIncome);
+                $("#invesmoney_update_input").val(changeMoney.invesMoney);
+                $("#investerm_update_input").val(changeMoney.invesTerm);
             }
         });
     }
@@ -577,9 +576,9 @@
                     $("#updateModal").modal('hide');
                     $.alert('零钱理财产品信息修改成功！');
                     setTimeout(function () {
-                        var pageNum = [[${finacnePageInfo.pageNum}]];
-                        var pageSize = [[${finacnePageInfo.pageSize}]];
-                        location.href = "/admin/finance/toChangeMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        var pageNum = [[${financePageInfo.pageNum}]];
+                        var pageSize = [[${financePageInfo.pageSize}]];
+                        location.href = "/admin/changeMoneyList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
                     $.alert('零钱理财产品信息修改失败！');
@@ -608,9 +607,9 @@
                                 if (result.code === 100) {
                                     $.alert('删除该零钱理财产品成功！');
                                     setTimeout(function () {
-                                        var pageNum = [[${finacnePageInfo.pageNum}]];
-                                        var pageSize = [[${finacnePageInfo.pageSize}]];
-                                        location.href = "/admin/finance/toChangeMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        var pageNum = [[${financePageInfo.pageNum}]];
+                                        var pageSize = [[${financePageInfo.pageSize}]];
+                                        location.href = "/admin/changeMoneyList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
                                     $.alert('删除该零钱理财产品失败!');

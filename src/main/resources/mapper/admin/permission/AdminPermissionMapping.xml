@@ -1,6 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.admin.permission.AdminPermissionMapper">
+    <resultMap id="AdminPermissionResultMap" type="com.heu.finance.pojo.admin.permission.AdminPermissions">
+        <id column="id" property="id"/>
+        <result column="adminId" property="adminId"/>
+        <collection property="permission" ofType="com.heu.finance.pojo.admin.permission.Permission">
+            <id column="permissionId" property="id"/>
+            <result column="permission" property="permission" />
+        </collection>
+    </resultMap>
 
-</beans>
+    <insert id="addAdminPermissions">
+        insert into admin_permissions (adminId, permissionId)
+        values (#{adminId},#{permissionId})
+    </insert>
+
+    <delete id="deleteAdminPermissions">
+        delete from admin_permissions
+        where adminId = #{adminId} and permissionId = #{permissionId}
+    </delete>
+
+    <select id="getAdminPermissionsByAdminId"
+            resultType="com.heu.finance.pojo.admin.permission.AdminPermissions" resultMap="AdminPermissionResultMap">
+        select ap.id id,adminId,permissionId,p.permission permission
+        from admin_permissions ap join permissions p on ap.permissionId = p.id
+        where adminId = #{id}
+    </select>
+    <select id="selectAllAdminPermission" resultType="com.heu.finance.pojo.admin.permission.Permission">
+        select id,permission from permissions
+        where permission like 'admin:%'
+    </select>
+
+</mapper>

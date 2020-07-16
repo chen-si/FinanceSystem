@@ -3,9 +3,9 @@ package com.heu.finance.controller.admin.loan;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.ChangeMoney;
-import com.heu.finance.pojo.LoanInfo;
-import com.heu.finance.service.LoanInfoService;
+
+import com.heu.finance.pojo.admin.loan.LoanInfo;
+import com.heu.finance.service.admin.loan.LoanInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class LoanInfoController {
 
     @Autowired
     private LoanInfoService loanInfoService;
 
-    @RequestMapping("/loaninfolist")
+    @RequestMapping("/loanInfoList")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                        Model model) {
@@ -43,7 +44,7 @@ public class LoanInfoController {
     }
 
     //提醒还款
-    @RequestMapping("/loan/remindPay/{id}")
+    @RequestMapping("/remindPay/{id}")
     @ResponseBody
     public Msg remindPay(@PathVariable("id") Integer id){
         return Msg.success();
