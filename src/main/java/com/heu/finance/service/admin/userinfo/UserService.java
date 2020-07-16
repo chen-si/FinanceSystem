@@ -1,7 +1,6 @@
 package com.heu.finance.service.admin.userinfo;
 
-import com.heu.finance.pojo.admin.Admin;
-import com.heu.finance.pojo.admin.userinfo.User;
+import com.heu.finance.pojo.userinfo.User;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public interface UserService {
 
     void newUser(User user);
 
-    void updateUserStatus(User user);
+    int updateUserStatus(User user);
 
     List<User> selectUserReputationAll();
 

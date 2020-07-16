@@ -1,4 +1,4 @@
-package com.heu.finance.pojo.admin.userinfo;
+package com.heu.finance.pojo.userinfo;
 
 public class BankCard {
     private Integer id;

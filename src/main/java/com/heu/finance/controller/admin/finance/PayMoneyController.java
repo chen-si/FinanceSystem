@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 
-import com.heu.finance.pojo.admin.finance.PayMoney;
+import com.heu.finance.pojo.finance.PayMoney;
 import com.heu.finance.service.admin.finance.PayMoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Controller
 @RequestMapping("/admin")
@@ -67,7 +68,7 @@ public class PayMoneyController {
     @ResponseBody
     public Msg updatePayMoney(@PathVariable("id") Integer id,
                               @RequestParam("type") Integer type,
-                              @RequestParam("monthMoney") Double monthMoney,
+                              @RequestParam("monthMoney") BigDecimal monthMoney,
                               @RequestParam("autoInto") Integer autoInto,
                               @RequestParam("invesTerm") String invesTerm) {
         PayMoney payMoney = new PayMoney();

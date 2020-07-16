@@ -1,7 +1,6 @@
 package com.heu.finance.service.admin.finance;
 
-import com.heu.finance.pojo.admin.finance.Bank;
-import org.apache.ibatis.annotations.Delete;
+import com.heu.finance.pojo.finance.Bank;
 
 import java.util.List;
 

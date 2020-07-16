@@ -1,7 +1,7 @@
 package com.heu.finance.service.impl.admin.userinfo;
 
 import com.heu.finance.mapper.admin.userinfo.BankCardMapper;
-import com.heu.finance.pojo.admin.userinfo.BankCard;
+import com.heu.finance.pojo.userinfo.BankCard;
 import com.heu.finance.service.admin.userinfo.BankCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

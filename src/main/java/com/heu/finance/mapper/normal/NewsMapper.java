@@ -1,6 +1,6 @@
 package com.heu.finance.mapper.normal;
 
-import com.heu.finance.pojo.normal.News;
+import com.heu.finance.pojo.News;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

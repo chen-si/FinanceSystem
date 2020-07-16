@@ -1,6 +1,6 @@
 package com.heu.finance.mapper.admin.loan;
 
-import com.heu.finance.pojo.admin.loan.LoanExam;
+import com.heu.finance.pojo.loan.LoanExam;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

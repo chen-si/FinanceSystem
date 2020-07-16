@@ -5,19 +5,19 @@
 
 <mapper namespace="com.heu.finance.mapper.admin.loan.LoanExamMapper">
 
-    <select id="selectLoanExamAll" resultType="com.heu.finance.pojo.admin.loan.LoanExam">
+    <select id="selectLoanExamAll" resultType="com.heu.finance.pojo.loan.LoanExam">
         select loan.id as id,username,amount,term,reputation,applyStatus
         from loan join user
         on user.id = loan.loanId
     </select>
 
     <!--通过审核-->
-    <update id="updateApplyStatus" parameterType="com.heu.finance.pojo.admin.loan.LoanExam">
+    <update id="updateApplyStatus" parameterType="com.heu.finance.pojo.loan.LoanExam">
         update loan set applyStatus=2  where id = #{id}
     </update>
 
     <!--未通过审核-->
-    <update id="updateApplyStatusNotPass" parameterType="com.heu.finance.pojo.admin.loan.LoanExam">
+    <update id="updateApplyStatusNotPass" parameterType="com.heu.finance.pojo.loan.LoanExam">
         update loan set applyStatus=1  where id = #{id}
     </update>
 

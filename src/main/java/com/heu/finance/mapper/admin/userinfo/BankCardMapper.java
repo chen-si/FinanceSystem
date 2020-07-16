@@ -1,6 +1,6 @@
 package com.heu.finance.mapper.admin.userinfo;
 
-import com.heu.finance.pojo.admin.userinfo.BankCard;
+import com.heu.finance.pojo.userinfo.BankCard;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

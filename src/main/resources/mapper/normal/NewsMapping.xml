@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heu.finance.mapper.normal.NewsMapper">
 
-    <select id="selectAllNews" resultType="com.heu.finance.pojo.normal.News">
+    <select id="selectAllNews" resultType="com.heu.finance.pojo.News">
         select id, title, newsDesc, createTime from news
     </select>
 </mapper>

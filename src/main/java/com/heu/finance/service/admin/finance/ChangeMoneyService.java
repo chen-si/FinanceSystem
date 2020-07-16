@@ -1,7 +1,7 @@
 package com.heu.finance.service.admin.finance;
 
 
-import com.heu.finance.pojo.admin.finance.ChangeMoney;
+import com.heu.finance.pojo.finance.ChangeMoney;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

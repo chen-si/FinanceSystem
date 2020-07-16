@@ -1,7 +1,7 @@
 package com.heu.finance.service.impl.admin.userinfo;
 
 import com.heu.finance.mapper.admin.userinfo.UserMapper;
-import com.heu.finance.pojo.admin.userinfo.User;
+import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.admin.userinfo.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserStatus(User user) {
-        userMapper.updateUserStatus(user);
+    public int updateUserStatus(User user) {
+        return userMapper.updateUserStatus(user);
     }
 
     @Override

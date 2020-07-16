@@ -3,8 +3,7 @@ package com.heu.finance.controller.admin.finance;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.admin.finance.FundProduct;
-import com.heu.finance.pojo.admin.userinfo.User;
+import com.heu.finance.pojo.finance.FundProduct;
 import com.heu.finance.service.admin.finance.FundProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -57,10 +57,10 @@ public class FundProductController {
     public Msg addFundProduct(@RequestParam(value = "code") Integer code,
                               @RequestParam(value = "type") Integer type,
                               @RequestParam(value = "funddesc") String fundDesc,
-                              @RequestParam(value = "dailygrowth") Double dailyGrowth,
-                              @RequestParam(value = "monthlygrowth") Double monthlyGrowth,
-                              @RequestParam(value = "annualgrowth") Double annualGrowth,
-                              @RequestParam(value = "leastmoney") Double leastMoney,
+                              @RequestParam(value = "dailygrowth") BigDecimal dailyGrowth,
+                              @RequestParam(value = "monthlygrowth") BigDecimal monthlyGrowth,
+                              @RequestParam(value = "annualgrowth") BigDecimal annualGrowth,
+                              @RequestParam(value = "leastmoney") BigDecimal leastMoney,
                               @RequestParam(value = "investerm") String invesTerm){
         FundProduct fundProduct = new FundProduct();
         fundProduct.setAnnualGrowth(annualGrowth);
@@ -97,10 +97,10 @@ public class FundProductController {
                                  @RequestParam(value = "code") Integer code,
                                  @RequestParam(value = "type") Integer type,
                                  @RequestParam(value = "funddesc") String fundDesc,
-                                 @RequestParam(value = "dailygrowth") Double dailyGrowth,
-                                 @RequestParam(value = "monthlygrowth") Double monthlyGrowth,
-                                 @RequestParam(value = "annualgrowth") Double annualGrowth,
-                                 @RequestParam(value = "leastmoney") Double leastMoney,
+                                 @RequestParam(value = "dailygrowth") BigDecimal dailyGrowth,
+                                 @RequestParam(value = "monthlygrowth") BigDecimal monthlyGrowth,
+                                 @RequestParam(value = "annualgrowth") BigDecimal annualGrowth,
+                                 @RequestParam(value = "leastmoney") BigDecimal leastMoney,
                                  @RequestParam(value = "investerm") String invesTerm){
         FundProduct fundProduct = new FundProduct();
         fundProduct.setId(id);

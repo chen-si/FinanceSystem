@@ -8,7 +8,7 @@
     <properties resource="jdbc.properties"/>
 
     <typeAliases>
-        <typeAlias type="com.heu.finance.pojo.admin.userinfo.User" alias="UserAlias"/>
+        <typeAlias type="com.heu.finance.pojo.userinfo.User" alias="UserAlias"/>
     </typeAliases>
 
     <environments default="development">

@@ -1,6 +1,4 @@
-package com.heu.finance.pojo.admin.userinfo;
-
-import java.security.PublicKey;
+package com.heu.finance.pojo.userinfo;
 
 public class User {
     private Integer id;

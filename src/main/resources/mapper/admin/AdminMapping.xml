@@ -8,7 +8,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectUserByUserName" resultType="com.heu.finance.pojo.admin.Admin">
+    <select id="selectUserByUserName" resultType="com.heu.finance.pojo.Admin">
         select id, username, password, status from admin where username = #{username}
     </select>
 </mapper>

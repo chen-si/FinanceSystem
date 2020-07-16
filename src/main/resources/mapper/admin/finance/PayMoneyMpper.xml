@@ -4,17 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heu.finance.mapper.admin.finance.PayMoneyMapper">
 
-<select id="selectPayMoneyAll" resultType="com.heu.finance.pojo.admin.finance.PayMoney">
+<select id="selectPayMoneyAll" resultType="com.heu.finance.pojo.finance.PayMoney">
     select * from pay_money
 </select>
 
     <!--新增-->
-    <insert id="addPayMoney" parameterType="com.heu.finance.pojo.admin.finance.PayMoney" >
+    <insert id="addPayMoney" parameterType="com.heu.finance.pojo.finance.PayMoney" >
         insert into pay_money(type,monthMoney,autoInto,invesTerm) values ( #{type},#{monthMoney},#{autoInto},#{invesTerm});
     </insert>
 
     <!--修改回显，按id查询-->
-    <select id="selectPayMoneyById" resultType="com.heu.finance.pojo.admin.finance.PayMoney" parameterType="java.lang.Integer">
+    <select id="selectPayMoneyById" resultType="com.heu.finance.pojo.finance.PayMoney" parameterType="java.lang.Integer">
         select * from  pay_money  where id = #{id}
     </select>
 

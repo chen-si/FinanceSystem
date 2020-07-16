@@ -1,7 +1,7 @@
 package com.heu.finance.service.impl.admin.finance;
 
 import com.heu.finance.mapper.admin.finance.PayMoneyMapper;
-import com.heu.finance.pojo.admin.finance.PayMoney;
+import com.heu.finance.pojo.finance.PayMoney;
 import com.heu.finance.service.admin.finance.PayMoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

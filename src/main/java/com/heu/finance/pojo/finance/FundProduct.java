@@ -1,15 +1,18 @@
-package com.heu.finance.pojo.admin.finance;
+package com.heu.finance.pojo.finance;
+
+import java.math.BigDecimal;
 
 public class FundProduct {
     private Integer id;
     private Integer type;
     private Integer code;
     private String fundDesc;
-    private Double dailyGrowth;
-    private Double monthlyGrowth;
-    private Double annualGrowth;
-    private Double leastMoney;
+    private BigDecimal dailyGrowth;
+    private BigDecimal monthlyGrowth;
+    private BigDecimal annualGrowth;
+    private BigDecimal leastMoney;
     private String invesTerm;
+    
     @Override
     public String toString() {
         return "FundProduct{" +
@@ -57,35 +60,35 @@ public class FundProduct {
         this.fundDesc = fundDesc;
     }
 
-    public Double getDailyGrowth() {
+    public BigDecimal getDailyGrowth() {
         return dailyGrowth;
     }
 
-    public void setDailyGrowth(Double dailyGrowth) {
+    public void setDailyGrowth(BigDecimal dailyGrowth) {
         this.dailyGrowth = dailyGrowth;
     }
 
-    public Double getMonthlyGrowth() {
+    public BigDecimal getMonthlyGrowth() {
         return monthlyGrowth;
     }
 
-    public void setMonthlyGrowth(Double monthlyGrowth) {
+    public void setMonthlyGrowth(BigDecimal monthlyGrowth) {
         this.monthlyGrowth = monthlyGrowth;
     }
 
-    public Double getAnnualGrowth() {
+    public BigDecimal getAnnualGrowth() {
         return annualGrowth;
     }
 
-    public void setAnnualGrowth(Double annualGrowth) {
+    public void setAnnualGrowth(BigDecimal annualGrowth) {
         this.annualGrowth = annualGrowth;
     }
 
-    public Double getLeastMoney() {
+    public BigDecimal getLeastMoney() {
         return leastMoney;
     }
 
-    public void setLeastMoney(Double leastMoney) {
+    public void setLeastMoney(BigDecimal leastMoney) {
         this.leastMoney = leastMoney;
     }
 

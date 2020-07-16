@@ -1,7 +1,7 @@
 package com.heu.finance.service.admin.permission;
 
-import com.heu.finance.pojo.admin.permission.Permission;
-import com.heu.finance.pojo.admin.permission.UserPermissions;
+import com.heu.finance.pojo.permission.Permission;
+import com.heu.finance.pojo.permission.UserPermissions;
 
 import java.util.List;
 

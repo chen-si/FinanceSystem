@@ -1,4 +1,4 @@
-package com.heu.finance.pojo.normal;
+package com.heu.finance.pojo;
 
 import java.time.LocalDate;
 import java.util.Date;

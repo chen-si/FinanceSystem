@@ -4,7 +4,7 @@ package com.heu.finance.controller.admin.finance;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.admin.finance.Bank;
+import com.heu.finance.pojo.finance.Bank;
 import com.heu.finance.service.admin.finance.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

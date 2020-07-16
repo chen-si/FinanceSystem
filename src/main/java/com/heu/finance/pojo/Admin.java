@@ -1,4 +1,4 @@
-package com.heu.finance.pojo.admin;
+package com.heu.finance.pojo;
 
 public class Admin {
     private Integer id;

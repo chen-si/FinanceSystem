@@ -1,12 +1,14 @@
-package com.heu.finance.pojo.admin.finance;
+package com.heu.finance.pojo.finance;
+
+import java.math.BigDecimal;
 
 public class TermFinancial {
     private Integer id;
     private String name;
     private String invesTerm;
-    private Double leastMoney;
+    private BigDecimal leastMoney;
     private Integer profit;
-    private Double annualIncome;
+    private BigDecimal annualIncome;
 
     @Override
     public String toString() {
@@ -44,11 +46,11 @@ public class TermFinancial {
         this.invesTerm = invesTerm;
     }
 
-    public Double getLeastMoney() {
+    public BigDecimal getLeastMoney() {
         return leastMoney;
     }
 
-    public void setLeastMoney(Double leastMoney) {
+    public void setLeastMoney(BigDecimal leastMoney) {
         this.leastMoney = leastMoney;
     }
 
@@ -60,11 +62,11 @@ public class TermFinancial {
         this.profit = profit;
     }
 
-    public Double getAnnualIncome() {
+    public BigDecimal getAnnualIncome() {
         return annualIncome;
     }
 
-    public void setAnnualIncome(Double annualIncome) {
+    public void setAnnualIncome(BigDecimal annualIncome) {
         this.annualIncome = annualIncome;
     }
 }

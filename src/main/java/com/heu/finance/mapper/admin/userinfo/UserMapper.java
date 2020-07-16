@@ -1,6 +1,6 @@
 package com.heu.finance.mapper.admin.userinfo;
 
-import com.heu.finance.pojo.admin.userinfo.User;
+import com.heu.finance.pojo.userinfo.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +24,7 @@ public interface UserMapper {
 
     User selectUserByUsername(String username);
 
-    void updateUserStatus(User user);
+    int updateUserStatus(User user);
 
     List<User> selectUserReputationAll();
 

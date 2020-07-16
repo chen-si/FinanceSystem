@@ -1,7 +1,7 @@
 package com.heu.finance.controller;
 
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.admin.userinfo.User;
+import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.admin.userinfo.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

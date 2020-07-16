@@ -1,8 +1,8 @@
 package com.heu.finance.service.impl.admin.permission;
 
 import com.heu.finance.mapper.admin.permission.UserPermissionMapper;
-import com.heu.finance.pojo.admin.permission.Permission;
-import com.heu.finance.pojo.admin.permission.UserPermissions;
+import com.heu.finance.pojo.permission.Permission;
+import com.heu.finance.pojo.permission.UserPermissions;
 import com.heu.finance.service.admin.permission.UserPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

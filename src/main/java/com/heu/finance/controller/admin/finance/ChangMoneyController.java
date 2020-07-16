@@ -3,7 +3,7 @@ package com.heu.finance.controller.admin.finance;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.admin.finance.ChangeMoney;
+import com.heu.finance.pojo.finance.ChangeMoney;
 import com.heu.finance.service.admin.finance.ChangeMoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -65,7 +66,12 @@ public class ChangMoneyController {
     //修改
     @RequestMapping("/updateChangeMoney/{id}")
     @ResponseBody
-    public Msg alterChangeMoney(@PathVariable("id") Integer id,@RequestParam("name") String name,@RequestParam("annualIncome") Double annualIncome,@RequestParam("peiIncome") Double peiIncome,@RequestParam("invesMoney") Double invesMoney,@RequestParam("invesTerm") String invesTerm){
+    public Msg alterChangeMoney(@PathVariable("id") Integer id,
+                                @RequestParam("name") String name,
+                                @RequestParam("annualIncome") BigDecimal annualIncome,
+                                @RequestParam("peiIncome") BigDecimal peiIncome,
+                                @RequestParam("invesMoney") BigDecimal invesMoney,
+                                @RequestParam("invesTerm") String invesTerm){
         ChangeMoney changeMoney = new ChangeMoney();
         changeMoney.setId(id);
         changeMoney.setName(name);

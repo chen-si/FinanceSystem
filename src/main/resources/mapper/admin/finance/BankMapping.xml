@@ -18,11 +18,11 @@
         delete from bank where id = #{id}
     </delete>
 
-    <select id="selectBankAll" resultType="com.heu.finance.pojo.admin.finance.Bank">
+    <select id="selectBankAll" resultType="com.heu.finance.pojo.finance.Bank">
         select id, name, type, assets, bankDesc from bank
     </select>
 
-    <select id="selectBankById" resultType="com.heu.finance.pojo.admin.finance.Bank">
+    <select id="selectBankById" resultType="com.heu.finance.pojo.finance.Bank">
         select id, name, type, assets, bankDesc
         from bank where id = #{id}
     </select>

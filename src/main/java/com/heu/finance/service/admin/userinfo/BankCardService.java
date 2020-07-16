@@ -1,6 +1,6 @@
 package com.heu.finance.service.admin.userinfo;
 
-import com.heu.finance.pojo.admin.userinfo.BankCard;
+import com.heu.finance.pojo.userinfo.BankCard;
 
 import java.util.List;
 

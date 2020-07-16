@@ -1,7 +1,7 @@
 package com.heu.finance.mapper.admin.finance;
 
 
-import com.heu.finance.pojo.admin.finance.FundProduct;
+import com.heu.finance.pojo.finance.FundProduct;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

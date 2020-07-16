@@ -1,7 +1,7 @@
 package com.heu.finance.service.impl.admin.finance;
 
 import com.heu.finance.mapper.admin.finance.FundProductMapper;
-import com.heu.finance.pojo.admin.finance.FundProduct;
+import com.heu.finance.pojo.finance.FundProduct;
 import com.heu.finance.service.admin.finance.FundProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

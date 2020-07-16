@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 
-import com.heu.finance.pojo.admin.loan.LoanExam;
+import com.heu.finance.pojo.loan.LoanExam;
 import com.heu.finance.service.admin.loan.LoanExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

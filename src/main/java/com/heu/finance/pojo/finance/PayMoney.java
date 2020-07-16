@@ -1,41 +1,43 @@
-package com.heu.finance.pojo.admin.finance;
+package com.heu.finance.pojo.finance;
+
+import java.math.BigDecimal;
 
 public class PayMoney {
-    private int id;
-    private int type;
-    private double monthMoney;
-    private int autoInto;
+    private Integer id;
+    private Integer type;
+    private BigDecimal monthMoney;
+    private Integer autoInto;
     private String invesTerm;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public double getMonthMoney() {
+    public BigDecimal getMonthMoney() {
         return monthMoney;
     }
 
-    public void setMonthMoney(double monthMoney) {
+    public void setMonthMoney(BigDecimal monthMoney) {
         this.monthMoney = monthMoney;
     }
 
-    public int getAutoInto() {
+    public Integer getAutoInto() {
         return autoInto;
     }
 
-    public void setAutoInto(int autoInto) {
+    public void setAutoInto(Integer autoInto) {
         this.autoInto = autoInto;
     }
 

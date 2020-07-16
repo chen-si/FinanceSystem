@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heu.finance.mapper.admin.permission.AdminPermissionMapper">
-    <resultMap id="AdminPermissionResultMap" type="com.heu.finance.pojo.admin.permission.AdminPermissions">
+    <resultMap id="AdminPermissionResultMap" type="com.heu.finance.pojo.permission.AdminPermissions">
         <id column="id" property="id"/>
         <result column="adminId" property="adminId"/>
-        <collection property="permission" ofType="com.heu.finance.pojo.admin.permission.Permission">
+        <collection property="permission" ofType="com.heu.finance.pojo.permission.Permission">
             <id column="permissionId" property="id"/>
             <result column="permission" property="permission" />
         </collection>
@@ -23,12 +23,12 @@
     </delete>
 
     <select id="getAdminPermissionsByAdminId"
-            resultType="com.heu.finance.pojo.admin.permission.AdminPermissions" resultMap="AdminPermissionResultMap">
+            resultType="com.heu.finance.pojo.permission.AdminPermissions" resultMap="AdminPermissionResultMap">
         select ap.id id,adminId,permissionId,p.permission permission
         from admin_permissions ap join permissions p on ap.permissionId = p.id
         where adminId = #{id}
     </select>
-    <select id="selectAllAdminPermission" resultType="com.heu.finance.pojo.admin.permission.Permission">
+    <select id="selectAllAdminPermission" resultType="com.heu.finance.pojo.permission.Permission">
         select id,permission from permissions
         where permission like 'admin:%'
     </select>

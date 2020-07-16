@@ -1,7 +1,7 @@
 package com.heu.finance.service.impl.normal;
 
 import com.heu.finance.mapper.normal.NewsMapper;
-import com.heu.finance.pojo.normal.News;
+import com.heu.finance.pojo.News;
 import com.heu.finance.service.normal.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

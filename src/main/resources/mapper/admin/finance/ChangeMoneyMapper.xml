@@ -5,17 +5,17 @@
 
 <mapper namespace="com.heu.finance.mapper.admin.finance.Change_MoneyMapper">
 
-    <select id="selectChangeMoneyAll" resultType="com.heu.finance.pojo.admin.finance.ChangeMoney">
+    <select id="selectChangeMoneyAll" resultType="com.heu.finance.pojo.finance.ChangeMoney">
         select * from change_money
     </select>
 
     <!--新增-->
-    <insert id="addChangeMoney" parameterType="com.heu.finance.pojo.admin.finance.ChangeMoney" >
+    <insert id="addChangeMoney" parameterType="com.heu.finance.pojo.finance.ChangeMoney" >
         insert into change_money(name,annualIncome,peiIncome,invesMoney,invesTerm) values (#{name}, #{annualIncome},#{peiIncome},#{invesMoney},#{invesTerm});
     </insert>
 
     <!--按id查询-->
-    <select id="selectChangeMoneyById" resultType="com.heu.finance.pojo.admin.finance.ChangeMoney" parameterType="java.lang.Integer">
+    <select id="selectChangeMoneyById" resultType="com.heu.finance.pojo.finance.ChangeMoney" parameterType="java.lang.Integer">
         select * from  change_money  where id = #{id}
     </select>
 

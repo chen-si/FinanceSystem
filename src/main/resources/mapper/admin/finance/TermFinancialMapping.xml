@@ -19,11 +19,11 @@
         delete from term_financial where id = #{id}
     </delete>
 
-    <select id="selectAllTermFinancial" resultType="com.heu.finance.pojo.admin.finance.TermFinancial">
+    <select id="selectAllTermFinancial" resultType="com.heu.finance.pojo.finance.TermFinancial">
         select id, name, invesTerm, leastMoney, profit, annualIncome from term_financial
     </select>
 
-    <select id="getTermFinancialById" resultType="com.heu.finance.pojo.admin.finance.TermFinancial">
+    <select id="getTermFinancialById" resultType="com.heu.finance.pojo.finance.TermFinancial">
         select id, name, invesTerm, leastMoney, profit, annualIncome from term_financial
         where id = #{id}
     </select>

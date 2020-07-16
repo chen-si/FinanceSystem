@@ -1,6 +1,6 @@
 package com.heu.finance.service.admin.finance;
 
-import com.heu.finance.pojo.admin.finance.FundProduct;
+import com.heu.finance.pojo.finance.FundProduct;
 
 import java.util.List;
 

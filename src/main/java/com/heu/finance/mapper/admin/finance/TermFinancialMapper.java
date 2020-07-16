@@ -1,9 +1,8 @@
 package com.heu.finance.mapper.admin.finance;
 
-import com.heu.finance.pojo.admin.finance.TermFinancial;
+import com.heu.finance.pojo.finance.TermFinancial;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 

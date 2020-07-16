@@ -1,18 +1,20 @@
-package com.heu.finance.pojo.admin.finance;
+package com.heu.finance.pojo.finance;
+
+import java.math.BigDecimal;
 
 public class ChangeMoney {
-    private int id;
+    private Integer id;
     private String name;
-    private double annualIncome;
-    private double peiIncome;
-    private double invesMoney;
+    private BigDecimal annualIncome;
+    private BigDecimal peiIncome;
+    private BigDecimal invesMoney;
     private String invesTerm;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -24,27 +26,27 @@ public class ChangeMoney {
         this.name = name;
     }
 
-    public double getAnnualIncome() {
+    public BigDecimal getAnnualIncome() {
         return annualIncome;
     }
 
-    public void setAnnualIncome(double annualIncome) {
+    public void setAnnualIncome(BigDecimal annualIncome) {
         this.annualIncome = annualIncome;
     }
 
-    public double getPeiIncome() {
+    public BigDecimal getPeiIncome() {
         return peiIncome;
     }
 
-    public void setPeiIncome(double peiIncome) {
+    public void setPeiIncome(BigDecimal peiIncome) {
         this.peiIncome = peiIncome;
     }
 
-    public double getInvesMoney() {
+    public BigDecimal getInvesMoney() {
         return invesMoney;
     }
 
-    public void setInvesMoney(double invesMoney) {
+    public void setInvesMoney(BigDecimal invesMoney) {
         this.invesMoney = invesMoney;
     }
 

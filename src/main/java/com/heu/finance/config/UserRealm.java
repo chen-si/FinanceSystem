@@ -1,10 +1,10 @@
 package com.heu.finance.config;
 
 
-import com.heu.finance.pojo.admin.Admin;
-import com.heu.finance.pojo.admin.permission.AdminPermissions;
-import com.heu.finance.pojo.admin.permission.UserPermissions;
-import com.heu.finance.pojo.admin.userinfo.User;
+import com.heu.finance.pojo.Admin;
+import com.heu.finance.pojo.permission.AdminPermissions;
+import com.heu.finance.pojo.permission.UserPermissions;
+import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.LoginService;
 import com.heu.finance.service.admin.permission.AdminPermissionService;
 import com.heu.finance.service.admin.permission.UserPermissionService;
@@ -18,10 +18,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -85,14 +82,18 @@ public class UserRealm extends AuthorizingRealm {
         return info;
     }
 
+    /**
+     * 验证用户的登录，更新用户状态，
+     * @param token token存储了用户名和密码
+     * @return 返回一个AuthenticationInfo
+     * @throws AuthenticationException 验证用户失败
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-
-
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
         String password = new String(userToken.getPassword());
-        System.out.println(userToken.getPassword());
-        System.out.println(password);
+//        System.out.println(userToken.getPassword());
+//        System.out.println(password);
         //从token中取到用户名再去查用户密码
         //User user = userService.queryUserByName(userToken.getUsername());
         User user = userService.selectUserByUsername(userToken.getUsername());

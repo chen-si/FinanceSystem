@@ -1,4 +1,4 @@
-package com.heu.finance.pojo.admin.permission;
+package com.heu.finance.pojo.permission;
 
 public class Permission {
     private Integer id;

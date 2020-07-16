@@ -1,9 +1,11 @@
-package com.heu.finance.pojo.admin.loan;
+package com.heu.finance.pojo.loan;
+
+import java.math.BigDecimal;
 
 public class LoanExam {
     private Integer id;
     private String username;
-    private Double amount;
+    private BigDecimal amount;
     private Integer term;
     private String reputation;
     private Integer applyStatus;
@@ -24,11 +26,11 @@ public class LoanExam {
         this.username = username;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

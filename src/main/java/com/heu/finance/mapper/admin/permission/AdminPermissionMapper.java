@@ -1,7 +1,7 @@
 package com.heu.finance.mapper.admin.permission;
 
-import com.heu.finance.pojo.admin.permission.AdminPermissions;
-import com.heu.finance.pojo.admin.permission.Permission;
+import com.heu.finance.pojo.permission.AdminPermissions;
+import com.heu.finance.pojo.permission.Permission;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

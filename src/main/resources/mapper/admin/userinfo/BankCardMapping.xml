@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heu.finance.mapper.admin.userinfo.BankCardMapper">
-    <resultMap type="com.heu.finance.pojo.admin.userinfo.BankCard" id="BankCardResultMap">
+    <resultMap type="com.heu.finance.pojo.userinfo.BankCard" id="BankCardResultMap">
         <!-- 先配置 BankCard 的属性 -->
         <id column="id" property="id" />
         <result column="cardNum" property="cardNum" />
         <result column="cardBank" property="cardBank" />
         <result column="type" property="type" />
-        <collection property="user" ofType="com.heu.finance.pojo.admin.userinfo.User">
+        <collection property="user" ofType="com.heu.finance.pojo.userinfo.User">
             <id column="userId" property="id"/>
             <result column="username" property="username"/>
         </collection>
@@ -31,11 +31,11 @@
         delete from bankcard where id = #{id};
     </delete>
 
-    <select id="selectAllBankCard" resultType="com.heu.finance.pojo.admin.userinfo.BankCard" resultMap="BankCardResultMap">
+    <select id="selectAllBankCard" resultType="com.heu.finance.pojo.userinfo.BankCard" resultMap="BankCardResultMap">
         select b.id as id, cardBank, type, cardNum, userId,username from bankcard b left join user u on b.userId = u.id
     </select>
 
-    <select id="getBankCardById" resultType="com.heu.finance.pojo.admin.userinfo.BankCard" resultMap="BankCardResultMap">
+    <select id="getBankCardById" resultType="com.heu.finance.pojo.userinfo.BankCard" resultMap="BankCardResultMap">
         select b.id as id, cardBank, type, cardNum, userId, username from bankcard b left join user u on u.id = b.userId
         where b.id= #{id}
     </select>

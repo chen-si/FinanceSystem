@@ -1,9 +1,6 @@
 package com.heu.finance.controller.normal;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.heu.finance.pojo.admin.userinfo.User;
-import com.heu.finance.pojo.normal.News;
+import com.heu.finance.pojo.News;
 import com.heu.finance.service.normal.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

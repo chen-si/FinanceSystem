@@ -1,6 +1,6 @@
 package com.heu.finance.service.normal;
 
-import com.heu.finance.pojo.normal.News;
+import com.heu.finance.pojo.News;
 
 import java.util.List;
 

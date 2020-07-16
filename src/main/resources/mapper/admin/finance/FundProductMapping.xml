@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heu.finance.mapper.admin.finance.FundProductMapper">
-    <resultMap type="com.heu.finance.pojo.admin.finance.FundProduct" id="FundProductResultMap">
+    <resultMap type="com.heu.finance.pojo.finance.FundProduct" id="FundProductResultMap">
         <!-- 先配置 BankCard 的属性 -->
         <id column="id" property="id" />
         <result column="code" property="code" />
@@ -36,12 +36,12 @@
         delete from fund_product where id = #{id}
     </delete>
 
-    <select id="selectAllFundProduct" resultType="com.heu.finance.pojo.admin.finance.FundProduct">
+    <select id="selectAllFundProduct" resultType="com.heu.finance.pojo.finance.FundProduct">
         select id, type, code, fundDesc, dailyGrowth, monthlyGrowth,
                annualGrowth, leastMoney, invesTerm from fund_product
     </select>
 
-    <select id="getFundProductById" resultType="com.heu.finance.pojo.admin.finance.FundProduct">
+    <select id="getFundProductById" resultType="com.heu.finance.pojo.finance.FundProduct">
         select id, type, code, fundDesc, dailyGrowth, monthlyGrowth,
                annualGrowth, leastMoney, invesTerm from fund_product
         where id = #{id};
