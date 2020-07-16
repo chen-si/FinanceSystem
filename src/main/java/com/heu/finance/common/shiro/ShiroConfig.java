@@ -1,6 +1,7 @@
-package com.heu.finance.config;
+package com.heu.finance.common.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -60,7 +61,7 @@ public class ShiroConfig {
 //        filterMap.put("/admin/*", "authc");
 
         //设置登出
-        //filterMap.put("/logout", "logout");
+        filterMap.put("/logout", "logout");
 
         bean.setFilterChainDefinitionMap(filterMap);
         //设置登录请求（认证界面）
@@ -85,6 +86,11 @@ public class ShiroConfig {
     @Bean(name = "userRealm")
     public UserRealm userRealm() {
         return new UserRealm();
+    }
+
+    @Bean
+    public EhCacheManager getCache(){
+        return new EhCacheManager();
     }
 
     //整合thymeleaf

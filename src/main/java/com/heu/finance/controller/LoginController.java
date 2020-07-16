@@ -55,16 +55,14 @@ public class LoginController {
     @RequestMapping("/verifyLogin")
     @ResponseBody
     public Msg verifyLogin(@RequestParam(value = "username") String username,
-                           @RequestParam(value = "password") String password,
-                           HttpServletRequest request){
+                           @RequestParam(value = "password") String password){
         //System.out.println(username+"   "+password);
         Subject subject = SecurityUtils.getSubject();
 
-
         UsernamePasswordToken token =  new UsernamePasswordToken(username,password);
         subject.login(token);
-        Subject s = SecurityUtils.getSubject();
-        if(s.hasRole("admin")){
+        
+        if(subject.hasRole("admin")){
             return Msg.success().add("url","/admin/main");
         }
         return Msg.success().add("url","/user/main");

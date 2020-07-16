@@ -1,11 +1,15 @@
-package com.heu.finance.config;
+package com.heu.finance.common.shiro;
 
 
+import com.alibaba.fastjson.JSON;
+import com.heu.finance.common.RedisConfig;
+import com.heu.finance.common.SessionHelper;
 import com.heu.finance.pojo.Admin;
 import com.heu.finance.pojo.permission.AdminPermissions;
 import com.heu.finance.pojo.permission.UserPermissions;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.LoginService;
+import com.heu.finance.service.RedisService;
 import com.heu.finance.service.admin.permission.AdminPermissionService;
 import com.heu.finance.service.admin.permission.UserPermissionService;
 import com.heu.finance.service.admin.userinfo.UserService;
@@ -23,10 +27,17 @@ import java.util.List;
 
 
 public class UserRealm extends AuthorizingRealm {
-    UserService userService;
-    LoginService loginService;
-    UserPermissionService userPermissionService;
-    AdminPermissionService adminPermissionService;
+    private UserService userService;
+    private LoginService loginService;
+    private UserPermissionService userPermissionService;
+    private AdminPermissionService adminPermissionService;
+    private RedisService redisService;
+//    private Integer count = 0;
+
+    @Autowired
+    public void setRedisService(RedisService redisService) {
+        this.redisService = redisService;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -50,32 +61,44 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        //System.out.println("执行了=>授权doGetAuthorizationInfo");
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         //获取当前登录的对象
         Subject subject = SecurityUtils.getSubject();
 
-        String currentUserUsername = (String) subject.getPrincipal();
-        User user = userService.selectUserByUsername(currentUserUsername);
+        String currentUsername = (String) subject.getPrincipal();
+
+        //从redis中取出info
+        SimpleAuthorizationInfo cachedInfo =
+                JSON.parseObject(redisService.get(RedisConfig.UserAuthorizationPrefix+currentUsername),
+                        SimpleAuthorizationInfo.class);
+        if (cachedInfo != null){
+            return cachedInfo;
+        }
+
+        User user = userService.selectUserByUsername(currentUsername);
         if (user!=null){
             info.addRole("user");
             List<UserPermissions> list = userPermissionService.getUserPermissionsByUserId(1);
             for (UserPermissions up:list) {
                 info.addStringPermission(up.getPermission().getPermission());
             }
+            redisService.set(RedisConfig.UserAuthorizationPrefix+currentUsername,JSON.toJSON(info).toString());
+            redisService.expire(RedisConfig.UserAuthorizationPrefix+currentUsername,120);
         }
 
-        String currentAdminUsername = (String) subject.getPrincipal();
-        Admin admin = loginService.selectUserByUserName(currentAdminUsername);
+        Admin admin = loginService.selectUserByUserName(currentUsername);
         if (admin!=null){
+            System.out.println("admin authorization");
             info.addRole("admin");
             info.addRole("user");
             List<AdminPermissions> list = adminPermissionService.getAdminPermissionsByAdminId(1);
             for (AdminPermissions ap:list) {
                 info.addStringPermission(ap.getPermission().getPermission());
             }
+            redisService.set(RedisConfig.UserAuthorizationPrefix+currentUsername,JSON.toJSON(info).toString());
+            redisService.expire(RedisConfig.UserAuthorizationPrefix+currentUsername,120);
         }
         //info.addStringPermission(currentUser.getPrams());
 
@@ -102,11 +125,18 @@ public class UserRealm extends AuthorizingRealm {
             if (!user.getPassword().equals(password)){
                 throw new AuthenticationException();
             }
+
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();
+
+//            System.out.println(currentSubject);
+
             user.setStatus(1);
             userService.updateUserStatus(user);
+
             session.setAttribute("loginUser", user);
+//            System.out.println(session.getId());
+//            SessionHelper.addSession(userToken.getUsername(),session);
             System.out.println("执行了=>认证=>"+user.getUsername()+"登录进入系统");
             return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), "");
         }
@@ -116,12 +146,20 @@ public class UserRealm extends AuthorizingRealm {
             if(!admin.getPassword().equals(password)){
                 throw new AuthenticationException();
             }
+
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();
+
+//            System.out.println(currentSubject);
+
             admin.setStatus(1);
             loginService.updateAdminStatus(admin);
+
             session.setAttribute("loginAdmin", admin);
+//            System.out.println(session.getId());
+//            SessionHelper.addSession(userToken.getUsername(),session);
             System.out.println("执行了=>认证=>"+admin.getUsername()+"登录进入系统");
+
             return new SimpleAuthenticationInfo(admin.getUsername(),admin.getPassword(),"");
         }else{
             throw new AuthenticationException();

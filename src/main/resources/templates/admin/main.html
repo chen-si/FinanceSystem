@@ -187,6 +187,9 @@
                             $.ajax({
                                 url: "/admin/updateUserStatus/" + id,
                                 type: "PUT",
+                                data: {
+                                    "username": username
+                                },
                                 success: function (result) {
                                     if (result.code === 100) {
                                         var pageNum = [[${userPageInfo.pageNum}]];

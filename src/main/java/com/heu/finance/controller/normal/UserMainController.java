@@ -2,6 +2,8 @@ package com.heu.finance.controller.normal;
 
 import com.heu.finance.pojo.News;
 import com.heu.finance.service.normal.NewsService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ public class UserMainController {
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","");
         model.addAttribute("activeUrl2","");
+
+        Subject subject = SecurityUtils.getSubject();
 
         return "/user/main";
     }

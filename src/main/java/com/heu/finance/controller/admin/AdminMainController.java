@@ -3,6 +3,7 @@ package com.heu.finance.controller.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
+import com.heu.finance.common.SessionHelper;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.admin.userinfo.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -56,14 +57,15 @@ public class AdminMainController {
 
     @RequestMapping("/updateUserStatus/{id}")
     @ResponseBody
-    public Msg updateUserStatus(@PathVariable("id") Integer id){
+    public Msg updateUserStatus(@PathVariable("id") Integer id,
+                                @RequestParam("username") String username){
         User user = new User();
         user.setId(id);
         user.setStatus(0);
         if( userService.updateUserStatus(user) == 1){
+            SessionHelper.deleteSession(username);
             return Msg.success();
         }
-
         return Msg.failed();
     }
 }
