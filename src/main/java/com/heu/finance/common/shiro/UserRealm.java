@@ -3,12 +3,12 @@ package com.heu.finance.common.shiro;
 
 import com.alibaba.fastjson.JSON;
 import com.heu.finance.common.RedisConfig;
-import com.heu.finance.common.SessionHelper;
 import com.heu.finance.pojo.Admin;
 import com.heu.finance.pojo.permission.AdminPermissions;
 import com.heu.finance.pojo.permission.UserPermissions;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.LoginService;
+import com.heu.finance.service.OnlineUserService;
 import com.heu.finance.service.RedisService;
 import com.heu.finance.service.admin.permission.AdminPermissionService;
 import com.heu.finance.service.admin.permission.UserPermissionService;
@@ -32,7 +32,13 @@ public class UserRealm extends AuthorizingRealm {
     private UserPermissionService userPermissionService;
     private AdminPermissionService adminPermissionService;
     private RedisService redisService;
+    private OnlineUserService onlineUserService;
 //    private Integer count = 0;
+
+    @Autowired
+    public void setOnlineUserService(OnlineUserService onlineUserService) {
+        this.onlineUserService = onlineUserService;
+    }
 
     @Autowired
     public void setRedisService(RedisService redisService) {
@@ -69,10 +75,20 @@ public class UserRealm extends AuthorizingRealm {
 
         String currentUsername = (String) subject.getPrincipal();
 
+        if( !onlineUserService.isLogin(currentUsername) ){
+            return info;
+        }
+
         //从redis中取出info
         SimpleAuthorizationInfo cachedInfo =
-                JSON.parseObject(redisService.get(RedisConfig.UserAuthorizationPrefix+currentUsername),
+                JSON.parseObject(redisService.hashGet(RedisConfig.UserAuthorization,currentUsername),
                         SimpleAuthorizationInfo.class);
+        if (cachedInfo != null){
+            return cachedInfo;
+        }
+        cachedInfo = JSON.parseObject(
+                redisService.hashGet(RedisConfig.AdminAuthorization,currentUsername),
+                SimpleAuthorizationInfo.class);
         if (cachedInfo != null){
             return cachedInfo;
         }
@@ -84,8 +100,8 @@ public class UserRealm extends AuthorizingRealm {
             for (UserPermissions up:list) {
                 info.addStringPermission(up.getPermission().getPermission());
             }
-            redisService.set(RedisConfig.UserAuthorizationPrefix+currentUsername,JSON.toJSON(info).toString());
-            redisService.expire(RedisConfig.UserAuthorizationPrefix+currentUsername,120);
+            redisService.hashSet(RedisConfig.UserAuthorization,currentUsername,JSON.toJSON(info).toString());
+            redisService.expire(RedisConfig.UserAuthorization,240);
         }
 
         Admin admin = loginService.selectUserByUserName(currentUsername);
@@ -97,10 +113,9 @@ public class UserRealm extends AuthorizingRealm {
             for (AdminPermissions ap:list) {
                 info.addStringPermission(ap.getPermission().getPermission());
             }
-            redisService.set(RedisConfig.UserAuthorizationPrefix+currentUsername,JSON.toJSON(info).toString());
-            redisService.expire(RedisConfig.UserAuthorizationPrefix+currentUsername,120);
+            redisService.hashSet(RedisConfig.AdminAuthorization,currentUsername,JSON.toJSON(info).toString());
+            redisService.expire(RedisConfig.AdminAuthorization,240);
         }
-        //info.addStringPermission(currentUser.getPrams());
 
         return info;
     }
@@ -125,6 +140,7 @@ public class UserRealm extends AuthorizingRealm {
             if (!user.getPassword().equals(password)){
                 throw new AuthenticationException();
             }
+            onlineUserService.addUser(user.getUsername());
 
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();
@@ -147,12 +163,15 @@ public class UserRealm extends AuthorizingRealm {
                 throw new AuthenticationException();
             }
 
+            onlineUserService.addUser(admin.getUsername());
+
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();
 
 //            System.out.println(currentSubject);
 
             admin.setStatus(1);
+
             loginService.updateAdminStatus(admin);
 
             session.setAttribute("loginAdmin", admin);

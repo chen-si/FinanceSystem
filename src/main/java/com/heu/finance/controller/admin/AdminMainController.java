@@ -3,8 +3,8 @@ package com.heu.finance.controller.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.common.SessionHelper;
 import com.heu.finance.pojo.userinfo.User;
+import com.heu.finance.service.OnlineUserService;
 import com.heu.finance.service.admin.userinfo.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -18,12 +18,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminMainController {
     private UserService userService;
+    private OnlineUserService onlineUserService;
+
+    @Autowired
+    public void setOnlineUserService(OnlineUserService onlineUserService) {
+        this.onlineUserService = onlineUserService;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -63,9 +71,18 @@ public class AdminMainController {
         user.setId(id);
         user.setStatus(0);
         if( userService.updateUserStatus(user) == 1){
-            SessionHelper.deleteSession(username);
+            onlineUserService.userLogout(username);
             return Msg.success();
         }
         return Msg.failed();
+    }
+
+    @RequestMapping("/logout")
+    public void logout(@RequestParam("username") String username,
+                       HttpServletResponse response) throws IOException {
+        response.sendRedirect("/");
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        onlineUserService.userLogout(username);
     }
 }

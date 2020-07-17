@@ -1,8 +1,10 @@
 package com.heu.finance.controller.admin.permission;
 
 import com.heu.finance.common.Msg;
+import com.heu.finance.common.RedisConfig;
 import com.heu.finance.pojo.permission.AdminPermissions;
 import com.heu.finance.pojo.permission.Permission;
+import com.heu.finance.service.RedisService;
 import com.heu.finance.service.admin.permission.AdminPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,13 @@ import java.util.*;
 public class AdminPermissionController {
     private AdminPermissionService adminPermissionService;
     private Map<String,Integer> adminPermissionMap;
+    private RedisService redisService;
     private boolean flag = true;
+
+    @Autowired
+    public void setRedisService(RedisService redisService) {
+        this.redisService = redisService;
+    }
 
     @Autowired
     public void setAdminPermissionService(AdminPermissionService adminPermissionService) {
@@ -57,7 +65,11 @@ public class AdminPermissionController {
     @RequestMapping("/updateAdminPermissions")
     @ResponseBody
     public Msg updateAdminPermission(@RequestParam("adminPermissions") String permissions){
-        List<String> permissionList = Arrays.asList(permissions.split(";"));
+        List<String> oldPermissionList = Arrays.asList(permissions.split(";"));
+        List<String> permissionList = new ArrayList<>(oldPermissionList);
+        if(!permissionList.contains("admin:adminPermissions")){
+            permissionList.add("admin:adminPermissions");
+        }
 
         List<AdminPermissions> adminPermissionsList = adminPermissionService.getAdminPermissionsByAdminId(1);
 
@@ -65,6 +77,8 @@ public class AdminPermissionController {
         for(AdminPermissions a : adminPermissionsList){
             existPermissionList.add(a.getPermission().getPermission());
         }
+
+//        System.out.println(permissionList);
 
         if (permissionList.size() > existPermissionList.size()){
             //增加权限
@@ -86,6 +100,7 @@ public class AdminPermissionController {
                 }
             }
         }
+        redisService.hashRemove(RedisConfig.AdminAuthorization);
         return Msg.success();
     }
 }

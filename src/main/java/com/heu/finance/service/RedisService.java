@@ -36,4 +36,26 @@ public interface RedisService {
      * @return 自增结果
      */
     Long increment(String key,long delta);
+
+    /**
+     * 存储哈希数据
+     * @param key key
+     * @param field field
+     * @param value value
+     */
+    void hashSet(String key,String field,String value);
+
+    /**
+     * 获取哈希数据
+     * @param key key
+     * @param field field
+     * @return value
+     */
+    String hashGet(String key,String field);
+
+    /**
+     * 删除hashKey对应的所有数据
+     * @param key key
+     */
+    boolean hashRemove(String key);
 }

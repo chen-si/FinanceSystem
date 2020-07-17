@@ -1,8 +1,10 @@
 package com.heu.finance.controller.admin.permission;
 
 import com.heu.finance.common.Msg;
+import com.heu.finance.common.RedisConfig;
 import com.heu.finance.pojo.permission.Permission;
 import com.heu.finance.pojo.permission.UserPermissions;
+import com.heu.finance.service.RedisService;
 import com.heu.finance.service.admin.permission.UserPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +21,13 @@ import java.util.*;
 public class UserPermissionController {
     private UserPermissionService userPermissionService;
     private Map<String,Integer> userPermissionMap;
+    private RedisService redisService;
     private boolean flag = true;
+
+    @Autowired
+    public void setRedisService(RedisService redisService) {
+        this.redisService = redisService;
+    }
 
     @Autowired
     public void setUserPermissionService(UserPermissionService userPermissionService) {
@@ -87,6 +95,8 @@ public class UserPermissionController {
                 }
             }
         }
+        redisService.hashRemove(RedisConfig.UserAuthorization);
+
         return Msg.success();
     }
 }

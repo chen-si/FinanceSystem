@@ -1,12 +1,12 @@
 package com.heu.finance.common.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,20 +52,20 @@ public class ShiroConfig {
         filterMap.put("/images/**", "anon");
         filterMap.put("/lyear/**", "anon");
         filterMap.put("/js/**", "anon");
+        filterMap.put("/druid/**", "anon");
         //对所有请求认证
         //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
 //        filterMap.put("/**", "authc");
 
 
-//        filterMap.put("/user/*", "authc");
-//        filterMap.put("/admin/*", "authc");
-
-        //设置登出
-        filterMap.put("/logout", "logout");
+        filterMap.put("/user/*", "authc");
+        filterMap.put("/admin/*", "authc");
 
         bean.setFilterChainDefinitionMap(filterMap);
         //设置登录请求（认证界面）
         bean.setLoginUrl("/");
+
+        //登出页面
 //        //设置未授权页面
 //        bean.setUnauthorizedUrl("/noauth");
 
@@ -79,6 +79,9 @@ public class ShiroConfig {
         //关联UserRealm
         securityManager.setRealm(userRealm);
 
+//        securityManager.setCacheManager(cacheManager());
+//        securityManager.setSessionManager(sessionManager());
+
         return securityManager;
     }
 
@@ -88,10 +91,32 @@ public class ShiroConfig {
         return new UserRealm();
     }
 
-    @Bean
-    public EhCacheManager getCache(){
-        return new EhCacheManager();
-    }
+//    public RedisManager redisManager(){
+//        RedisManager redisManager = new RedisManager();
+//        redisManager.setHost("localhost:6379");
+//        return  redisManager;
+//    }
+//
+//    public RedisCacheManager cacheManager(){
+//        RedisCacheManager redisCacheManager = new RedisCacheManager();
+//        redisCacheManager.setExpire(1800);
+//        redisCacheManager.setRedisManager(redisManager());
+//        return  redisCacheManager;
+//    }
+//
+//    @Bean
+//    public RedisSessionDAO redisSessionDAO(){
+//        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+//        redisSessionDAO.setRedisManager(redisManager());
+//        return  redisSessionDAO;
+//    }
+
+//    @Bean
+//    public DefaultWebSessionManager sessionManager(){
+//        DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
+//        defaultWebSessionManager.setSessionDAO(redisSessionDAO());
+//        return defaultWebSessionManager;
+//    }
 
     //整合thymeleaf
     @Bean

@@ -40,4 +40,20 @@ public class RedisServiceImpl implements RedisService {
     public Long increment(String key, long delta) {
         return stringRedisTemplate.opsForValue().increment(key,delta);
     }
+
+    @Override
+    public void hashSet(String key, String field, String value) {
+        stringRedisTemplate.opsForHash().put(key,field,value);
+    }
+
+    @Override
+    public String hashGet(String key, String field) {
+        Object val = stringRedisTemplate.opsForHash().get(key,field);
+        return val == null?null:val.toString();
+    }
+
+    @Override
+    public boolean hashRemove(String key) {
+        return stringRedisTemplate.delete(key);
+    }
 }
