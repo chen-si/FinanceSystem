@@ -35,4 +35,9 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     public int deleteFundProductById(Integer id) {
         return userFundProductMapper.deleteFundProductById(id);
     }
+
+    @Override
+    public List<UserFundProduct> selectUserFundProductByUserId(Integer userId) {
+        return userFundProductMapper.selectUserFundProductByUserId(userId);
+    }
 }

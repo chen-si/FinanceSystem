@@ -13,6 +13,8 @@ public interface UserService {
 
     int updateUserInfos(User user);
 
+    int updateUserPwd(User user);
+
     int deleteUserById(Integer id);
 
     User selectUserByUsername(String username);

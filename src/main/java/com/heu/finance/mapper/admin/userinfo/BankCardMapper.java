@@ -11,11 +11,14 @@ import java.util.List;
 public interface BankCardMapper {
     List<BankCard> selectAllBankCard();
 
-    void insertBankCard(BankCard bankCard);
+    void insertBankCard(String cardBank,Integer type,
+                        String cardNum,Integer userId);
 
     BankCard getBankCardById(Integer id);
 
     int updateBankCardInfos(BankCard bankCard);
 
     int deleteBankCardById(Integer id);
+
+    List<BankCard> getBankCardByUserId(Integer userId);
 }

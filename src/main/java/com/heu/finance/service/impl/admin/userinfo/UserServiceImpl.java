@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateUserPwd(User user) {
+        return userMapper.updateUserPwd(user);
+    }
+
+    @Override
     public int deleteUserById(Integer id) {
         return userMapper.deleteUserById(id);
     }

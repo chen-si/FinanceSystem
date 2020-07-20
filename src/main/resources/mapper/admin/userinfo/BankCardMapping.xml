@@ -39,4 +39,9 @@
         select b.id as id, cardBank, type, cardNum, userId, username from bankcard b left join user u on u.id = b.userId
         where b.id= #{id}
     </select>
+
+    <select id="getBankCardByUserId" resultType="com.heu.finance.pojo.userinfo.BankCard">
+        select id, cardBank, type, cardNum, userId from bankcard
+        where userId = #{userId}
+    </select>
 </mapper>

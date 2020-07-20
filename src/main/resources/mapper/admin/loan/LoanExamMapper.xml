@@ -6,9 +6,9 @@
 <mapper namespace="com.heu.finance.mapper.admin.loan.LoanExamMapper">
 
     <select id="selectLoanExamAll" resultType="com.heu.finance.pojo.loan.LoanExam">
-        select loan.id as id,username,amount,term,reputation,applyStatus
-        from loan join user
-        on user.id = loan.loanId
+        select loan.id,username,amount,term,reputation,applyStatus
+        from user,loan
+        where user.id =loanId
     </select>
 
     <!--通过审核-->
@@ -21,5 +21,20 @@
         update loan set applyStatus=1  where id = #{id}
     </update>
 
+    <!--用户申请网贷-->
+    <insert id="applyloan">
+        insert into loan(loanId,loanTime,amount,term,rate,applyStatus,loanStatus) values (#{loanId},#{loanTime},#{amount},#{term},#{rate},0,0);
+
+    </insert>
+
+    <!--我的借贷-->
+    <select id="myLoan" resultType="com.heu.finance.pojo.personal.MyLoan" parameterType="java.lang.Integer">
+        select id,amount,term,rate,applyStatus,loanStatus from loan where loanId = #{id}
+    </select>
+
+    <!--还款-->
+    <update id="repayLoan" parameterType="java.lang.Integer">
+        update loan set loanStatus = 2 where  id = #{id}
+    </update>
 
 </mapper>

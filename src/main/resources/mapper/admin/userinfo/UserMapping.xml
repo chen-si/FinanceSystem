@@ -30,6 +30,10 @@
         update user set reputation = #{reputation}
         where id = #{id}
     </update>
+    <update id="updateUserPwd">
+        update user set password = #{password}
+        where id = #{id}
+    </update>
 
     <select id="selectAllUser" resultType="com.heu.finance.pojo.userinfo.User">
         select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation from user

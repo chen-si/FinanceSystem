@@ -23,8 +23,9 @@ public class BankCardServiceImpl implements BankCardService {
     }
 
     @Override
-    public void insertBankCard(BankCard bankCard) {
-        bankCardMapper.insertBankCard(bankCard);
+    public void insertBankCard(BankCard bankCard, Integer userId) {
+        bankCardMapper.insertBankCard(bankCard.getCardBank(),bankCard.getType(),
+                bankCard.getCardNum(),userId);
     }
 
     @Override
@@ -40,5 +41,10 @@ public class BankCardServiceImpl implements BankCardService {
     @Override
     public int deleteBankCardById(Integer id) {
         return bankCardMapper.deleteBankCardById(id);
+    }
+
+    @Override
+    public List<BankCard> getBankCardByUserId(Integer userId) {
+        return bankCardMapper.getBankCardByUserId(userId);
     }
 }

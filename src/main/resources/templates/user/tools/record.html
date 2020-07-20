@@ -49,12 +49,12 @@
                                         <tbody>
                                         <tr th:each="fof:${flowOfFundsList}">
                                             <td th:text="${(flowOfFundsPageInfo.pageNum - 1) * flowOfFundsPageInfo.pageSize+fofStat.index+1}"></td>
-                                            <td th:text="${fof.flowmoney}"></td>
+                                            <td th:text="${fof.flowMoney}"></td>
                                             <td th:if="${fof.type==1}" th:text="支出"></td>
                                             <td th:if="${fof.type==2}" th:text="收入"></td>
                                             <td th:text="${fof.source}"></td>
-                                            <td th:text="${#dates.format(fof.createtime, 'yyyy-MM-dd')}"></td>
-                                            <td th:text="${fof.funddesc}"></td>
+                                            <td th:text="${#dates.format(fof.createTime, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${fof.fundDesc}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -84,7 +84,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li th:each="i:${#numbers.sequence(1,10)}"><a th:text="${i}"
-                                                                                                  th:href="@{/user/tools/toRecord.html(pageNum=${flowOfFundsPageInfo.pageNum},pageSize=${i})}"></a>
+                                                                                                  th:href="@{/user/record(pageNum=${flowOfFundsPageInfo.pageNum},pageSize=${i})}"></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -106,11 +106,11 @@
                                             <ul class="pagination pagination-lg pull-right"
                                                 style="margin-top: 0">
                                                 <li>
-                                                    <a th:href="@{/user/tools/toRecord.html(pageNum=1,pageSize=${flowOfFundsPageInfo.pageSize})}">首页</a>
+                                                    <a th:href="@{/user/record(pageNum=1,pageSize=${flowOfFundsPageInfo.pageSize})}">首页</a>
                                                 </li>
 
                                                 <li th:if="${flowOfFundsPageInfo.hasPreviousPage }"><a
-                                                        th:href="@{/user/tools/toRecord.html(pageNum=${flowOfFundsPageInfo.pageNum}-1,pageSize=${flowOfFundsPageInfo.pageSize})}"
+                                                        th:href="@{/user/record(pageNum=${flowOfFundsPageInfo.pageNum}-1,pageSize=${flowOfFundsPageInfo.pageSize})}"
                                                         aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                                 </a></li>
 
@@ -122,17 +122,17 @@
                                                     </a>
                                                     <a th:text="${page_Num}"
                                                        th:if="${page_Num != flowOfFundsPageInfo.pageNum}"
-                                                       th:href="@{/user/tools/toRecord.html(pageNum=${page_Num},pageSize=${flowOfFundsPageInfo.pageSize})}">
+                                                       th:href="@{/user/record(pageNum=${page_Num},pageSize=${flowOfFundsPageInfo.pageSize})}">
                                                     </a>
                                                 </li>
 
                                                 <li th:if="${flowOfFundsPageInfo.hasNextPage }"><a
-                                                        th:href="@{/user/tools/toRecord.html(pageNum=${flowOfFundsPageInfo.pageNum}+1,pageSize=${flowOfFundsPageInfo.pageSize})}"
+                                                        th:href="@{/user/record(pageNum=${flowOfFundsPageInfo.pageNum}+1,pageSize=${flowOfFundsPageInfo.pageSize})}"
                                                         aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                                 </a></li>
 
                                                 <li><a
-                                                        th:href="@{/user/tools/toRecord.html(pageNum=${flowOfFundsPageInfo.pages},pageSize=${flowOfFundsPageInfo.pageSize})}">末页</a>
+                                                        th:href="@{/user/record(pageNum=${flowOfFundsPageInfo.pages},pageSize=${flowOfFundsPageInfo.pageSize})}">末页</a>
                                                 </li>
                                             </ul>
                                         </nav>

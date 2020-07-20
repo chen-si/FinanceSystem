@@ -3,48 +3,32 @@ package com.heu.finance.pojo.finance;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class UserFundProduct {
+public class UserChangeMoney {
     private Integer id;
     private Integer userId;
-    private Integer fundId;
+    private Integer changeId;
     private Date startTime;
     private BigDecimal averYield;
     private BigDecimal profit;
     private Integer status;
-    private String fundDesc;
-    private BigDecimal leastMoney;
+    private String changeMoneyName;
+    private BigDecimal invesMoney;
     private String invesTerm;
 
-    @Override
-    public String toString() {
-        return "UserFundProduct{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", fundId=" + fundId +
-                ", startTime='" + startTime + '\'' +
-                ", averYield=" + averYield +
-                ", profit=" + profit +
-                ", status=" + status +
-                ", fundProductDesc='" + fundDesc + '\'' +
-                ", leastMoney=" + leastMoney +
-                ", invesTerm='" + invesTerm + '\'' +
-                '}';
+    public String getChangeMoneyName() {
+        return changeMoneyName;
     }
 
-    public String getFundDesc() {
-        return fundDesc;
+    public void setChangeMoneyName(String changeMoneyName) {
+        this.changeMoneyName = changeMoneyName;
     }
 
-    public void setFundDesc(String fundDesc) {
-        this.fundDesc = fundDesc;
+    public BigDecimal getInvesMoney() {
+        return invesMoney;
     }
 
-    public BigDecimal getLeastMoney() {
-        return leastMoney;
-    }
-
-    public void setLeastMoney(BigDecimal leastMoney) {
-        this.leastMoney = leastMoney;
+    public void setInvesMoney(BigDecimal invesMoney) {
+        this.invesMoney = invesMoney;
     }
 
     public String getInvesTerm() {
@@ -71,12 +55,12 @@ public class UserFundProduct {
         this.userId = userId;
     }
 
-    public Integer getFundId() {
-        return fundId;
+    public Integer getChangeId() {
+        return changeId;
     }
 
-    public void setFundId(Integer fundId) {
-        this.fundId = fundId;
+    public void setChangeId(Integer changeId) {
+        this.changeId = changeId;
     }
 
     public Date getStartTime() {
@@ -109,5 +93,25 @@ public class UserFundProduct {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "UserChangeMoney{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", changeId=" + changeId +
+                ", startTime=" + startTime +
+                ", averYield=" + averYield +
+                ", profit=" + profit +
+                ", status=" + status +
+                ", changeMoneyName='" + changeMoneyName + '\'' +
+                ", invesMoney=" + invesMoney +
+                ", invesTerm='" + invesTerm + '\'' +
+                '}';
+    }
+
+    public UserChangeMoney(){
+
     }
 }

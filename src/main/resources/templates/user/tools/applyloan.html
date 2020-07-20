@@ -140,7 +140,7 @@
                             url: "/user/applyLoan",
                             type: "POST",
                             data: {
-                                "amout": amount,
+                                "amount": amount,
                                 "term":$("#term").val(),
                                 "rate":"0.2845"
                             },
@@ -148,7 +148,7 @@
                                 if (result.code === 100) {
                                     $.alert('申请成功!请等待管理员审核');
                                     setTimeout(function () {
-                                        location.href = "/user/tools/toApplyLoan.html";
+                                        location.href = "applyloan";
                                     }, 1000);
                                 } else {
                                     $.alert('申请失败!');

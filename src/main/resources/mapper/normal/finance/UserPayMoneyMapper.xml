@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.heu.finance.mapper.normal.finance.UserPayMoneyMapper">
+    <!--投资-->
+    <insert id="addUserPayMoney" parameterType="com.heu.finance.pojo.finance.UserPayMoney">
+        insert into user_pay_money(userId,payId,startTime,averYield,profit,status)
+        values (#{userId},#{payId},#{startTime},#{averYield},#{profit},#{status})
+    </insert>
+    <update id="updateUserPayMoneyStatus">
+        update user_pay_money set status = #{status}
+        where id = #{id}
+    </update>
+    <select id="selectUserPayMoneyByUserId" resultType="com.heu.finance.pojo.finance.UserPayMoney">
+        select upm.id id, userId, payId, startTime,
+               averYield, profit, status, monthMoney, type, invesTerm
+        from user_pay_money upm join pay_money pm on upm.payId = pm.id
+        where upm.userId = #{userId}
+    </select>
+</mapper>

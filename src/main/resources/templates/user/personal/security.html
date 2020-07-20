@@ -147,7 +147,7 @@
     //ajax修改密码
     function updatePwd() {
         var userId = [[${session.loginUser.id}]];
-        alert(userId);
+        //alert(userId);
         $.ajax({
             url: "/user/updatePwd",
             type: "PUT",
@@ -160,7 +160,7 @@
                 if (result.code === 100) {
                     $.alert('密码修改成功！');
                     setTimeout(function () {
-                        location.href = "/user/personal/toSecurity.html";
+                        location.href = "/user/security";
                     }, 1000);
                 }else {
                     show_validate_msg("#oldpwd", "error", "很明显，宁这密码不对嘛");

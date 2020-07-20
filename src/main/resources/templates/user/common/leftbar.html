@@ -41,9 +41,9 @@
                 ><a href="javascript:void(0)"><i class="mdi mdi-wrench"></i>金融工具</a>
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="user:record" th:class="${activeUrl2=='recordActive'?'active':''}"><a
-                                th:href="@{/user/tools/toRecord.html}">资金记录</a></li>
+                                th:href="@{/user/record}">资金记录</a></li>
                         <li shiro:hasPermission="user:loan" th:class="${activeUrl2=='applyLoanActive'?'active':''}"><a
-                                th:href="@{/user/tools/toApplyLoan.html}">安全网贷</a></li>
+                                th:href="@{/user/applyLoanList}">安全网贷</a></li>
                     </ul>
                 </li>
                 <li class="nav-item nav-item-has-subnav"
@@ -51,10 +51,10 @@
                 ><a href="javascript:void(0)"><i class="mdi mdi-account-location"></i> 个人中心</a>
                     <ul class="nav nav-subnav">
                         <li th:class="${activeUrl2=='myFinanceActive'?'active':''}"><a
-                                th:href="@{/user/personal/toMyFinance.html}">我的理财</a></li>
-                        <li th:class="${activeUrl2=='myLoanActive'?'active':''}"><a th:href="@{/user/personal/toMyLoan.html}">我的借贷</a></li>
-                        <li th:class="${activeUrl2=='bankCardActive'?'active':''}"><a th:href="@{/user/personal/toBankCard.html}">银行卡管理</a></li>
-                        <li th:class="${activeUrl2=='securityActive'?'active':''}"><a th:href="@{/user/personal/toSecurity.html}">账户安全</a></li>
+                                th:href="@{/user/myFinance}">我的理财</a></li>
+                        <li th:class="${activeUrl2=='myLoanActive'?'active':''}"><a th:href="@{/user/myloan}">我的借贷</a></li>
+                        <li th:class="${activeUrl2=='bankCardActive'?'active':''}"><a th:href="@{/user/bankCard}">银行卡管理</a></li>
+                        <li th:class="${activeUrl2=='securityActive'?'active':''}"><a th:href="@{/user/security}">账户安全</a></li>
                     </ul>
                 </li>
             </ul>

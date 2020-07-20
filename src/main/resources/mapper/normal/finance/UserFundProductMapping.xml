@@ -16,4 +16,9 @@
         delete from user_fund_product
         where id = #{id}
     </delete>
+    <select id="selectUserFundProductByUserId" resultType="com.heu.finance.pojo.finance.UserFundProduct">
+        select ufp.id id, userId, fundId, startTime, averYield, profit, status, fundDesc,leastMoney, invesTerm
+        from user_fund_product ufp join fund_product fp on ufp.fundId = fp.id
+        where ufp.userId = #{userId}
+    </select>
 </mapper>

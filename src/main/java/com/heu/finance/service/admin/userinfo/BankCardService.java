@@ -7,11 +7,13 @@ import java.util.List;
 public interface BankCardService {
     List<BankCard> selectAllBankCard();
 
-    void insertBankCard(BankCard bankCard);
+    void insertBankCard(BankCard bankCard,Integer userId);
 
     BankCard getBankCardById(Integer id);
 
     int updateBankCardInfos(BankCard bankCard);
 
     int deleteBankCardById(Integer id);
+
+    List<BankCard> getBankCardByUserId(Integer userId);
 }

@@ -3,48 +3,24 @@ package com.heu.finance.pojo.finance;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class UserFundProduct {
+public class UserPayMoney {
     private Integer id;
     private Integer userId;
-    private Integer fundId;
+    private Integer payId;
     private Date startTime;
     private BigDecimal averYield;
     private BigDecimal profit;
     private Integer status;
-    private String fundDesc;
-    private BigDecimal leastMoney;
+    private Integer type;
+    private BigDecimal monthMoney;
     private String invesTerm;
 
-    @Override
-    public String toString() {
-        return "UserFundProduct{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", fundId=" + fundId +
-                ", startTime='" + startTime + '\'' +
-                ", averYield=" + averYield +
-                ", profit=" + profit +
-                ", status=" + status +
-                ", fundProductDesc='" + fundDesc + '\'' +
-                ", leastMoney=" + leastMoney +
-                ", invesTerm='" + invesTerm + '\'' +
-                '}';
+    public BigDecimal getMonthMoney() {
+        return monthMoney;
     }
 
-    public String getFundDesc() {
-        return fundDesc;
-    }
-
-    public void setFundDesc(String fundDesc) {
-        this.fundDesc = fundDesc;
-    }
-
-    public BigDecimal getLeastMoney() {
-        return leastMoney;
-    }
-
-    public void setLeastMoney(BigDecimal leastMoney) {
-        this.leastMoney = leastMoney;
+    public void setMonthMoney(BigDecimal monthMoney) {
+        this.monthMoney = monthMoney;
     }
 
     public String getInvesTerm() {
@@ -53,6 +29,14 @@ public class UserFundProduct {
 
     public void setInvesTerm(String invesTerm) {
         this.invesTerm = invesTerm;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getId() {
@@ -71,12 +55,12 @@ public class UserFundProduct {
         this.userId = userId;
     }
 
-    public Integer getFundId() {
-        return fundId;
+    public Integer getPayId() {
+        return payId;
     }
 
-    public void setFundId(Integer fundId) {
-        this.fundId = fundId;
+    public void setPayId(Integer payId) {
+        this.payId = payId;
     }
 
     public Date getStartTime() {
@@ -109,5 +93,25 @@ public class UserFundProduct {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPayMoney{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", payId=" + payId +
+                ", startTime=" + startTime +
+                ", averYield=" + averYield +
+                ", profit=" + profit +
+                ", status=" + status +
+                ", type=" + type +
+                ", monthMoney=" + monthMoney +
+                ", invesTerm='" + invesTerm + '\'' +
+                '}';
+    }
+
+    public UserPayMoney(){
+
     }
 }
