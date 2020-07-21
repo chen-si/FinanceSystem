@@ -51,12 +51,13 @@
                                             <td th:text="${tfStat.index+1}"></td>
                                             <td th:text="${tf.name}"></td>
                                             <td th:if="${tf.profit==1}" th:text="收益性"></td><td th:if="${tf.profit==2}" th:text="净值型"></td>
-                                            <td th:text="${#numbers.formatDecimal(tf.annualincome*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(tf.leastmoney,1,2)}+'元'"></td>
-                                            <td th:text="${tf.investerm}"></td>
+                                            <td th:text="${#numbers.formatDecimal(tf.annualIncome*100,1,2)}+'%'"></td>
+                                            <td th:text="${#numbers.formatDecimal(tf.leastMoney,1,2)}+'元'"></td>
+                                            <td th:text="${tf.invesTerm}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm buy_btn"
-                                                        th:attr="buyBtnId=${tf.id},buyBtnName=${tf.name}">
+                                                        th:attr="buyBtnId=${tf.id},buyBtnName=${tf.name},
+                                                        buyBtnLeastMoney=${tf.leastMoney},buyBtnAnnualIncome=${tf.annualIncome}">
 															<span class="glyphicon glyphicon-usd"
                                                                   aria-hidden="true"></span> 投资
                                                 </button>
@@ -93,7 +94,8 @@
 <script th:inline="javascript">
     $(document).on("click",".buy_btn",function () {
         var termFinancialId = $(this).attr("buyBtnId");
-        var userId = [[${session.loginUser.id}]];
+        var leastMoney = $(this).attr("buyBtnLeastMoney");
+        var annualIncome = $(this).attr("buyBtnAnnualIncome");
         //alert(userId);
         var name = $(this).attr("buyBtnName");
         $.alert({
@@ -109,7 +111,8 @@
                             type : "POST",
                             data : {
                                 "termFinancialId":termFinancialId,
-                                "userId":userId
+                                "leastMoney":leastMoney,
+                                "annualIncome":annualIncome
                             },
                             success : function(result) {
                                 if (result.code===100){

@@ -4,10 +4,12 @@ import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.UserChangeMoney;
 import com.heu.finance.pojo.finance.UserFundProduct;
 import com.heu.finance.pojo.finance.UserPayMoney;
+import com.heu.finance.pojo.finance.UserTermFinancial;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.normal.finance.UserChangeMoneyService;
 import com.heu.finance.service.normal.finance.UserFundProductService;
 import com.heu.finance.service.normal.finance.UserPayMoneyService;
+import com.heu.finance.service.normal.finance.UserTermFinancialService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,6 +27,12 @@ public class MyFinanceController {
     private UserChangeMoneyService userChangeMoneyService;
     private UserPayMoneyService userPayMoneyService;
     private UserFundProductService userFundProductService;
+    private UserTermFinancialService userTermFinancialService;
+
+    @Autowired
+    public void setUserTermFinancialService(UserTermFinancialService userTermFinancialService) {
+        this.userTermFinancialService = userTermFinancialService;
+    }
 
     @Autowired
     public void setUserFundProductService(UserFundProductService userFundProductService) {
@@ -53,14 +60,15 @@ public class MyFinanceController {
         List<UserPayMoney> userPayMoneyList =
                 userPayMoneyService.selectUserPayMoneyByUserId(user.getId());
 
-        List<String> list = new ArrayList<>();
+        List<UserTermFinancial> userTermFinancialList =
+                userTermFinancialService.selectUserTermFinancialByUserId(user.getId());
 
         List<UserFundProduct> userFundProductList =
                 userFundProductService.selectUserFundProductByUserId(user.getId());
 
         model.addAttribute("userChangeMoneyList",userChangeMoneyList);
         model.addAttribute("userPayMoneyList", userPayMoneyList);
-        model.addAttribute("userTermFinancialList", list);
+        model.addAttribute("userTermFinancialList", userTermFinancialList);
         model.addAttribute("userFundProductList", userFundProductList);
 
         model.addAttribute("activeUrl", "indexActive");
@@ -69,6 +77,10 @@ public class MyFinanceController {
         //session.setAttribute("myFinanceActiveUrl","changeMoneyActive");
 
         model.addAttribute("session", session);
+
+        if (session.getAttribute("myFinanceActiveUrl") == null){
+            session.setAttribute("myFinanceActiveUrl","changeMoneyActive");
+        }
 
         return "user/personal/myfinance";
     }
@@ -90,6 +102,17 @@ public class MyFinanceController {
         if (userPayMoneyService.updateUserPayMoneyStatus(userPayMoneyId,3) == 1){
             SecurityUtils.getSubject().getSession()
                     .setAttribute("myFinanceActiveUrl","payMoneyActive");
+            return Msg.success();
+        }
+        return Msg.failed();
+    }
+
+    @RequestMapping("/revokeUserTermFinancial")
+    @ResponseBody
+    public Msg revokeUserTermFinancial(@RequestParam("userTermFinancialId") Integer userTermFinancialId){
+        if(userTermFinancialService.updateUserTermFinancialStatus(userTermFinancialId,3)){
+            SecurityUtils.getSubject().getSession()
+                    .setAttribute("myFinanceActiveUrl","termFinancialActive");
             return Msg.success();
         }
         return Msg.failed();

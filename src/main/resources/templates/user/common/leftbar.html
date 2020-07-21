@@ -29,11 +29,11 @@
                         <li shiro:hasPermission="user:payMoney" th:class="${activeUrl2=='payMoneyActive'?'active':''}"><a
                                 th:href="@{/user/payMoneyList}">工资理财</a></li>
                         <li shiro:hasPermission="user:termFinancial" th:class="${activeUrl2=='termFinancialActive'?'active':''}"><a
-                                th:href="@{/user/termFinancialt}">期限理财</a></li>
+                                th:href="@{/user/termFinancial}">期限理财</a></li>
                         <li shiro:hasPermission="user:fundProduct" th:class="${activeUrl2=='fundProductActive'?'active':''}"><a
                                 th:href="@{/user/fundProductList}">基金理财</a></li>
                         <li shiro:hasPermission="user:bank" th:class="${activeUrl2=='bankActive'?'active':''}"><a
-                                th:href="@{/user/bankList.html}">银行推荐</a></li>
+                                th:href="@{/user/bankList}">银行推荐</a></li>
                     </ul>
                 </li>
                 <li shiro:hasPermission="user:tools" class="nav-item nav-item-has-subnav"

@@ -76,6 +76,7 @@ public class UserRealm extends AuthorizingRealm {
         String currentUsername = (String) subject.getPrincipal();
 
         if( !onlineUserService.isLogin(currentUsername) ){
+            subject.logout();
             return info;
         }
 

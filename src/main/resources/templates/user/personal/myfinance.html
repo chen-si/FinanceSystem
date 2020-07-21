@@ -191,18 +191,18 @@
                                                 <tbody>
                                                 <tr th:each="utf:${userTermFinancialList}">
                                                     <td th:text="${utfStat.index+1}"></td>
-                                                    <td th:text="${utf.termFinancial.name}"></td>
-                                                    <td th:text="${#numbers.formatDecimal(utf.termFinancial.leastmoney,1,2)}+'元'"></td>
-                                                    <td th:text="${#dates.format(utf.starttime, 'yyyy-MM-dd')}"></td>
-                                                    <td th:text="${utf.termFinancial.investerm}"></td>
+                                                    <td th:text="${utf.name}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(utf.leastMoney,1,2)}+'元'"></td>
+                                                    <td th:text="${#dates.format(utf.startTime, 'yyyy-MM-dd')}"></td>
+                                                    <td th:text="${utf.invesTerm}"></td>
                                                     <td th:text="${#numbers.formatDecimal(utf.profit,1,2)}+'元'"></td>
-                                                    <td th:text="${#numbers.formatDecimal(utf.averyield*100,1,2)}+'%'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(utf.averYield*100,1,2)}+'%'"></td>
                                                     <td th:if="${utf.status==1}" th:text="持有中"></td>
                                                     <td th:if="${utf.status==2}" th:text="已失效"></td>
                                                     <td th:if="${utf.status==3}" th:text="已撤销"></td>
                                                     <td>
                                                         <button class="btn btn-danger btn-sm utf_btn"
-                                                                th:attr="utfBtnStatus=${utf.status},utfBtnId=${utf.id},utfBtnName=${utf.termFinancial.name}">
+                                                                th:attr="utfBtnStatus=${utf.status},utfBtnId=${utf.id},utfBtnName=${utf.name}">
 															<span class="glyphicon glyphicon-remove"
                                                                   aria-hidden="true"></span> 撤销
                                                         </button>

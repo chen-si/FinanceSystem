@@ -73,7 +73,13 @@
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script type="text/javascript">
-
+    function keepOnline() {
+        $.ajax({
+            url: "/verifyOnline",
+            type: "POST",
+        });
+    }
+    setInterval(keepOnline,30000);
 </script>
 </body>
 </html>

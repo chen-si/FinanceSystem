@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heu.finance.mapper.normal.finance.UserTermFinancialMapper">
+
+    <insert id="insertUserTermFinancial">
+        insert into user_term_financial (userId,termId,averYield,profit,status)
+        values (#{userId},#{termId},#{averYield},#{profit},#{status})
+    </insert>
+
+    <update id="updateUserTermFinancialStatus">
+        update user_term_financial set status = #{status} where id=#{id}
+    </update>
+
+    <select id="selectUserTermFinancialByUserId" resultType="com.heu.finance.pojo.finance.UserTermFinancial">
+        select user_term_financial.id id,name,leastmoney,startTime,invesTerm,
+               user_term_financial.profit profit,averYield,status
+        from user_term_financial join term_financial
+        on user_term_financial.termId=term_financial.id
+        where userid=#{userId}
+    </select>
+</mapper>
