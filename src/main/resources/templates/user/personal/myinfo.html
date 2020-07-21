@@ -50,9 +50,9 @@
                                         <tr th:each="info:${infoList}">
                                             <td th:text="${(infoPageInfo.pageNum - 1) * infoPageInfo.pageSize+infoStat.index+1}"></td>
                                             <td th:text="${info.title}"></td>
-                                            <td th:text="${info.infodesc}"></td>
-                                            <td th:text="${info.admin.username}"></td>
-                                            <td th:text="${#dates.format(info.createtime, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${info.infoDesc}"></td>
+                                            <td th:text="${info.username}"></td>
+                                            <td th:text="${#dates.format(info.createTime, 'yyyy-MM-dd')}"></td>
                                             <td th:if="${info.status==0}" th:text="未读"></td>
                                             <td th:if="${info.status==1}" th:text="已读"></td>
                                             <td>
@@ -96,7 +96,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li th:each="i:${#numbers.sequence(1,10)}"><a th:text="${i}"
-                                                                                                  th:href="@{/user/personal/toMyInfo.html(pageNum=${infoPageInfo.pageNum},pageSize=${i})}"></a>
+                                                                                                  th:href="@{/user/myInfo(pageNum=${infoPageInfo.pageNum},pageSize=${i})}"></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -118,11 +118,11 @@
                                             <ul class="pagination pagination-lg pull-right"
                                                 style="margin-top: 0">
                                                 <li>
-                                                    <a th:href="@{/user/personal/toMyInfo.html(pageNum=1,pageSize=${infoPageInfo.pageSize})}">首页</a>
+                                                    <a th:href="@{/user/myInfo(pageNum=1,pageSize=${infoPageInfo.pageSize})}">首页</a>
                                                 </li>
 
                                                 <li th:if="${infoPageInfo.hasPreviousPage }"><a
-                                                        th:href="@{/user/personal/toMyInfo.html(pageNum=${infoPageInfo.pageNum}-1,pageSize=${infoPageInfo.pageSize})}"
+                                                        th:href="@{/user/myInfo(pageNum=${infoPageInfo.pageNum}-1,pageSize=${infoPageInfo.pageSize})}"
                                                         aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                                 </a></li>
 
@@ -134,17 +134,17 @@
                                                     </a>
                                                     <a th:text="${page_Num}"
                                                        th:if="${page_Num != infoPageInfo.pageNum}"
-                                                       th:href="@{/user/personal/toMyInfo.html(pageNum=${page_Num},pageSize=${infoPageInfo.pageSize})}">
+                                                       th:href="@{/user/myInfo(pageNum=${page_Num},pageSize=${infoPageInfo.pageSize})}">
                                                     </a>
                                                 </li>
 
                                                 <li th:if="${infoPageInfo.hasNextPage }"><a
-                                                        th:href="@{/user/personal/toMyInfo.html(pageNum=${infoPageInfo.pageNum}+1,pageSize=${infoPageInfo.pageSize})}"
+                                                        th:href="@{/user/myInfo(pageNum=${infoPageInfo.pageNum}+1,pageSize=${infoPageInfo.pageSize})}"
                                                         aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                                 </a></li>
 
                                                 <li><a
-                                                        th:href="@{/user/personal/toMyInfo.html(pageNum=${infoPageInfo.pages},pageSize=${infoPageInfo.pageSize})}">末页</a>
+                                                        th:href="@{/user/myInfo(pageNum=${infoPageInfo.pages},pageSize=${infoPageInfo.pageSize})}">末页</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -186,7 +186,7 @@
             type: "put",
             success: function (result) {
                 if (result.code === 100) {
-                    location.href = "/user/personal/toMyInfo.html";
+                    location.href = "/user/myInfo";
                 }else {
                     $.alert('读取失败!');
                 }
@@ -211,7 +211,7 @@
                             type: "DELETE",
                             success: function (result) {
                                 if (result.code === 100) {
-                                    location.href = "/user/personal/toMyInfo.html";
+                                    location.href = "/user/myInfo";
                                 }else {
                                     $.alert('删除失败!');
                                 }

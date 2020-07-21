@@ -77,6 +77,9 @@
         $.ajax({
             url: "/verifyOnline",
             type: "POST",
+            success:function (result) {
+                console.log('online!')
+            }
         });
     }
     setInterval(keepOnline,30000);

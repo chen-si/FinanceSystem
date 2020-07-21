@@ -13,12 +13,12 @@
 
     <!--通过审核-->
     <update id="updateApplyStatus" parameterType="com.heu.finance.pojo.loan.LoanExam">
-        update loan set applyStatus=2  where id = #{id}
+        update loan set applyStatus = 2  where id = #{id}
     </update>
 
     <!--未通过审核-->
     <update id="updateApplyStatusNotPass" parameterType="com.heu.finance.pojo.loan.LoanExam">
-        update loan set applyStatus=1  where id = #{id}
+        update loan set applyStatus = 1  where id = #{id}
     </update>
 
     <!--用户申请网贷-->

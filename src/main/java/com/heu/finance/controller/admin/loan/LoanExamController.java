@@ -5,7 +5,11 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 
 import com.heu.finance.pojo.loan.LoanExam;
+import com.heu.finance.pojo.loan.LoanInfoRemindPay;
+import com.heu.finance.pojo.personal.SendInfo;
 import com.heu.finance.service.admin.loan.LoanExamService;
+import com.heu.finance.service.admin.loan.LoanInfoService;
+import com.heu.finance.service.normal.personal.MyInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,6 +27,10 @@ public class LoanExamController {
 
     @Autowired
     private LoanExamService loanExamService;
+    @Autowired
+    private LoanInfoService loanInfoService;
+    @Autowired
+    private MyInfoService myInfoService;
 
     @RequestMapping("/loanExamList")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -54,7 +63,18 @@ public class LoanExamController {
         LoanExam loanExam = new LoanExam();
         loanExam.setId(id);
         int i = loanExamService.updateApplyStatus(loanExam);
-        if (i==1){
+        //发送通知
+        SendInfo sendInfo = new SendInfo();
+        Date date = new Date();
+        LoanInfoRemindPay loanInfoRemindPay = loanInfoService.selectById(id);
+        sendInfo.setReceiveId(loanInfoRemindPay.getLoanId());
+        sendInfo.setCreateTime(date);
+        sendInfo.setTitle("网贷审核通过");
+        sendInfo.setUsername(loanInfoRemindPay.getUsername());
+        sendInfo.setAmount(loanInfoRemindPay.getAmount());
+
+        int m = myInfoService.passExam(sendInfo);
+        if (i==1 && m==1){
             return Msg.success();
         }else {
             return Msg.failed();
@@ -68,12 +88,22 @@ public class LoanExamController {
         LoanExam loanExam1 = new LoanExam();
         loanExam1.setId(id);
         int j = loanExamService.updateApplyStausNotPass(loanExam1);
-        if (j==1){
+        //发送通知
+        SendInfo sendInfo1 = new SendInfo();
+        Date date = new Date();
+        LoanInfoRemindPay loanInfoRemindPay = loanInfoService.selectById(id);
+        sendInfo1.setReceiveId(loanInfoRemindPay.getLoanId());
+        sendInfo1.setCreateTime(date);
+        sendInfo1.setTitle("网贷审核未通过");
+        sendInfo1.setUsername(loanInfoRemindPay.getUsername());
+        sendInfo1.setAmount(loanInfoRemindPay.getAmount());
+
+        int n = myInfoService.notPassExam(sendInfo1);
+        if (j==1 && n == 1){
             return Msg.success();
         }else {
             return Msg.failed();
         }
     }
-
 
 }

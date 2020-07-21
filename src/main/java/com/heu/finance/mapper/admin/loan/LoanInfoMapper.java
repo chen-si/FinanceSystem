@@ -1,6 +1,7 @@
 package com.heu.finance.mapper.admin.loan;
 
 import com.heu.finance.pojo.loan.LoanInfo;
+import com.heu.finance.pojo.loan.LoanInfoRemindPay;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,7 @@ import java.util.List;
 @Repository
 public interface LoanInfoMapper {
     public List<LoanInfo> selectLoanInfoAll();
+
+    //按id查找
+    public LoanInfoRemindPay selectById(Integer id);
 }

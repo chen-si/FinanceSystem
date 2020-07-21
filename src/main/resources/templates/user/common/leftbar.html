@@ -17,7 +17,7 @@
         <nav class="sidebar-main">
             <ul class="nav nav-drawer">
                 <li class="nav-item" th:class="${activeUrl=='indexActive'?'nav-item active':'nav-item'}"><a
-                        th:href="@{/user/index.html}"><i
+                        th:href="@{/user/main}"><i
                         class="mdi mdi-home"></i>系统首页</a></li>
                 <li shiro:hasPermission="user:finance" class="nav-item nav-item-has-subnav"
                     th:class="${activeUrl1=='financeActive'?'nav-item nav-item-has-subnav active open':'nav-item nav-item-has-subnav'}">

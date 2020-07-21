@@ -196,7 +196,7 @@
                         btnClass: 'btn-primary',
                         action: function () {
                             $.ajax({
-                                url: "/loan/remindPay/" + id,
+                                url: "/admin/remindPay/" + id,
                                 type: "put",
                                 success: function (result) {
                                     if (result.code === 100) {
@@ -204,7 +204,7 @@
                                         setTimeout(function () {
                                             var pageNum = [[${loanPageInfo.pageNum}]];
                                             var pageSize = [[${loanPageInfo.pageSize}]];
-                                            location.href = "/admin/loan/toLoaninfo.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                            location.href = "/admin/loanInfoList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                         }, 1000);
                                     } else {
                                         $.alert('提醒还款失败!');
@@ -231,7 +231,7 @@
                         btnClass: 'btn-primary',
                         action: function () {
                             $.ajax({
-                                url: "/loan/remindPay/" + id,
+                                url: "/admin/remindPay/" + id,
                                 type: "put",
                                 success: function (result) {
                                     if (result.code === 100) {
@@ -239,7 +239,7 @@
                                         setTimeout(function () {
                                             var pageNum = [[${loanPageInfo.pageNum}]];
                                             var pageSize = [[${loanPageInfo.pageSize}]];
-                                            location.href = "/admin/loan/toLoaninfo.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                            location.href = "/admin/loanInfoList?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                         }, 1000);
                                     } else {
                                         $.alert('提醒还款失败!');

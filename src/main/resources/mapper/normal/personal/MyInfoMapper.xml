@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.heu.finance.mapper.normal.personal.MyInfoMapper">
+
+    <select id="selectMyInfo" resultType="com.heu.finance.pojo.personal.MyInfo" parameterType="java.lang.Integer">
+        select info.id,title,infoDesc,username,createTime,info.status
+        from info,user
+        where receiveId=user.id and receiveId = #{id}
+    </select>
+
+    <!--已读-->
+    <update id="updateInfo" parameterType="java.lang.Integer">
+        update info set status = 1 where id = #{infoId}
+    </update>
+
+    <!--删除-->
+    <delete id="deleteInfo" parameterType="java.lang.Integer">
+        delete from info where id = #{infoId}
+    </delete>
+
+    <!--提醒还款-->
+    <insert id="remindpay" parameterType="com.heu.finance.pojo.personal.SendInfo">
+        insert into info(sendId,receiveId,createTime,title,infoDesc,status) values (1,#{receiveId},#{createTime},#{title},concat("用户",#{username},"的",#{amount},"元网贷该还款了！ 该提醒发送人为: admin"),0)
+    </insert>
+
+    <!--审核通过通知-->
+    <insert id="passExam" parameterType="com.heu.finance.pojo.personal.SendInfo">
+        insert into info(sendId,receiveId,createTime,title,infoDesc,status) values (1,#{receiveId},#{createTime},#{title},concat("用户",#{username},"申请的",#{amount},"元网贷申请审核通过！ 审核人为: admin"),0)
+    </insert>
+
+    <!--审核未通过通知-->
+    <insert id="notPassExam" parameterType="com.heu.finance.pojo.personal.SendInfo">
+        insert into info(sendId,receiveId,createTime,title,infoDesc,status) values (1,#{receiveId},#{createTime},#{title},concat("用户",#{username},"申请的",#{amount},"元网贷申请审核未通过！ 审核人为: admin"),0)
+    </insert>
+</mapper>

@@ -9,4 +9,7 @@
         from user join loan
         on user.id = loanId
     </select>
+    <select id="selectById" resultType="com.heu.finance.pojo.loan.LoanInfoRemindPay">
+        select loanId,username,amount from user,loan where user.id = loanId and loan.id = #{id}
+    </select>
 </mapper>
