@@ -3,8 +3,10 @@ package com.heu.finance.controller.normal.finance;
 
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.UserChangeMoney;
+import com.heu.finance.pojo.tools.RecordFlow;
 import com.heu.finance.service.admin.finance.ChangeMoneyService;
 import com.heu.finance.service.normal.finance.UserChangeMoneyService;
+import com.heu.finance.service.normal.tools.RecordFlowService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.util.Date;
 public class UserChangeMoneyController {
     private UserChangeMoneyService userChangeMoneyService;
     private ChangeMoneyService changeMoneyService;
+    private RecordFlowService recordFlowService;
 
     @Autowired
     public void setUserChangeMoneyService(UserChangeMoneyService userChangeMoneyService) {
@@ -34,6 +37,12 @@ public class UserChangeMoneyController {
     public void setChangeMoneyService(ChangeMoneyService changeMoneyService) {
         this.changeMoneyService = changeMoneyService;
     }
+
+    @Autowired
+    public void setRecordFlowService(RecordFlowService recordFlowService){
+        this.recordFlowService = recordFlowService;
+    }
+
 
     @RequestMapping("/changeMoneyList")
     public ModelAndView selectChangeMoneyAll(Model model){
@@ -51,8 +60,9 @@ public class UserChangeMoneyController {
     @ResponseBody
     public Msg buyChangeMoney(@RequestParam("changeMoneyId") Integer changeMoneyId,
                               @RequestParam("userId") Integer userId,
-                              @RequestParam("invesMoney")BigDecimal invesMoney,
-                              @RequestParam("annualIncome") BigDecimal annualIncome){
+                              @RequestParam("invesMoney") BigDecimal invesMoney,
+                              @RequestParam("annualIncome") BigDecimal annualIncome,
+                              @RequestParam("name") String name){
 
 //        Double averyieid = userChangeMoneyService.selectAverYieIdById(changeMoneyId);
         Date date = new Date();
@@ -67,7 +77,19 @@ public class UserChangeMoneyController {
         userChangeMoney.setStatus(1);
 
         int i = userChangeMoneyService.addUserChangeMoney(userChangeMoney);
-        if (i==1){
+
+        //将投资记录插入资金流动表中
+        RecordFlow recordFlow = new RecordFlow();
+        recordFlow.setUserId(userId);
+        recordFlow.setFlowMoney(invesMoney);
+        recordFlow.setType(1);
+        recordFlow.setSource(name);
+        recordFlow.setCreateTime(date);
+        recordFlow.setFundDesc("无");
+
+        int j = recordFlowService.insertRecord(recordFlow);
+
+        if (i==1 && j ==1){
             return Msg.success();
         }else {
             return Msg.failed();

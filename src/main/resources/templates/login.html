@@ -18,12 +18,12 @@
         }
         .lear-login {
             display: flex !important;
-            min-height: 100vh;
+            min-height: 75vh;
             align-items: center !important;
             justify-content: center !important;
         }
         .login-center1 {
-            background: #fff;
+            background: rgba(255,255,255,0.8);
             min-width: 38.25rem;
             padding: 2.14286em 3.57143em;
             border-radius: 5px;
@@ -50,7 +50,7 @@
         }
     </style>
 </head>
-<body>
+<body style="margin: 10%">
 <div class="row lear-wrapper">
     <div class="lear-login">
         <div class="login-center1">
@@ -101,11 +101,21 @@
 <!-- 引入jQuery和bootstrap的js -->
 <script th:src="@{/js/jquery.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery.backstretch.min.js}"></script>
 <!-- 点线粒子插件 -->
 <script color="255,0,255" opacity='0.8'
         zIndex="9999" count="99"
         src="/js/canvas-nest.js" th:src="@{/js/canvas-nest.js}"></script>
 <script>
+    $.backstretch([
+        '/images/1.jpeg',
+        '/images/2.jpg',
+        '/images/3.jpg',
+    ], {
+        fade : 1000, // 动画时长
+        duration : 4000 // 切换延时
+    });
+
     var show_num = [];
     $(function () {
         $("input[name='username']").blur(verifyUsername);
@@ -293,6 +303,8 @@
             ctx.translate(-x, -y);
         }
     }
+
+
 </script>
 
 </body>

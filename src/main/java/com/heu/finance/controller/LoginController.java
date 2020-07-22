@@ -66,9 +66,11 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
 
         UsernamePasswordToken token =  new UsernamePasswordToken(username,password);
-
-        subject.login(token);
-
+        try {
+            subject.login(token);
+        }catch (Exception e){
+            return Msg.failed();
+        }
         if(subject.hasRole("admin")){
             return Msg.success().add("url","/admin/main");
         }else if( subject.hasRole("user")){

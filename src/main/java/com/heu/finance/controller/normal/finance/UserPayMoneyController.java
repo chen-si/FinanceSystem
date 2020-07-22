@@ -2,8 +2,10 @@ package com.heu.finance.controller.normal.finance;
 
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.UserPayMoney;
+import com.heu.finance.pojo.tools.RecordFlow;
 import com.heu.finance.service.admin.finance.PayMoneyService;
 import com.heu.finance.service.normal.finance.UserPayMoneyService;
+import com.heu.finance.service.normal.tools.RecordFlowService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,14 @@ import java.util.Date;
 public class UserPayMoneyController {
     private UserPayMoneyService userPayMoneyService;
     private PayMoneyService payMoneyService;
-    @Autowired
+    private RecordFlowService recordFlowService;
 
+    @Autowired
+    public void setRecordFlowService(RecordFlowService recordFlowService) {
+        this.recordFlowService = recordFlowService;
+    }
+
+    @Autowired
     public void setUserPayMoneyService(UserPayMoneyService userPayMoneyService) {
         this.userPayMoneyService = userPayMoneyService;
     }
@@ -49,7 +57,8 @@ public class UserPayMoneyController {
     @ResponseBody
     public Msg buyChangeMoney(@RequestParam("payMoneyId") Integer payMoneyId,
                               @RequestParam("userId") Integer userId,
-                              @RequestParam("monthMoney") BigDecimal monthMoney){
+                              @RequestParam("monthMoney") BigDecimal monthMoney,
+                              @RequestParam("name") String name){
 //        System.out.println(monthMoney);
         Date date = new Date();
         UserPayMoney userPayMoney =new UserPayMoney();
@@ -60,13 +69,23 @@ public class UserPayMoneyController {
         userPayMoney.setProfit(monthMoney.multiply(userPayMoney.getAverYield()));
         userPayMoney.setStatus(1);
 
+        //将投资记录插入资金流动表中
+        RecordFlow recordFlow = new RecordFlow();
+        recordFlow.setUserId(userId);
+        recordFlow.setFlowMoney(monthMoney);
+        recordFlow.setType(1);
+        recordFlow.setSource("工资理财");
+        recordFlow.setCreateTime(date);
+        recordFlow.setFundDesc(name);
+
+        int j = recordFlowService.insertRecord(recordFlow);
+
         int i = userPayMoneyService.addUserPayMoney(userPayMoney);
-        if (i == 1){
+        if (i == 1 && j == 1){
             return Msg.success();
         }else {
             return Msg.failed();
         }
-
     }
 
 }
