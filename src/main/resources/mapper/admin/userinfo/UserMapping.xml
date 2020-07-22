@@ -18,7 +18,11 @@
     </resultMap>
 
     <update id="updateUserInfos" parameterType="com.heu.finance.pojo.userinfo.User">
-        update user set password = #{password},phone = #{phone} , realname = #{realname} , email = #{email}
+        update user
+        set phone = #{phone} , realname = #{realname} , email = #{email}
+        <if test="password != null and password != ''">
+            , password = #{password}
+        </if>
         where id = #{id};
     </update>
     <update id="updateUserStatus">
@@ -45,8 +49,8 @@
     </select>
 
     <select id="selectUserByUsername" resultType="com.heu.finance.pojo.userinfo.User">
-        select id,username, realname, password from user
-        where username = #{username}
+        select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation
+        from user where username = #{username}
     </select>
 
     <select id="selectUserReputationAll" resultType="com.heu.finance.pojo.userinfo.User">

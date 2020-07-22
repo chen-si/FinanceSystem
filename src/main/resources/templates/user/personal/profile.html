@@ -13,6 +13,7 @@
     <link th:href="@{/lyear/jconfirm/jquery-confirm.min.css}" rel="stylesheet" type="text/css"/>
     <!--自定义样式-->
     <link href="../lyear/css/style.min.css" th:href="@{/lyear/css/style.min.css}" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <div class="lyear-layout-web">
@@ -48,9 +49,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label>身份证号</label>
-                                        <input type="text" class="form-control" name="idcard"
-                                               id="idcard" placeholder="您的身份证号码还未填写"
-                                               th:value="${user.idcard}">
+                                        <input type="text" class="form-control" name="IDcard"
+                                               id="IDcard" placeholder="您的身份证号码还未填写"
+                                               th:value="${user.IDcard}">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="form-group">
@@ -101,7 +102,7 @@
 
     $(function () {
         $("#realname").blur(checkRealname);
-        $("#idcard").blur(checkIdCard);
+        $("#IDcard").blur(checkIdCard);
         $("#paypwd").blur(checkPaypwd);
         $("#phone").blur(checkPhone);
         $("#email").blur(checkEmail);
@@ -131,18 +132,18 @@
 
     //校验用户身份证号
     function checkIdCard() {
-        var idcard = $("#idcard").val();
-        if (idcard.length === 0) {
-            show_validate_msg("#idcard", "error", "Hello！这里还没填呢");
+        var IDcard = $("#IDcard").val();
+        if (IDcard.length === 0) {
+            show_validate_msg("#IDcard", "error", "Hello！这里还没填呢");
             return false;
         }
         //匹配身份证号
-        var idcardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        if (idcardReg.test(idcard) === false) {
-            show_validate_msg("#idcard", "error", "我猜宁这身份证号也不对呐");
+        var IDcardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        if (IDcardReg.test(IDcard) === false) {
+            show_validate_msg("#IDcard", "error", "我猜宁这身份证号也不对呐");
             return false;
         }
-        show_validate_msg("#idcard", "success", "宁这身份证号真不错");
+        show_validate_msg("#IDcard", "success", "宁这身份证号真不错");
         return true;
     }
 
@@ -208,7 +209,7 @@
                 if (result.code === 100) {
                     $.alert('个人信息修改成功！');
                     setTimeout(function () {
-                        location.href = "/user/personal/toProfile.html";
+                        location.href = "/user/profile";
                     }, 1000);
                 } else {
                     $.alert('抱歉！哪里好像出现了问题？');
@@ -230,6 +231,17 @@
             $(ele).next("span").text(msg);
         }
     }
+
+    function keepOnline() {
+        $.ajax({
+            url: "/verifyOnline",
+            type: "POST",
+            success:function (result) {
+                console.log('online!')
+            }
+        });
+    }
+    setInterval(keepOnline,30000);
 
 </script>
 </body>

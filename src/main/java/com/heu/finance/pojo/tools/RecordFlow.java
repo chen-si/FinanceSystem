@@ -1,14 +1,24 @@
 package com.heu.finance.pojo.tools;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class RecordFlow {
     private Integer id;
-    private Double flowMoney;
+    private Integer userId;
+    private BigDecimal flowMoney;
     private Integer type;
     private String source;
     private Date createTime;
     private String fundDesc;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public Integer getId() {
         return id;
@@ -18,11 +28,11 @@ public class RecordFlow {
         this.id = id;
     }
 
-    public Double getFlowMoney() {
+    public BigDecimal getFlowMoney() {
         return flowMoney;
     }
 
-    public void setFlowMoney(Double flowMoney) {
+    public void setFlowMoney(BigDecimal flowMoney) {
         this.flowMoney = flowMoney;
     }
 
@@ -60,8 +70,9 @@ public class RecordFlow {
 
     @Override
     public String toString() {
-        return "Record{" +
+        return "RecordFlow{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", flowMoney=" + flowMoney +
                 ", type=" + type +
                 ", source='" + source + '\'' +

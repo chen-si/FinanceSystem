@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface RecordFlowMapper {
-
     public List<RecordFlow> selectRecord(Integer id);
+
+    int insertRecord(RecordFlow recordFlow);
 }

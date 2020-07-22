@@ -64,7 +64,9 @@
                                             <td>
                                                 <button class="btn btn-primary btn-sm buy_btn"
                                                         th:attr="buyBtnId=${fp.id},buyBtnName=${fp.fundDesc},
-                                                        buyBtnAverYield=${fp.monthlyGrowth}">
+                                                        buyBtnAverYield=${fp.monthlyGrowth},
+                                                        buyBtnLeastMoney=${fp.leastMoney},
+                                                        buyBtnFundDesc=${fp.fundDesc}">
 															<span class="glyphicon glyphicon-usd"
                                                                   aria-hidden="true"></span> 投资
                                                 </button>
@@ -103,6 +105,10 @@
         var fundProductId = $(this).attr("buyBtnId");
         var userId = [[${session.loginUser.id}]];
         var averYield = $(this).attr("buyBtnAverYield");
+
+        var leastMoney = $(this).attr("buyBtnLeastMoney");
+        var fundDesc = $(this).attr("buyBtnFundDesc");
+
         //alert(userId);
         var name = $(this).attr("buyBtnName");
         $.alert({
@@ -119,7 +125,9 @@
                             data : {
                                 "fundProductId":fundProductId,
                                 "userId":userId,
-                                "averYield":averYield
+                                "averYield":averYield,
+                                "leastMoney":leastMoney,
+                                "fundDesc":fundDesc
                             },
                             success : function(result) {
                                 if (result.code===100){
@@ -142,6 +150,16 @@
         });
     })
 
+    function keepOnline() {
+        $.ajax({
+            url: "/verifyOnline",
+            type: "POST",
+            success:function (result) {
+                console.log('online!')
+            }
+        });
+    }
+    setInterval(keepOnline,30000);
 </script>
 </body>
 </html>

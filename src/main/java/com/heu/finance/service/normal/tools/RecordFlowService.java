@@ -9,4 +9,6 @@ import java.util.List;
 public interface RecordFlowService {
 
     public List<RecordFlow> selectRecord(Integer id);
+
+    int insertRecord(RecordFlow recordFlow);
 }

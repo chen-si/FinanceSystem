@@ -18,4 +18,9 @@ public class RecordFlowServiceImpl implements RecordFlowService {
     public List<RecordFlow> selectRecord(Integer id) {
         return recordFlowMapper.selectRecord(id);
     }
+
+    @Override
+    public int insertRecord(RecordFlow recordFlow) {
+        return recordFlowMapper.insertRecord(recordFlow);
+    }
 }
