@@ -135,6 +135,18 @@
         });
     })
 
+    function keepOnline() {
+        $.ajax({
+            url: "/verifyOnline",
+            type: "POST",
+            success:function (result) {
+                console.log('online!')
+                location.reload();
+            }
+        });
+    }
+    setInterval(keepOnline,30000);
+
 </script>
 </body>
 </html>

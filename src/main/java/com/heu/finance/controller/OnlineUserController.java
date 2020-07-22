@@ -73,13 +73,13 @@ public class OnlineUserController {
 //                        System.out.println(user);
                         if (delay > 1000 * 2 * 60) {
                             //超过两分钟，用户登录状态自动失效
-                            System.out.println("Delete User");
-                            OnlineUsers.remove(user);
+                            System.out.println("Delete User:");
+                            System.out.println(user);
 
                             user.setStatus(0);
                             userService.updateUserStatus(user);
-
                             onlineUserService.userLogout(user.getUsername());
+                            OnlineUsers.remove(user);
                         }
                     }
                 } while (OnlineUsers != null);
