@@ -5,6 +5,8 @@ import com.heu.finance.pojo.userinfo.User;
 import java.util.List;
 
 public interface UserService {
+    List<User> selectAllUserOrderBy(String orderBy);
+
     List<User> selectAllUser();
 
     void insertUser(User user);

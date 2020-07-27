@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> selectAllUserOrderBy(String orderBy) {
+        return userMapper.selectAllUserOrderBy(orderBy);
+    }
+
+    @Override
     public List<User> selectAllUser() {
         return userMapper.selectAllUser();
     }

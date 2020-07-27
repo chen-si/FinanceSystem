@@ -76,6 +76,9 @@ public class OnlineUserController {
                             System.out.println("Delete User:");
                             System.out.println(user);
 
+                            if(user == null){
+                                continue;
+                            }
                             user.setStatus(0);
                             userService.updateUserStatus(user);
                             onlineUserService.userLogout(user.getUsername());

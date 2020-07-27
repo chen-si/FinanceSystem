@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
+    List<User> selectAllUserOrderBy(String orderBy);
+
     List<User> selectAllUser();
 
     void insertUser(User user);

@@ -14,6 +14,28 @@
     <!--自定义样式-->
     <link href="../lyear/css/style.min.css" th:href="@{/lyear/css/style.min.css}" rel="stylesheet" type="text/css"/>
 
+    <style>
+        .arrow{
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 0;
+            margin-left: 5px;
+            opacity: 0.66;
+        }
+        .arrow.asc{
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid #fff;
+        }
+
+        .arrow.dsc{
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #fff;
+        }
+
+    </style>
 </head>
 <body>
 <div class="lyear-layout-web">
@@ -32,18 +54,17 @@
                             <div class="card-header">
                                 <h4>用户在线状态</h4>
                             </div>
-
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
-                                            <th class="info">用户名</th>
+                                            <th class="info" onclick="order(this)" id="username">用户名</th>
                                             <th class="info">真实姓名</th>
                                             <th class="info">手机号</th>
                                             <th class="info">邮箱</th>
-                                            <th class="info">用户状态</th>
+                                            <th class="info" onclick="order(this)" id="status">用户状态</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
@@ -93,7 +114,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}"><a th:text="${i}"
-                                                                                              th:href="@{/admin/main(pageNum=${userPageInfo.pageNum},pageSize=${i})}"></a>
+                                                                                              th:href="@{/admin/main(pageNum=${userPageInfo.pageNum},pageSize=${i},orderBy=${orderBy})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -115,11 +136,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/main(pageNum=1,pageSize=${userPageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/main(pageNum=1,pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}">首页</a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -131,17 +152,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != userPageInfo.pageNum}"
-                                                   th:href="@{/admin/main(pageNum=${page_Num},pageSize=${userPageInfo.pageSize})}">
+                                                   th:href="@{/admin/main(pageNum=${page_Num},pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/main(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -194,7 +215,8 @@
                                     if (result.code === 100) {
                                         var pageNum = [[${userPageInfo.pageNum}]];
                                         var pageSize = [[${userPageInfo.pageSize}]];
-                                        location.href = "/admin/main?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                        var orderBy = location.href.split('?')[1].split('&')[2];
+                                        location.href = "/admin/main?pageNum=" + pageNum + "&pageSize=" + pageSize+"&"+orderBy;
                                     } else {
                                         $.alert('用户强制下线操作失败!');
                                     }
@@ -215,6 +237,15 @@
     setInterval(function () {
         location.reload();
     },5000);
+
+    function order(field){
+        console.log(field.id);
+        var pageNum = [[${userPageInfo.pageNum}]];
+        var pageSize = [[${userPageInfo.pageSize}]];
+
+        location.href =  "/admin/main?pageNum=" + pageNum + "&pageSize=" + pageSize
+            +"&orderBy="+field.id;
+    }
 </script>
 </body>
 </html>

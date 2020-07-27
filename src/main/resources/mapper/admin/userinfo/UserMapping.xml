@@ -62,6 +62,21 @@
         from user where id = #{id}
     </select>
 
+    <select id="selectAllUserOrderBy" resultType="com.heu.finance.pojo.userinfo.User">
+        select id, username, realname, password, IDcard, phone, email, paypwd, status, reputation
+        from user
+        <choose>
+            <when test="orderBy == 'username'">
+                order by username
+            </when>
+            <when test="orderBy == 'status'">
+                order by status desc
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
 
     <delete id="deleteUserById" parameterType="java.lang.Integer">
         delete from user where id = #{id}

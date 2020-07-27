@@ -41,18 +41,24 @@ public class AdminMainController {
     @RequestMapping("/main")
     public String mainPage(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+                           @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
                            Model model,HttpServletRequest request){
+        if (orderBy.equals("")){
+            orderBy = "default";
+        }
+
         PageHelper.startPage(pageNum,pageSize);
 
-        List<User> list = userService.selectAllUser();
+        List<User> list = userService.selectAllUserOrderBy(orderBy);
         while(list.isEmpty() && !pageNum.equals(1)){
             PageHelper.startPage(pageNum - 1,pageSize);
-            list = userService.selectAllUser();
+            list = userService.selectAllUserOrderBy(orderBy);
         }
         PageInfo<User> pageInfo = new PageInfo<>(list);
 
         model.addAttribute("userPageInfo",pageInfo);
         model.addAttribute("userList",list);
+        model.addAttribute("orderBy",orderBy);
 
         model.addAttribute("activeUrl","indexActive");
 
