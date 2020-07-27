@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.ChangeMoney;
 import com.heu.finance.service.admin.finance.ChangeMoneyService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +52,8 @@ public class ChangMoneyController {
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "changemoneyActive");
 
-        model.addAttribute("username", "username");
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
+
         return "admin/finance/changemoney";
 
 

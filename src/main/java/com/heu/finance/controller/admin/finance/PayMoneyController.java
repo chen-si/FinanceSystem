@@ -6,6 +6,7 @@ import com.heu.finance.common.Msg;
 
 import com.heu.finance.pojo.finance.PayMoney;
 import com.heu.finance.service.admin.finance.PayMoneyService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +49,7 @@ public class PayMoneyController {
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "paymoneyActive");
-        model.addAttribute("username", "username");
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
         return "admin/finance/paymoney";
 
     }

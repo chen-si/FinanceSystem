@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.Bank;
 import com.heu.finance.service.admin.finance.BankService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class BankController {
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "bankctive");
-        model.addAttribute("username", "username");
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/finance/bank";
     }

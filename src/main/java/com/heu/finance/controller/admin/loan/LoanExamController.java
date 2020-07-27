@@ -10,6 +10,7 @@ import com.heu.finance.pojo.personal.SendInfo;
 import com.heu.finance.service.admin.loan.LoanExamService;
 import com.heu.finance.service.admin.loan.LoanInfoService;
 import com.heu.finance.service.normal.personal.MyInfoService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +59,8 @@ public class LoanExamController {
         model.addAttribute("activeUrl1", "loanActive");
         model.addAttribute("activeUrl2", "loanexamActive");
 
-        model.addAttribute("username", "username");
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
+
         return "admin/loan/loanexam";
 
     }
