@@ -57,4 +57,11 @@ public class LoanExamImpl implements LoanExamService {
     public int repayLoan(Integer id) {
         return loanExamMapper.repayLoan(id);
     }
+
+    //排序
+
+    @Override
+    public List<LoanExam> selectLoanExamOrderBy(String orderBy) {
+        return loanExamMapper.selectLoanExamOrderBy(orderBy);
+    }
 }

@@ -23,4 +23,7 @@ public interface PayMoneyMapper {
 
     //删除
     public int deletePayMoney(Integer id);
+
+    //排序
+    public List<PayMoney> selectPayMoneyOrderBy(String orderBy);
 }

@@ -18,6 +18,27 @@
     <select id="selectChangeMoneyById" resultType="com.heu.finance.pojo.finance.ChangeMoney" parameterType="java.lang.Integer">
         select * from  change_money  where id = #{id}
     </select>
+    <!--排序-->
+    <select id="selectChangeMoneyOrderBy" resultType="com.heu.finance.pojo.finance.ChangeMoney">
+        select * from change_money
+        <choose>
+            <when test="orderBy == 'name'">
+                order by convert (name using gbk)
+            </when>
+            <when test="orderBy =='annualIncome'">
+                order by annualIncome
+            </when>
+            <when test="orderBy =='peiIncome'">
+                order by peiIncome
+            </when>
+            <when test="orderBy =='invesMoney'">
+                order by invesMoney
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
 
     <!--修改-->
     <update id="alterChangeMoney"  >

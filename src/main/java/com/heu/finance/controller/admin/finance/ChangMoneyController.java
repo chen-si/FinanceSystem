@@ -26,15 +26,27 @@ public class ChangMoneyController {
     @RequestMapping("/changeMoneyList")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                       @RequestParam(value = "orderBy",defaultValue ="default") String orderBy,
                                        Model model) {
+
+        //防止orderBy空设置
+        if (orderBy.equals("")){
+            orderBy = "default";
+        }
+
+
+
         //引入pagehelper操作
         PageHelper.startPage(pageNum, pageSize);
-        List<ChangeMoney> list = changeMoneyService.selectChangeMoneyAll();
+        List<ChangeMoney> list = changeMoneyService.selectChangeMoneyOrderBy(orderBy);
 
         //pageinfo封装分页信息
         PageInfo<ChangeMoney> pageInfo = new PageInfo<ChangeMoney>(list);
         model.addAttribute("financePageInfo", pageInfo);
         model.addAttribute("list", list);
+        model.addAttribute("orderBy",orderBy);
+
+
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "changemoneyActive");

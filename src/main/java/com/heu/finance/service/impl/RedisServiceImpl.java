@@ -53,7 +53,12 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public boolean hashRemove(String key) {
-        return stringRedisTemplate.delete(key);
+    public void hashRemove(String key) {
+        stringRedisTemplate.delete(key);
+    }
+
+    @Override
+    public void hashRemove(String key, String field) {
+        stringRedisTemplate.opsForHash().delete(key,field);
     }
 }

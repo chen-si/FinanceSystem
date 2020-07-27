@@ -14,4 +14,7 @@ public interface LoanInfoMapper {
 
     //按id查找
     public LoanInfoRemindPay selectById(Integer id);
+
+    //排序
+    public List<LoanInfo> selectLoanInfoOrderBy(String orderBy);
 }

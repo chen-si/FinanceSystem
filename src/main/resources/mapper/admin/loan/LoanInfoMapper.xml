@@ -12,4 +12,20 @@
     <select id="selectById" resultType="com.heu.finance.pojo.loan.LoanInfoRemindPay">
         select loanId,username,amount from user,loan where user.id = loanId and loan.id = #{id}
     </select>
+
+    <!--排序-->
+    <select id="selectLoanInfoOrderBy" resultType="com.heu.finance.pojo.loan.LoanInfo">
+        select loan.id,username,IDcard,phone,amount,term,loanStatus
+        from user join loan
+        on user.id = loanId
+        <choose>
+            <when test="orderBy == 'username'">
+                order by username
+            </when>
+            <when test="orderBy == 'loanStatus'">
+                order by loanStatus
+            </when>
+            <otherwise></otherwise>
+        </choose>
+    </select>
 </mapper>

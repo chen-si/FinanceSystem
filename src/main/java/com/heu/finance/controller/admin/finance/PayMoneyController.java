@@ -26,15 +26,25 @@ public class PayMoneyController {
     @RequestMapping("/payMoneyList")
     public String selectPayMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                    @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
                                     Model model) {
+
+        //防止orderBy空设置
+        if (orderBy.equals("")){
+            orderBy = "default";
+        }
+
         //引入pagehelper操作
         PageHelper.startPage(pageNum, pageSize);
-        List<PayMoney> list1 = payMoneyService.selectPayMoneyAll();
+        List<PayMoney> list1 = payMoneyService.selectPayMoneyOrderBy(orderBy);
 
         //pageinfo封装分页信息
         PageInfo<PayMoney> pageInfo = new PageInfo<PayMoney>(list1);
         model.addAttribute("financePageInfo", pageInfo);
         model.addAttribute("list", list1);
+
+        model.addAttribute("orderBy",orderBy);
+
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "paymoneyActive");

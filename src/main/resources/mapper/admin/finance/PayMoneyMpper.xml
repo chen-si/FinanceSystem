@@ -28,6 +28,17 @@
         delete from pay_money where id = #{id}
     </delete>
 
+    <!--排序-->
+    <select id="selectPayMoneyOrderBy" resultType="com.heu.finance.pojo.finance.PayMoney">
+        select * from pay_money
+        <choose>
+            <when test="orderBy == 'type'">
+                order by type
+            </when>
+            <otherwise></otherwise>
+        </choose>
+    </select>
+
 
 
 </mapper>

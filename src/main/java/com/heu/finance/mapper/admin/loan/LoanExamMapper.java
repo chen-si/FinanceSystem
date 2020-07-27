@@ -30,4 +30,7 @@ public interface LoanExamMapper {
 
     //还款
     public int repayLoan(Integer id);
+
+    //排序
+    public List<LoanExam> selectLoanExamOrderBy(String orderBy);
 }

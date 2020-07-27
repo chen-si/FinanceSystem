@@ -41,7 +41,14 @@ public class UserPayMoneyController {
     }
 
     @RequestMapping("/payMoneyList")
-    public ModelAndView selectChangeMoneyAll(Model model){
+    public ModelAndView selectChangeMoneyAll(@RequestParam(value = "orderBy",defaultValue = "default") String orderBy,Model model){
+        //防止orderBy为空设置
+        if (orderBy.equals("")){
+            orderBy = "default";
+        }
+
+        model.addAttribute("orderBy",orderBy);
+
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "payMoneyActive");
@@ -49,7 +56,7 @@ public class UserPayMoneyController {
         model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return new ModelAndView("user/finance/paymoney","payMoneyList",
-                payMoneyService.selectPayMoneyAll());
+                payMoneyService.selectPayMoneyOrderBy(orderBy));
     }
 
     //投资

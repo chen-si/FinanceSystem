@@ -11,8 +11,12 @@ import java.util.List;
 
 @Service
 public class BankServiceImpl implements BankService {
-    @Autowired
     private BankMapper bankMapper;
+
+    @Autowired
+    public void setBankMapper(BankMapper bankMapper) {
+        this.bankMapper = bankMapper;
+    }
 
     @Override
     public List<Bank> selectBankAll() {
@@ -25,8 +29,7 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Bank selectBankById(Integer id)
-    {
+    public Bank selectBankById(Integer id) {
         return bankMapper.selectBankById(id);
     }
 
@@ -39,6 +42,4 @@ public class BankServiceImpl implements BankService {
     public int deleteBankById(Integer id){
         return bankMapper.deleteBankById(id);
     }
-
-
 }

@@ -38,7 +38,7 @@
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
-                                            <th class="info">产品类型</th>
+                                            <th class="info" onclick="order(this)" id="type">产品类型</th>
                                             <th class="info">每月金额设定</th>
                                             <th class="info">自动转入</th>
                                             <th class="info">投资期限</th>
@@ -138,6 +138,11 @@
             }
         });
     })
+
+    function order(field) {
+        console.log(field.id);
+        location.href = "/user/payMoneyList?orderBy=" + field.id;
+    }
 
     function keepOnline() {
         $.ajax({

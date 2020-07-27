@@ -31,6 +31,28 @@
     <select id="myLoan" resultType="com.heu.finance.pojo.personal.MyLoan" parameterType="java.lang.Integer">
         select id,amount,term,rate,applyStatus,loanStatus from loan where loanId = #{id}
     </select>
+
+    <!--还款-->
+    <update id="repayLoan" parameterType="java.lang.Integer">
+        update loan set loanStatus = 2 where  id = #{id}
+    </update>
+
+    <!--排序-->
+    <select id="selectLoanExamOrderBy" resultType="com.heu.finance.pojo.loan.LoanExam">
+        select loan.id,username,amount,term,reputation,applyStatus
+        from user,loan
+        where user.id =loanId
+        <choose>
+            <when test="orderBy == 'username'">
+                order by convert (username using gbk)
+            </when>
+            <when test="orderBy == 'applyStatus'">
+                order by applyStatus
+            </when>
+            <otherwise></otherwise>
+        </choose>
+    </select>
+
     <select id="myLoanOrderBy" resultType="com.heu.finance.pojo.personal.MyLoan">
         select id,amount,term,rate,applyStatus,loanStatus
         from loan where loanId = #{id}
@@ -52,10 +74,5 @@
             </otherwise>
         </choose>
     </select>
-
-    <!--还款-->
-    <update id="repayLoan" parameterType="java.lang.Integer">
-        update loan set loanStatus = 2 where  id = #{id}
-    </update>
 
 </mapper>

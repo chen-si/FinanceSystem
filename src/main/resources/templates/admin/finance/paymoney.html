@@ -39,7 +39,7 @@
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
-                                            <th class="info">产品类型</th>
+                                            <th class="info" onclick="order(this)" id="type">产品类型</th>
                                             <th class="info">每月金额设定</th>
                                             <th class="info">自动转入</th>
                                             <th class="info">投资期限</th>
@@ -103,7 +103,7 @@
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum},pageSize=${i},orderBy=${orderBy})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -129,7 +129,7 @@
                                             </li>
 
                                             <li th:if="${financePageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum}-1,pageSize=${financePageInfo.pageSize})}"
+                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum}-1,pageSize=${financePageInfo.pageSize},orderBy=${orderBy})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -141,17 +141,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != financePageInfo.pageNum}"
-                                                   th:href="@{/admin/payMoneyList(pageNum=${page_Num},pageSize=${financePageInfo.pageSize})}">
+                                                   th:href="@{/admin/payMoneyList(pageNum=${page_Num},pageSize=${financePageInfo.pageSize},orderBy=${orderBy})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${financePageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum}+1,pageSize=${financePageInfo.pageSize})}"
+                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pageNum}+1,pageSize=${financePageInfo.pageSize},orderBy=${orderBy})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pages},pageSize=${financePageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/payMoneyList(pageNum=${financePageInfo.pages},pageSize=${financePageInfo.pageSize},orderBy=${orderBy})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -371,6 +371,14 @@
             backdrop: "static"
         });
     });
+
+
+    function order(field) {
+        console.log(field.id);
+        var pageNum = [[${financePageInfo.pageNum}]];
+        var pageSize = [[${financePageInfo.pageSize}]];
+        location.href = "/admin/payMoneyList?pageNum="  + pageNum + "&pageSize=" +pageSize+ "&orderBy=" + field.id;
+    }
 
     //点击保存，保存新增产品信息。
     $("#save_btn").click(function () {

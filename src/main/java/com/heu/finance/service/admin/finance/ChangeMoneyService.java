@@ -20,4 +20,6 @@ public interface ChangeMoneyService {
 
     //删除
     public int deleteChangeMoney(Integer id);
+
+    List<ChangeMoney> selectChangeMoneyOrderBy(String orderBy);
 }

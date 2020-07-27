@@ -57,5 +57,13 @@ public interface RedisService {
      * 删除hashKey对应的所有数据
      * @param key key
      */
-    boolean hashRemove(String key);
+    void hashRemove(String key);
+
+    /**
+     * 删除key内对应的field
+     * @param key key
+     * @param field field
+     * @return 操作是否成功
+     */
+    void hashRemove(String key,String field);
 }

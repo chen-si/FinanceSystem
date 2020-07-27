@@ -38,11 +38,11 @@
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
-                                            <th class="info">产品名称</th>
-                                            <th class="info">七日年化收益率</th>
-                                            <th class="info">每万元收益</th>
+                                            <th class="info" onclick="order(this)" id="name">产品名称</th>
+                                            <th class="info" onclick="order(this)" id="annualIncome">七日年化收益率</th>
+                                            <th class="info" onclick="order(this)" id="peiIncome">每万元收益</th>
                                             <th class="info">投资期限</th>
-                                            <th class="info">起投金额</th>
+                                            <th class="info" onclick="order(this)" id="invesMoney">起投金额</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
@@ -81,6 +81,8 @@
         <!--End 页面主要内容-->
     </div>
 </div>
+
+
 
 <!-- 引入jQuery和bootstrap的js -->
 <script th:src="@{/js/jquery.js}"></script>
@@ -138,6 +140,12 @@
         });
     })
 
+
+    function order(field) {
+        console.log(field.id);
+       location.href = "/user/changeMoneyList?orderBy=" + field.id;
+    }
+
     function keepOnline() {
         $.ajax({
             url: "/verifyOnline",
@@ -145,6 +153,9 @@
             success:function (result) {
                 console.log('online!')
                 location.reload();
+
+                var orderBy = location.href.split('?')[1];
+                location.href = "/user/finance/changemoney?orderBy=" + orderBy;
             }
         });
     }

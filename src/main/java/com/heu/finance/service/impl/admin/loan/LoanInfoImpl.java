@@ -23,4 +23,11 @@ public class LoanInfoImpl implements LoanInfoService {
     public LoanInfoRemindPay selectById(Integer id) {
         return loanInfoMapper.selectById(id);
     }
+
+    //排序
+
+    @Override
+    public List<LoanInfo> selectLoanInfoOrderBy(String orderBy) {
+        return loanInfoMapper.selectLoanInfoOrderBy(orderBy);
+    }
 }

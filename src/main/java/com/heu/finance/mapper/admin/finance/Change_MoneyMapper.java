@@ -2,10 +2,12 @@ package com.heu.finance.mapper.admin.finance;
 
 import com.heu.finance.pojo.finance.ChangeMoney;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface Change_MoneyMapper {
 
 
@@ -23,4 +25,6 @@ public interface Change_MoneyMapper {
     //删除
     public int deleteChangeMoney(Integer id);
 
+    //排序功能
+    List<ChangeMoney> selectChangeMoneyOrderBy(String orderBy);
 }

@@ -1,7 +1,10 @@
 package com.heu.finance.service.impl.admin.finance;
 
+import com.alibaba.fastjson.JSON;
+import com.heu.finance.common.RedisConfig;
 import com.heu.finance.mapper.admin.finance.TermFinancialMapper;
 import com.heu.finance.pojo.finance.TermFinancial;
+import com.heu.finance.service.RedisService;
 import com.heu.finance.service.admin.finance.TermFinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,12 @@ import java.util.List;
 @Service
 public class TermFinancialServiceImpl implements TermFinancialService {
     private TermFinancialMapper termFinancialMapper;
+    private RedisService redisService;
+
+    @Autowired
+    public void setRedisService(RedisService redisService) {
+        this.redisService = redisService;
+    }
 
     @Autowired
     public void setTermFinancialMapper(TermFinancialMapper termFinancialMapper) {
@@ -29,16 +38,27 @@ public class TermFinancialServiceImpl implements TermFinancialService {
 
     @Override
     public TermFinancial getTermFinancialById(Integer id) {
-        return termFinancialMapper.getTermFinancialById(id);
+        TermFinancial termFinancial = JSON.parseObject(
+                redisService.hashGet(
+                        RedisConfig.TermFinancialKey,id.toString()),TermFinancial.class);
+
+        if (termFinancial == null){
+            termFinancial = termFinancialMapper.getTermFinancialById(id);
+            redisService.hashSet(RedisConfig.TermFinancialKey,id.toString(),
+                    JSON.toJSON(termFinancial).toString());
+        }
+        return termFinancial;
     }
 
     @Override
     public int updateTermFinancialInfos(TermFinancial termFinancial) {
+        redisService.hashRemove(RedisConfig.TermFinancialKey,termFinancial.getId().toString());
         return termFinancialMapper.updateTermFinancialInfos(termFinancial);
     }
 
     @Override
     public int deleteTermFinancialById(Integer id) {
+        redisService.hashRemove(RedisConfig.TermFinancialKey,id.toString());
         return termFinancialMapper.deleteTermFinancialById(id);
     }
 }
