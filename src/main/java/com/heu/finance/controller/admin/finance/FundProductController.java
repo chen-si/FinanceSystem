@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.FundProduct;
 import com.heu.finance.service.admin.finance.FundProductService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +48,7 @@ public class FundProductController {
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","financeActive");
         model.addAttribute("activeUrl2","fundproductActive");
-        model.addAttribute("username",request.getSession().getAttribute("username"));
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/finance/fundproduct";
     }

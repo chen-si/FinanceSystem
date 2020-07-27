@@ -56,7 +56,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover table-striped">
+                                    <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
@@ -181,6 +181,7 @@
 <!-- 引入jQuery和bootstrap的js -->
 <script th:src="@{/js/jquery.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery.backstretch.min.js}"></script>
 <!--滚动条插件-->
 <script th:src="@{/lyear/js/perfect-scrollbar.min.js}"></script>
 <!--弹出框js-->
@@ -188,6 +189,13 @@
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script type="text/javascript">
+
+    // $.backstretch([
+    //     '/images/3.jpg',
+    // ], {
+    //     // fade : 1000, // 动画时长
+    //     // duration : 4000 // 切换延时
+    // });
 
     //强制下线
     $(document).on("click", ".edit_btn", function () {

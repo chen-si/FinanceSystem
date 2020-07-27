@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.userinfo.BankCard;
 import com.heu.finance.service.admin.userinfo.BankCardService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +43,7 @@ public class BankCardController {
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","userInfoActive");
         model.addAttribute("activeUrl2","bankcardActive");
-        model.addAttribute("username",request.getSession().getAttribute("username"));
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/userinfo/bankcard";
     }

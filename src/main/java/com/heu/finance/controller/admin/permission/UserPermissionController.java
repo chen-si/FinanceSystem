@@ -6,6 +6,7 @@ import com.heu.finance.pojo.permission.Permission;
 import com.heu.finance.pojo.permission.UserPermissions;
 import com.heu.finance.service.RedisService;
 import com.heu.finance.service.admin.permission.UserPermissionService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
@@ -58,7 +59,7 @@ public class UserPermissionController {
         model.addAttribute("activeUrl1","permissionActive");
         model.addAttribute("activeUrl2","userPermissionsActive");
 
-        model.addAttribute("username",request.getSession().getAttribute("username"));
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/permission/userpermissions";
     }
