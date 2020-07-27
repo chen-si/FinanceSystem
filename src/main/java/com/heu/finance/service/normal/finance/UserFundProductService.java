@@ -11,5 +11,7 @@ public interface UserFundProductService {
 
     int deleteFundProductById(Integer id);
 
+    List<UserFundProduct> selectUserFundProductByUserIdOrderBy(Integer userId,String orderBy);
+
     List<UserFundProduct> selectUserFundProductByUserId(Integer userId);
 }

@@ -19,4 +19,6 @@ public interface UserTermFinancialMapper {
     public boolean updateUserTermFinancialStatus(Integer id,Integer status);
 
     public List<UserTermFinancial> selectUserTermFinancialByUserId(Integer userId);
+
+    public List<UserTermFinancial> selectUserTermFinancialByUserIdOrderBy(Integer userId,String orderBy);
 }

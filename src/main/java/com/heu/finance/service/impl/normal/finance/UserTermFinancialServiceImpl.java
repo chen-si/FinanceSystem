@@ -32,4 +32,9 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
     public boolean updateUserTermFinancialStatus(Integer id,Integer status) {
         return userTermFinancialMapper.updateUserTermFinancialStatus(id,status);
     }
+
+    @Override
+    public List<UserTermFinancial> selectUserTermFinancialByUserIdOrderBy(Integer userId, String orderBy) {
+        return userTermFinancialMapper.selectUserTermFinancialByUserIdOrderBy(userId, orderBy);
+    }
 }

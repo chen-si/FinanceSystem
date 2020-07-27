@@ -15,5 +15,7 @@ public interface UserChangeMoneyMapper {
 
     List<UserChangeMoney> selectUserChangeMoneyByUserId(Integer userId);
 
+    List<UserChangeMoney> selectUserChangeMoneyByUserIdOrderBy(Integer userId,String orderBy);
+
     int updateUserChangeMoneyStatus(Integer id,Integer status);
 }

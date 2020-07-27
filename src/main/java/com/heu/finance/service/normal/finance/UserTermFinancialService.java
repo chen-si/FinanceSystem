@@ -10,4 +10,6 @@ public interface UserTermFinancialService {
     public boolean insertUserTermFinancial(UserTermFinancial userTermFinancial);
 
     public boolean updateUserTermFinancialStatus(Integer id,Integer status);
+
+    public List<UserTermFinancial> selectUserTermFinancialByUserIdOrderBy(Integer userId,String orderBy);
 }

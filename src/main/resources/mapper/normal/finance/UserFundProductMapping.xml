@@ -21,4 +21,22 @@
         from user_fund_product ufp join fund_product fp on ufp.fundId = fp.id
         where ufp.userId = #{userId}
     </select>
+    <select id="selectUserFundProductByUserIdOrderBy"
+            resultType="com.heu.finance.pojo.finance.UserFundProduct">
+        select ufp.id id, userId, fundId, startTime, averYield, profit, status, fundDesc,leastMoney, invesTerm
+        from user_fund_product ufp join fund_product fp on ufp.fundId = fp.id
+        where ufp.userId = #{userId}
+        <choose>
+            <when test="orderBy == 'leastMoney'">
+                order by leastMoney
+            </when>
+            <when test="orderBy == 'averYield'">
+                order by averYield
+            </when>
+            <when test="orderBy == 'status'">
+                order by status
+            </when>
+        </choose>
+    </select>
+
 </mapper>

@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.admin.userinfo.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +26,14 @@ public class UserReputationController {
     @RequestMapping("/reputationList")
     public String selectUserAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
                                 Model model) {
+        if ("".equals(orderBy)){
+            orderBy = "default";
+        }
         //引入pagehelper插件
         PageHelper.startPage(pageNum, pageSize);
-        List<User> userList = userService.selectUserReputationAll();
+        List<User> userList = userService.selectAllUserOrderBy(orderBy);
         //PageInfo封装分页信息
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         model.addAttribute("userPageInfo", pageInfo);
@@ -36,7 +41,9 @@ public class UserReputationController {
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "userInfoActive");
         model.addAttribute("activeUrl2", "reputationActive");
-        model.addAttribute("username", "username");
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
+
+        model.addAttribute("orderBy",orderBy);
 
         return "admin/userinfo/reputation";
     }

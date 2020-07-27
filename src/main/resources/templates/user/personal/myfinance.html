@@ -57,12 +57,12 @@
                                                 <tr>
                                                     <th class="info">序号</th>
                                                     <th class="info">产品名称</th>
-                                                    <th class="info">起投金额</th>
+                                                    <th class="info" onclick="order(this)" id="leastMoney">起投金额</th>
                                                     <th class="info">起投时间</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
-                                                    <th class="info">平均收益率</th>
-                                                    <th class="info">投资状态</th>
+                                                    <th class="info" onclick="order(this)" id="averYield">平均收益率</th>
+                                                    <th class="info" onclick="order(this)" id="status">投资状态</th>
                                                     <th class="info">相关操作</th>
                                                 </tr>
                                                 </thead>
@@ -117,12 +117,12 @@
                                                 <tr>
                                                     <th class="info">序号</th>
                                                     <th class="info">产品名称</th>
-                                                    <th class="info">起投金额</th>
+                                                    <th class="info" onclick="order(this)" id="leastMoney">起投金额</th>
                                                     <th class="info">起投时间</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
-                                                    <th class="info">平均收益率</th>
-                                                    <th class="info">投资状态</th>
+                                                    <th class="info" onclick="order(this)" id="averYield">平均收益率</th>
+                                                    <th class="info" onclick="order(this)" id="status">投资状态</th>
                                                     <th class="info">相关操作</th>
                                                 </tr>
                                                 </thead>
@@ -179,12 +179,12 @@
                                                 <tr>
                                                     <th class="info">序号</th>
                                                     <th class="info">产品名称</th>
-                                                    <th class="info">起投金额</th>
+                                                    <th class="info" onclick="order(this)" id="leastMoney">起投金额</th>
                                                     <th class="info">起投时间</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
-                                                    <th class="info">平均收益率</th>
-                                                    <th class="info">投资状态</th>
+                                                    <th class="info" onclick="order(this)" id="averYield">平均收益率</th>
+                                                    <th class="info" onclick="order(this)" id="status">投资状态</th>
                                                     <th class="info">相关操作</th>
                                                 </tr>
                                                 </thead>
@@ -240,12 +240,12 @@
                                                 <tr>
                                                     <th class="info">序号</th>
                                                     <th class="info">产品名称</th>
-                                                    <th class="info">起投金额</th>
+                                                    <th class="info" onclick="order(this)" id="leastMoney">起投金额</th>
                                                     <th class="info">起投时间</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
-                                                    <th class="info">平均收益率</th>
-                                                    <th class="info">投资状态</th>
+                                                    <th class="info" onclick="order(this)" id="averYield">平均收益率</th>
+                                                    <th class="info" onclick="order(this)" id="status">投资状态</th>
                                                     <th class="info">相关操作</th>
                                                 </tr>
                                                 </thead>
@@ -331,7 +331,7 @@
                                     if (result.code === 100) {
                                         $.alert('撤销成功!');
                                         setTimeout(function () {
-                                            location.href = "/user/myFinance";
+                                            location.reload();
                                         }, 1000);
                                     } else {
                                         $.alert('撤销失败!');
@@ -498,6 +498,12 @@
             });
         }
     });
+
+    function order(field){
+        console.log(field.id);
+
+        location.href =  "/user/myFinance?" + "orderBy=" + field.id;
+    }
 
     function keepOnline() {
         $.ajax({

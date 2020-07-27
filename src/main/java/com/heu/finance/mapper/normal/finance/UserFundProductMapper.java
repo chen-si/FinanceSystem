@@ -17,4 +17,6 @@ public interface UserFundProductMapper {
     int deleteFundProductById(Integer id);
 
     List<UserFundProduct> selectUserFundProductByUserId(Integer userId);
+
+    List<UserFundProduct> selectUserFundProductByUserIdOrderBy(Integer userId,String orderBy);
 }

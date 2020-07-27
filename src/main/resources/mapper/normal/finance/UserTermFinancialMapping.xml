@@ -20,4 +20,23 @@
         on user_term_financial.termId=term_financial.id
         where userid=#{userId}
     </select>
+    <select id="selectUserTermFinancialByUserIdOrderBy"
+            resultType="com.heu.finance.pojo.finance.UserTermFinancial">
+        select user_term_financial.id id,name,leastmoney,startTime,invesTerm,
+               user_term_financial.profit profit,averYield,status
+        from user_term_financial join term_financial
+                                      on user_term_financial.termId=term_financial.id
+        where userid=#{userId}
+        <choose>
+            <when test="orderBy == 'leastMoney'">
+                order by leastMoney
+            </when>
+            <when test="orderBy == 'averYield'">
+                order by averYield
+            </when>
+            <when test="orderBy == 'status'">
+                order by status
+            </when>
+        </choose>
+    </select>
 </mapper>

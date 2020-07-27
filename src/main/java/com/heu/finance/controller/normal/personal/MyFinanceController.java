@@ -50,21 +50,26 @@ public class MyFinanceController {
     }
 
     @RequestMapping("/myFinance")
-    public String showMyFinance(Model model){
+    public String showMyFinance(@RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
+                                Model model){
+        if(orderBy.equals("")){
+            orderBy = "default";
+        }
+
         Session session = SecurityUtils.getSubject().getSession();
         User user = (User) session.getAttribute("loginUser");
         List<UserChangeMoney> userChangeMoneyList =
-                userChangeMoneyService.selectUserChangeMoneyByUserId(user.getId());
+                userChangeMoneyService.selectUserChangeMoneyByUserIdOrderBy(user.getId(),orderBy);
 //        System.out.println(userChangeMoneyList);
 
         List<UserPayMoney> userPayMoneyList =
-                userPayMoneyService.selectUserPayMoneyByUserId(user.getId());
+                userPayMoneyService.selectUserPayMoneyByUserIdOrderBy(user.getId(),orderBy);
 
         List<UserTermFinancial> userTermFinancialList =
-                userTermFinancialService.selectUserTermFinancialByUserId(user.getId());
+                userTermFinancialService.selectUserTermFinancialByUserIdOrderBy(user.getId(),orderBy);
 
         List<UserFundProduct> userFundProductList =
-                userFundProductService.selectUserFundProductByUserId(user.getId());
+                userFundProductService.selectUserFundProductByUserIdOrderBy(user.getId(),orderBy);
 
         model.addAttribute("userChangeMoneyList",userChangeMoneyList);
         model.addAttribute("userPayMoneyList", userPayMoneyList);
@@ -75,6 +80,8 @@ public class MyFinanceController {
         model.addAttribute("activeUrl1", "personalActive");
         model.addAttribute("activeUrl2", "myFinanceActive");
         //session.setAttribute("myFinanceActiveUrl","changeMoneyActive");
+
+        model.addAttribute("orderBy",orderBy);
 
         model.addAttribute("session", session);
 

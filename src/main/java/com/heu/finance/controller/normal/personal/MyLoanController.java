@@ -31,14 +31,19 @@ public class MyLoanController {
     @RequestMapping("/myloan")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                       @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
                                        Model model, HttpServletRequest request) {
+        if (orderBy.equals("")){
+            orderBy = "default";
+        }
+
         //引入pagehelper操作
         PageHelper.startPage(pageNum, pageSize);
 
         Session session = SecurityUtils.getSubject().getSession();
         User user = (User) session.getAttribute("loginUser");
 
-        List<MyLoan> list = loanExamService.myLoan(user.getId());
+        List<MyLoan> list = loanExamService.myLoanOrderBy(user.getId(),orderBy);
 
         //pageinfo封装分页信息
         PageInfo<MyLoan> pageInfo = new PageInfo<MyLoan>(list);
@@ -47,6 +52,9 @@ public class MyLoanController {
         model.addAttribute("activeUrl", "indexActive");
         model.addAttribute("activeUrl1", "personalActive");
         model.addAttribute("activeUrl2", "myLoanActive");
+
+        model.addAttribute("orderBy",orderBy);
+
         model.addAttribute("session", session);
         return "user/personal/myloan";
 

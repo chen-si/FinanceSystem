@@ -13,5 +13,7 @@ public interface UserPayMoneyService {
 
     List<UserPayMoney> selectUserPayMoneyByUserId(Integer userId);
 
+    List<UserPayMoney> selectUserPayMoneyByUserIdOrderBy(Integer userId,String orderBy);
+
     int updateUserPayMoneyStatus(Integer id, Integer status);
 }

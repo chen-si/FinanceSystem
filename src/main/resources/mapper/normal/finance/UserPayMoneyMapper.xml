@@ -19,4 +19,21 @@
         from user_pay_money upm join pay_money pm on upm.payId = pm.id
         where upm.userId = #{userId}
     </select>
+    <select id="selectUserPayMoneyByUserIdOrderBy" resultType="com.heu.finance.pojo.finance.UserPayMoney">
+        select upm.id id, userId, payId, startTime,
+               averYield, profit, status, monthMoney, type, invesTerm
+        from user_pay_money upm join pay_money pm on upm.payId = pm.id
+        where upm.userId = #{userId}
+        <choose>
+            <when test="orderBy == 'leastMoney'">
+                order by monthMoney
+            </when>
+            <when test="orderBy == 'averYield'">
+                order by averYield
+            </when>
+            <when test="orderBy == 'status'">
+                order by status
+            </when>
+        </choose>
+    </select>
 </mapper>

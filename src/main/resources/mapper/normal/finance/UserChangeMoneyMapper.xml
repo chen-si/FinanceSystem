@@ -19,4 +19,22 @@
         from user_change_money ucm join change_money cm on ucm.changeId = cm.id
         where userId = #{userId}
     </select>
+    <select id="selectUserChangeMoneyByUserIdOrderBy"
+            resultType="com.heu.finance.pojo.finance.UserChangeMoney">
+        select ucm.id id, changeId, startTime, averYield, profit, status,
+        name changeMoneyName, invesTerm, invesMoney
+        from user_change_money ucm join change_money cm on ucm.changeId = cm.id
+        where userId = #{userId}
+        <choose>
+            <when test="orderBy == 'leastMoney'">
+                order by invesMoney
+            </when>
+            <when test="orderBy == 'averYield'">
+                order by averYield
+            </when>
+            <when test="orderBy == 'status'">
+                order by status
+            </when>
+        </choose>
+    </select>
 </mapper>

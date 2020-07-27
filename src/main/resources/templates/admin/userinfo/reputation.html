@@ -39,7 +39,7 @@
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
-                                            <th class="info">用户名</th>
+                                            <th class="info" onclick="order(this)" id="username">用户名</th>
                                             <th class="info">信誉</th>
                                             <th class="info">相关操作</th>
                                         </tr>
@@ -87,7 +87,7 @@
                                             <ul class="dropdown-menu">
                                                 <li th:each="i:${#numbers.sequence(1,10)}">
                                                     <a th:text="${i}"
-                                                       th:href="@{/admin/reputationList(pageNum=${userPageInfo.pageNum},pageSize=${i})}"></a>
+                                                       th:href="@{/admin/reputationList(pageNum=${userPageInfo.pageNum},pageSize=${i},orderBy=${orderBy})}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -110,11 +110,11 @@
                                         <ul class="pagination pagination-lg pull-right"
                                             style="margin-top: 0">
                                             <li>
-                                                <a th:href="@{/admin/reputationList(pageNum=1,pageSize=${userPageInfo.pageSize})}">首页</a>
+                                                <a th:href="@{/admin/reputationList(pageNum=1,pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}">首页</a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasPreviousPage }"><a
-                                                    th:href="@{/admin/reputationList(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/reputationList(pageNum=${userPageInfo.pageNum}-1,pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}"
                                                     aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                             </a></li>
 
@@ -126,17 +126,17 @@
                                                 </a>
                                                 <a th:text="${page_Num}"
                                                    th:if="${page_Num != userPageInfo.pageNum}"
-                                                   th:href="@{/admin/reputationList(pageNum=${page_Num},pageSize=${userPageInfo.pageSize})}">
+                                                   th:href="@{/admin/reputationList(pageNum=${page_Num},pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}">
                                                 </a>
                                             </li>
 
                                             <li th:if="${userPageInfo.hasNextPage }"><a
-                                                    th:href="@{/admin/reputationList(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize})}"
+                                                    th:href="@{/admin/reputationList(pageNum=${userPageInfo.pageNum}+1,pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}"
                                                     aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                             </a></li>
 
                                             <li><a
-                                                    th:href="@{/admin/reputationList(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize})}">末页</a>
+                                                    th:href="@{/admin/reputationList(pageNum=${userPageInfo.pages},pageSize=${userPageInfo.pageSize},orderBy=${orderBy})}">末页</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -274,7 +274,8 @@
                     setTimeout(function () {
                         var pageNum = [[${userPageInfo.pageNum}]];
                         var pageSize = [[${userPageInfo.pageSize}]];
-                        location.href = "/admin/reputationList?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                        var orderBy = location.href.split('?')[1].split('&')[2];
+                        location.href = "/admin/reputationList?pageNum=" + pageNum + "&pageSize=" + pageSize + "&" + orderBy;
                     }, 1000);
                 } else {
                     $.alert('用户信誉修改失败！');
@@ -310,6 +311,15 @@
             $(ele).parent().addClass("has-error");
             $(ele).next("span").text(msg);
         }
+    }
+
+    function order(field){
+        console.log(field.id);
+        var pageNum = [[${userPageInfo.pageNum}]];
+        var pageSize = [[${userPageInfo.pageSize}]];
+
+        location.href =  "/admin/reputationList?pageNum=" + pageNum + "&pageSize=" + pageSize
+            +"&orderBy="+field.id;
     }
 
 </script>

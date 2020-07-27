@@ -38,11 +38,11 @@
                                         <thead>
                                         <tr>
                                             <th class="info">序号</th>
-                                            <th class="info">借贷资金</th>
+                                            <th class="info" onclick="order(this)" id="amount">借贷资金</th>
                                             <th class="info">借贷期限</th>
-                                            <th class="info">固定年借贷率</th>
-                                            <th class="info">申请状态</th>
-                                            <th class="info">借贷状态</th>
+                                            <th class="info" onclick="order(this)" id="rate">固定年借贷率</th>
+                                            <th class="info" onclick="order(this)" id="applyStatus">申请状态</th>
+                                            <th class="info" onclick="order(this)" id="loanStatus">借贷状态</th>
                                             <th class="info">操作</th>
                                         </tr>
                                         </thead>
@@ -100,7 +100,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li th:each="i:${#numbers.sequence(1,10)}"><a th:text="${i}"
-                                                                                                  th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pageNum},pageSize=${i})}"></a>
+                                                                                                  th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pageNum},pageSize=${i},orderBy=${orderBy})}"></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -122,11 +122,11 @@
                                             <ul class="pagination pagination-lg pull-right"
                                                 style="margin-top: 0">
                                                 <li>
-                                                    <a th:href="@{/user/myloan(pageNum=1,pageSize=${myLoansPageInfo.pageSize})}">首页</a>
+                                                    <a th:href="@{/user/myloan(pageNum=1,pageSize=${myLoansPageInfo.pageSize},orderBy=${orderBy})}">首页</a>
                                                 </li>
 
                                                 <li th:if="${myLoansPageInfo.hasPreviousPage }"><a
-                                                        th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pageNum}-1,pageSize=${myLoansPageInfo.pageSize})}"
+                                                        th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pageNum}-1,pageSize=${myLoansPageInfo.pageSize},orderBy=${orderBy})}"
                                                         aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                                 </a></li>
 
@@ -138,17 +138,17 @@
                                                     </a>
                                                     <a th:text="${page_Num}"
                                                        th:if="${page_Num != myLoansPageInfo.pageNum}"
-                                                       th:href="@{/user/myloan(pageNum=${page_Num},pageSize=${myLoansPageInfo.pageSize})}">
+                                                       th:href="@{/user/myloan(pageNum=${page_Num},pageSize=${myLoansPageInfo.pageSize},orderBy=${orderBy})}">
                                                     </a>
                                                 </li>
 
                                                 <li th:if="${myLoansPageInfo.hasNextPage }"><a
-                                                        th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pageNum}+1,pageSize=${myLoansPageInfo.pageSize})}"
+                                                        th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pageNum}+1,pageSize=${myLoansPageInfo.pageSize},orderBy=${orderBy})}"
                                                         aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                                 </a></li>
 
                                                 <li><a
-                                                        th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pages},pageSize=${myLoansPageInfo.pageSize})}">末页</a>
+                                                        th:href="@{/user/myloan(pageNum=${myLoansPageInfo.pages},pageSize=${myLoansPageInfo.pageSize},orderBy=${orderBy})}">末页</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -218,7 +218,7 @@
                                         if (result.code === 100) {
                                             $.alert('还款成功!');
                                             setTimeout(function () {
-                                                location.href = "myloan";
+                                                location.reload();
                                             }, 1000);
                                         } else {
                                             $.alert('还款失败!');
@@ -238,6 +238,15 @@
             }
         }
     });
+
+    function order(field){
+        console.log(field.id);
+        var pageNum = [[${myLoansPageInfo.pageNum}]];
+        var pageSize = [[${myLoansPageInfo.pageSize}]];
+
+        location.href =  "/user/myloan?pageNum=" + pageNum + "&pageSize=" + pageSize
+            +"&orderBy="+field.id;
+    }
 
     function keepOnline() {
         $.ajax({

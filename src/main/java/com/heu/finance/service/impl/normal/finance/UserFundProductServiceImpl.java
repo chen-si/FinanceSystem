@@ -37,6 +37,11 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     }
 
     @Override
+    public List<UserFundProduct> selectUserFundProductByUserIdOrderBy(Integer userId, String orderBy) {
+        return userFundProductMapper.selectUserFundProductByUserIdOrderBy(userId, orderBy);
+    }
+
+    @Override
     public List<UserFundProduct> selectUserFundProductByUserId(Integer userId) {
         return userFundProductMapper.selectUserFundProductByUserId(userId);
     }

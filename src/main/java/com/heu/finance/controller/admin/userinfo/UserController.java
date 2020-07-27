@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.admin.userinfo.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,14 +27,18 @@ public class UserController {
     @RequestMapping("/userlist")
     public String selectUserAll(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+                                @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
                                 Model model, HttpServletRequest request){
 //        System.out.println(pageNum+" "+pageSize);
+        if(orderBy.equals("")){
+            orderBy = "default";
+        }
         PageHelper.startPage(pageNum,pageSize);
 
-        List<User> list = userService.selectAllUser();
+        List<User> list = userService.selectAllUserOrderBy(orderBy);
         while(list.isEmpty() && !pageNum.equals(1)){
             PageHelper.startPage(pageNum - 1,pageSize);
-            list = userService.selectAllUser();
+            list = userService.selectAllUserOrderBy(orderBy);
         }
         PageInfo<User> pageInfo = new PageInfo<>(list);
         model.addAttribute("userPageInfo",pageInfo);
@@ -42,8 +47,9 @@ public class UserController {
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","userInfoActive");
         model.addAttribute("activeUrl2","userInfoActive");
+        model.addAttribute("orderBy",orderBy);
 
-        model.addAttribute("username",request.getSession().getAttribute("username"));
+        model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/userinfo/userinfo";
     }

@@ -26,6 +26,11 @@ public class UserPayMoneyImpl implements UserPayMoneyService {
     }
 
     @Override
+    public List<UserPayMoney> selectUserPayMoneyByUserIdOrderBy(Integer userId, String orderBy) {
+        return userPayMoneyMapper.selectUserPayMoneyByUserIdOrderBy(userId, orderBy);
+    }
+
+    @Override
     public int updateUserPayMoneyStatus(Integer id, Integer status) {
         return userPayMoneyMapper.updateUserPayMoneyStatus(id,status);
     }

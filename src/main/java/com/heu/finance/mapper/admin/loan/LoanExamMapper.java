@@ -26,6 +26,8 @@ public interface LoanExamMapper {
     //我的借贷
     public List<MyLoan> myLoan(Integer id);
 
+    public List<MyLoan> myLoanOrderBy(Integer id,String orderBy);
+
     //还款
     public int repayLoan(Integer id);
 }

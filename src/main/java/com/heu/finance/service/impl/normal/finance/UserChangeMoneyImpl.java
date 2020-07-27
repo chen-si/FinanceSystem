@@ -26,6 +26,11 @@ public class UserChangeMoneyImpl implements UserChangeMoneyService {
     }
 
     @Override
+    public List<UserChangeMoney> selectUserChangeMoneyByUserIdOrderBy(Integer userId, String orderBy) {
+        return userChangeMoneyMapper.selectUserChangeMoneyByUserIdOrderBy(userId, orderBy);
+    }
+
+    @Override
     public int updateUserChangeMoneyStatus(Integer id, Integer status) {
         return userChangeMoneyMapper.updateUserChangeMoneyStatus(id, status);
     }
