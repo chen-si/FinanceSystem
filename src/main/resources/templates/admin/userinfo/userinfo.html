@@ -50,9 +50,9 @@
                                         <tr th:each="user:${userList}">
                                             <td th:text="${(userPageInfo.pageNum - 1) * userPageInfo.pageSize+userStat.index+1}"></td>
                                             <td th:text="${user.username}"></td>
-                                            <td th:text="${user.realname}==null?'未填写':${user.realname}"></td>
-                                            <td th:text="${user.phone}==null?'未填写':${user.phone}"></td>
-                                            <td th:text="${user.email}==null?'未填写':${user.email}"></td>
+                                            <td th:text="${user.realname} == null or ${user.realname} == ''?'未填写':${user.realname}"></td>
+                                            <td th:text="${user.phone} == null or ${user.phone} == ''?'未填写':${user.phone}"></td>
+                                            <td th:text="${user.email} == null or ${user.email} == ''?'未填写':${user.email}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
                                                         th:attr="update-id=${user.id}">
@@ -521,7 +521,7 @@
 
         //2、发送ajax请求保存更新的员工数据
         $.ajax({
-            url: "/admin/user/updateUserProfile/" + $(this).attr("update-id"),
+            url: "/admin/updateUserProfile/" + $(this).attr("update-id"),
             type: "PUT",
             data: $("#userUpdateModal form").serialize(),
             success: function (result) {

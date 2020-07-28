@@ -272,10 +272,11 @@
                     $("#userUpdateModal").modal('hide');
                     $.alert('用户信誉修改成功！');
                     setTimeout(function () {
-                        var pageNum = [[${userPageInfo.pageNum}]];
-                        var pageSize = [[${userPageInfo.pageSize}]];
-                        var orderBy = location.href.split('?')[1].split('&')[2];
-                        location.href = "/admin/reputationList?pageNum=" + pageNum + "&pageSize=" + pageSize + "&" + orderBy;
+                        location.reload();
+                        // var pageNum = [[${userPageInfo.pageNum}]];
+                        // var pageSize = [[${userPageInfo.pageSize}]];
+                        // var orderBy = location.href.split('?')[1].split('&')[2];
+                        // location.href = "/admin/reputationList?pageNum=" + pageNum + "&pageSize=" + pageSize + "&" + orderBy;
                     }, 1000);
                 } else {
                     $.alert('用户信誉修改失败！');
