@@ -11,7 +11,7 @@ import java.util.List;
 public interface BankCardMapper {
     List<BankCard> selectAllBankCard();
 
-    void insertBankCard(String cardBank,Integer type,
+    int insertBankCard(String cardBank,Integer type,
                         String cardNum,Integer userId);
 
     BankCard getBankCardById(Integer id);

@@ -14,33 +14,19 @@ import java.util.List;
 @Service
 public class RecordFlowServiceImpl implements RecordFlowService {
     private RecordFlowMapper recordFlowMapper;
-    private RedisService redisService;
 
     @Autowired
     public void setRecordFlowMapper(RecordFlowMapper recordFlowMapper) {
         this.recordFlowMapper = recordFlowMapper;
     }
 
-    @Autowired
-    public void setRedisService(RedisService redisService) {
-        this.redisService = redisService;
-    }
-
     @Override
     public List<RecordFlow> selectRecord(Integer id) {
-        List<RecordFlow> recordFlowList =
-                JSONArray.parseArray(redisService.get(RedisConfig.RecordFlowPrefix+id),RecordFlow.class);
-        if (recordFlowList == null){
-            recordFlowList = recordFlowMapper.selectRecord(id);
-            redisService.set(RedisConfig.RecordFlowPrefix+id,JSONArray.toJSON(recordFlowList).toString());
-            redisService.expire(RedisConfig.RecordFlowPrefix+id,240);
-        }
-        return recordFlowList;
+        return recordFlowMapper.selectRecord(id);
     }
 
     @Override
     public int insertRecord(RecordFlow recordFlow) {
-        redisService.remove(RedisConfig.RecordFlowPrefix+recordFlow.getUserId());
         return recordFlowMapper.insertRecord(recordFlow);
     }
 }

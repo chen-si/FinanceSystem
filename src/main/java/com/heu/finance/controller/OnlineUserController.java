@@ -63,19 +63,14 @@ public class OnlineUserController {
                 do {
                     //睡眠一分钟
                     Thread.sleep(60*1000);
-                    //System.out.println("Run task");
                     for (Map.Entry<User, Date> userDateEntry : OnlineUsers.entrySet()) {
                         User user = (User) ((Map.Entry) userDateEntry).getKey();
                         Date lastVerifyTime = (Date) ((Map.Entry) userDateEntry).getValue();
                         long delay = new Date().getTime() - lastVerifyTime.getTime();
-//                        System.out.println(lastVerifyTime);
-//                        System.out.println(delay);
-//                        System.out.println(user);
                         if (delay > 1000 * 2 * 60) {
                             //超过两分钟，用户登录状态自动失效
                             System.out.println("Delete User:");
                             System.out.println(user);
-
                             if(user == null){
                                 continue;
                             }

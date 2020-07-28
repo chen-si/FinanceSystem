@@ -47,10 +47,7 @@ public class UserBankCardController {
     public Msg addBankCard(BankCard bankCard){
         Session session = SecurityUtils.getSubject().getSession();
         User user = (User) session.getAttribute("loginUser");
-//        System.out.println(bankCard);
-        bankCardService.insertBankCard(bankCard,user.getId());
-//        System.out.println(bankCard);
-        if (bankCard.getId() != null){
+        if (bankCardService.insertBankCard(bankCard,user.getId()) == 1){
             return Msg.success();
         }
         return Msg.failed();

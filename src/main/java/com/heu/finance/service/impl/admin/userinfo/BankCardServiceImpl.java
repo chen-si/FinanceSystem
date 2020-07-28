@@ -32,8 +32,8 @@ public class BankCardServiceImpl implements BankCardService {
     }
 
     @Override
-    public void insertBankCard(BankCard bankCard, Integer userId) {
-        bankCardMapper.insertBankCard(bankCard.getCardBank(),bankCard.getType(),
+    public int insertBankCard(BankCard bankCard, Integer userId) {
+        return bankCardMapper.insertBankCard(bankCard.getCardBank(),bankCard.getType(),
                 bankCard.getCardNum(),userId);
     }
 
