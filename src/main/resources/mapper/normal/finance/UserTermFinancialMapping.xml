@@ -5,8 +5,8 @@
 <mapper namespace="com.heu.finance.mapper.normal.finance.UserTermFinancialMapper">
 
     <insert id="insertUserTermFinancial">
-        insert into user_term_financial (userId,termId,averYield,profit,status)
-        values (#{userId},#{termId},#{averYield},#{profit},#{status})
+        insert into user_term_financial (userId,termId,averYield,profit,status,startTime)
+        values (#{userId},#{termId},#{averYield},#{profit},#{status},#{startTime})
     </insert>
 
     <update id="updateUserTermFinancialStatus">

@@ -78,6 +78,7 @@ public class UserFundProductController {
         userFundProduct.setUserId(userId);
         userFundProduct.setProfit(averYield.multiply(new BigDecimal(100)));
         userFundProduct.setStatus(1);
+        userFundProduct.setStartTime(new Date());
 
         RecordFlow recordFlow = new RecordFlow();
         recordFlow.setUserId(userId);

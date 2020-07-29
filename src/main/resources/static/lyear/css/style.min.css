@@ -10,14 +10,14 @@ body {
 	line-height: 1.5;
 	font-size: 14px;
 	overflow-x: hidden;
-    background-color: #c0a16b;
+    background-color: #f5f6fa;
 }
 html,
 body {
     height: 100%;
 }
 a {
-    color: #080808;
+    color: #33cabb;
 	-webkit-transition: .2s linear;
 	transition: .2s linear
 }

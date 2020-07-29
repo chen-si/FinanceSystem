@@ -5,8 +5,8 @@
 <mapper namespace="com.heu.finance.mapper.normal.finance.UserFundProductMapper">
 
     <insert id="addUserFundProduct">
-        insert into user_fund_product(userId, fundId, averYield, profit, status)
-        values (#{userId},#{fundId},#{averYield},#{profit},#{status})
+        insert into user_fund_product(userId, fundId, averYield, profit, status,startTime)
+        values (#{userId},#{fundId},#{averYield},#{profit},#{status},#{startTime})
     </insert>
     <update id="updateUserFundProductStatus">
         update user_fund_product set status = #{status}
