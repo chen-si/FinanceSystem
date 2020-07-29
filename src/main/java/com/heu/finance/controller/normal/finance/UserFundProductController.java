@@ -53,7 +53,7 @@ public class UserFundProductController {
 
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","financeActive");
-        model.addAttribute("activeUrl2","fundproductActive");
+        model.addAttribute("activeUrl2","fundProductActive");
 
         Subject currentSubject = SecurityUtils.getSubject();
         Session session = currentSubject.getSession();

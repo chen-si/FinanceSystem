@@ -52,7 +52,7 @@ public class LoanInfoController {
 
         model.addAttribute("activeUrl","indexActive");
         model.addAttribute("activeUrl1","loanActive");
-        model.addAttribute("activeUrl","loaninfoActive");
+        model.addAttribute("activeUrl2","loaninfoActive");
         model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/loan/loaninfo";
