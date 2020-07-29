@@ -4,9 +4,9 @@ package com.heu.finance.controller.normal.finance;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.UserChangeMoney;
 import com.heu.finance.pojo.tools.RecordFlow;
-import com.heu.finance.service.admin.finance.ChangeMoneyService;
-import com.heu.finance.service.normal.finance.UserChangeMoneyService;
-import com.heu.finance.service.normal.tools.RecordFlowService;
+import com.heu.finance.service.finance.ChangeMoneyService;
+import com.heu.finance.service.finance.UserChangeMoneyService;
+import com.heu.finance.service.tools.RecordFlowService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
+/**
+ * 用户零钱理财页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class UserChangeMoneyController {
@@ -43,9 +47,16 @@ public class UserChangeMoneyController {
         this.recordFlowService = recordFlowService;
     }
 
-
+    /**
+     * 显示零钱理财页面
+     * @param orderBy 查询字段，默认为'default'
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/changeMoneyList")
-    public ModelAndView selectChangeMoneyAll(@RequestParam(value = "orderBy",defaultValue = "default") String orderBy,Model model){
+    public ModelAndView selectChangeMoneyAll(
+            @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
+            Model model){
         //防止orderBy为空设置
         if (orderBy.equals("")){
             orderBy = "default";
@@ -63,7 +74,15 @@ public class UserChangeMoneyController {
                 "changeMoneyList",changeMoneyService.selectChangeMoneyOrderBy(orderBy));
     }
 
-    //投资
+    /**
+     * 投资零钱理财
+     * @param changeMoneyId changeMoneyId
+     * @param userId userId
+     * @param invesMoney invesMoney
+     * @param annualIncome annualIncome
+     * @param name name
+     * @return Msg
+     */
     @RequestMapping("/buyChangeMoney")
     @ResponseBody
     public Msg buyChangeMoney(@RequestParam("changeMoneyId") Integer changeMoneyId,

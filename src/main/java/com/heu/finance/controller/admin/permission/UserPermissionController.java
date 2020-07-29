@@ -5,7 +5,7 @@ import com.heu.finance.common.RedisConfig;
 import com.heu.finance.pojo.permission.Permission;
 import com.heu.finance.pojo.permission.UserPermissions;
 import com.heu.finance.service.RedisService;
-import com.heu.finance.service.admin.permission.UserPermissionService;
+import com.heu.finance.service.permission.UserPermissionService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+ * 对应 admin端 用户权限界面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Configuration
 @RequestMapping("/admin")
 public class UserPermissionController {
@@ -35,8 +39,13 @@ public class UserPermissionController {
         this.userPermissionService = userPermissionService;
     }
 
+    /**
+     * 展示用户权限页面
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/UserPermissions")
-    public String ShowUserPermission(Model model, HttpServletRequest request){
+    public String ShowUserPermission(Model model){
         List<UserPermissions> userPermissionsList = userPermissionService.getUserPermissionsByUserId(1);
 
         List<String> permissionList = new ArrayList<>();
@@ -64,6 +73,11 @@ public class UserPermissionController {
         return "admin/permission/userpermissions";
     }
 
+    /**
+     * 更新用户权限
+     * @param permissions 权限列表
+     * @return Msg
+     */
     @RequestMapping("/updateUserPermissions")
     @ResponseBody
     public Msg updateAdminPermission(@RequestParam("userPermissions") String permissions){

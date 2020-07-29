@@ -7,9 +7,9 @@ import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.loan.LoanExam;
 import com.heu.finance.pojo.loan.LoanInfoRemindPay;
 import com.heu.finance.pojo.personal.SendInfo;
-import com.heu.finance.service.admin.loan.LoanExamService;
-import com.heu.finance.service.admin.loan.LoanInfoService;
-import com.heu.finance.service.normal.personal.MyInfoService;
+import com.heu.finance.service.loan.LoanExamService;
+import com.heu.finance.service.loan.LoanInfoService;
+import com.heu.finance.service.personal.MyInfoService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 对应 admin端 网贷审核界面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/admin")
 public class LoanExamController {
-
     @Autowired
     private LoanExamService loanExamService;
     @Autowired
@@ -33,6 +37,13 @@ public class LoanExamController {
     @Autowired
     private MyInfoService myInfoService;
 
+    /**
+     * 展示admin端的网贷审核页面
+     * @param pageNum 当前页码 默认为 1
+     * @param pageSize 每页显示的数据量，默认为 5
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/loanExamList")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
@@ -62,10 +73,14 @@ public class LoanExamController {
         model.addAttribute("session", SecurityUtils.getSubject().getSession());
 
         return "admin/loan/loanexam";
-
     }
 
-    //审核通过
+
+    /**
+     * 对应ID的网贷项审核通过
+     * @param id ID
+     * @return Msg
+     */
     @RequestMapping("/passApplyStatus/{id}")
     @ResponseBody
     public Msg passApplyStatus(@PathVariable("id") Integer id){
@@ -90,7 +105,11 @@ public class LoanExamController {
         }
     }
 
-    //审核不通过
+    /**
+     * 对应ID的网贷项审核不通过
+     * @param id ID
+     * @return Msg
+     */
     @RequestMapping("/notPassApplyStatus/{id}")
     @ResponseBody
     public Msg notPassApplyStatus(@PathVariable("id") Integer id){

@@ -5,7 +5,7 @@ import com.heu.finance.common.RedisConfig;
 import com.heu.finance.pojo.permission.AdminPermissions;
 import com.heu.finance.pojo.permission.Permission;
 import com.heu.finance.service.RedisService;
-import com.heu.finance.service.admin.permission.AdminPermissionService;
+import com.heu.finance.service.permission.AdminPermissionService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+ * 对应 admin端 管理员权限界面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminPermissionController {
@@ -35,8 +39,13 @@ public class AdminPermissionController {
         this.adminPermissionService = adminPermissionService;
     }
 
+    /**
+     * 展示管理员权限页面
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("AdminPermissions")
-    public String showAdminPermissons(Model model, HttpServletRequest request){
+    public String showAdminPermissons(Model model){
         List<AdminPermissions> adminPermissionsList = adminPermissionService.getAdminPermissionsByAdminId(1);
 
         List<String> permissionList = new ArrayList<>();
@@ -63,11 +72,17 @@ public class AdminPermissionController {
         return "admin/permission/adminpermissions";
     }
 
+    /**
+     * 更新管理员权限
+     * @param permissions 权限列表
+     * @return Msg
+     */
     @RequestMapping("/updateAdminPermissions")
     @ResponseBody
     public Msg updateAdminPermission(@RequestParam("adminPermissions") String permissions){
         List<String> oldPermissionList = Arrays.asList(permissions.split(";"));
         List<String> permissionList = new ArrayList<>(oldPermissionList);
+        //admin:adminPermissions 必须存在
         if(!permissionList.contains("admin:adminPermissions")){
             permissionList.add("admin:adminPermissions");
         }

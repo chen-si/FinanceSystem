@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heu.finance.mapper.normal.finance.UserFundProductMapper">
+<mapper namespace="com.heu.finance.mapper.finance.UserFundProductMapper">
 
     <insert id="addUserFundProduct">
         insert into user_fund_product(userId, fundId, averYield, profit, status,startTime)

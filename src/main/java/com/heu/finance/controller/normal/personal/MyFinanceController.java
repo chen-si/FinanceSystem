@@ -6,10 +6,10 @@ import com.heu.finance.pojo.finance.UserFundProduct;
 import com.heu.finance.pojo.finance.UserPayMoney;
 import com.heu.finance.pojo.finance.UserTermFinancial;
 import com.heu.finance.pojo.userinfo.User;
-import com.heu.finance.service.normal.finance.UserChangeMoneyService;
-import com.heu.finance.service.normal.finance.UserFundProductService;
-import com.heu.finance.service.normal.finance.UserPayMoneyService;
-import com.heu.finance.service.normal.finance.UserTermFinancialService;
+import com.heu.finance.service.finance.UserChangeMoneyService;
+import com.heu.finance.service.finance.UserFundProductService;
+import com.heu.finance.service.finance.UserPayMoneyService;
+import com.heu.finance.service.finance.UserTermFinancialService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 用户我的理财页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class MyFinanceController {
@@ -49,6 +54,12 @@ public class MyFinanceController {
         this.userChangeMoneyService = userChangeMoneyService;
     }
 
+    /**
+     * 展示我的理财页面
+     * @param orderBy 查询字段，默认为'default'
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/myFinance")
     public String showMyFinance(@RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
                                 Model model){
@@ -92,6 +103,11 @@ public class MyFinanceController {
         return "user/personal/myfinance";
     }
 
+    /**
+     * 撤销对应ID的零钱理财
+     * @param userChangeMoneyId ID
+     * @return Msg
+     */
     @RequestMapping("/revokeUserChangeMoney")
     @ResponseBody
     public Msg revokeUserChangeMoney(@RequestParam("userChangeMoneyId") Integer userChangeMoneyId){
@@ -103,6 +119,11 @@ public class MyFinanceController {
         return Msg.failed();
     }
 
+    /**
+     * 撤销对应ID的工资理财
+     * @param userPayMoneyId ID
+     * @return Msg
+     */
     @RequestMapping("/revokeUserPayMoney")
     @ResponseBody
     public Msg revokeUserPayMoney(@RequestParam("userPayMoneyId") Integer userPayMoneyId){
@@ -114,6 +135,11 @@ public class MyFinanceController {
         return Msg.failed();
     }
 
+    /**
+     * 撤销对应ID的期限理财
+     * @param userTermFinancialId ID
+     * @return Msg
+     */
     @RequestMapping("/revokeUserTermFinancial")
     @ResponseBody
     public Msg revokeUserTermFinancial(@RequestParam("userTermFinancialId") Integer userTermFinancialId){
@@ -125,6 +151,11 @@ public class MyFinanceController {
         return Msg.failed();
     }
 
+    /**
+     * 撤销对应ID的基金理财
+     * @param userFundProductId ID
+     * @return Msg
+     */
     @RequestMapping("/revokeUserFundProduct")
     @ResponseBody
     public Msg revokeUserFundProduct(@RequestParam("userFundProductId") Integer userFundProductId){

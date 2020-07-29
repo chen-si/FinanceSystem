@@ -10,9 +10,9 @@ import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.LoginService;
 import com.heu.finance.service.OnlineUserService;
 import com.heu.finance.service.RedisService;
-import com.heu.finance.service.admin.permission.AdminPermissionService;
-import com.heu.finance.service.admin.permission.UserPermissionService;
-import com.heu.finance.service.admin.userinfo.UserService;
+import com.heu.finance.service.permission.AdminPermissionService;
+import com.heu.finance.service.permission.UserPermissionService;
+import com.heu.finance.service.userinfo.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -25,7 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-
+/**
+ * 登录验证和权限认证类
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 public class UserRealm extends AuthorizingRealm {
     private UserService userService;
     private LoginService loginService;

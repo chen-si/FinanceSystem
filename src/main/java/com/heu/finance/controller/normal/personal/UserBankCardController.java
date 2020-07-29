@@ -3,7 +3,7 @@ package com.heu.finance.controller.normal.personal;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.userinfo.BankCard;
 import com.heu.finance.pojo.userinfo.User;
-import com.heu.finance.service.admin.userinfo.BankCardService;
+import com.heu.finance.service.userinfo.BankCardService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 用户银行卡信息页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class UserBankCardController {
@@ -25,6 +30,11 @@ public class UserBankCardController {
         this.bankCardService = bankCardService;
     }
 
+    /**
+     * 展示用户银行卡信息
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/bankCard")
     public String myBankCard(Model model){
         Session session = SecurityUtils.getSubject().getSession();
@@ -42,6 +52,11 @@ public class UserBankCardController {
         return "user/personal/bankcard";
     }
 
+    /**
+     * 添加银行卡
+     * @param bankCard bankCard
+     * @return Msg
+     */
     @RequestMapping("/addBankCard")
     @ResponseBody
     public Msg addBankCard(BankCard bankCard){
@@ -53,6 +68,11 @@ public class UserBankCardController {
         return Msg.failed();
     }
 
+    /**
+     * 修改对应ID的银行卡信息回显
+     * @param id ID
+     * @return Msg
+     */
     @RequestMapping("/getBankCardById/{id}")
     @ResponseBody
     public Msg getBankCardById(@PathVariable("id") Integer id){
@@ -64,6 +84,12 @@ public class UserBankCardController {
         return Msg.failed();
     }
 
+    /**
+     * 修改/关系对应ID银行卡信息
+     * @param id ID
+     * @param bankCard bankCard
+     * @return Msg
+     */
     @RequestMapping("/updateBankCard/{id}")
     @ResponseBody
     public Msg updateBankCard(@PathVariable("id") Integer id,
@@ -78,6 +104,11 @@ public class UserBankCardController {
         return Msg.failed();
     }
 
+    /**
+     * 删除对应ID的银行卡信息
+     * @param id ID
+     * @return Msg
+     */
     @RequestMapping("/deleteBankCard/{id}")
     @ResponseBody
     public Msg deleteBankCard(@PathVariable("id") Integer id){

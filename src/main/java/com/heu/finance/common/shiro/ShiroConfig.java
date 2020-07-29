@@ -11,7 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
+/**
+ * Shiro 配置文件
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Configuration
 public class ShiroConfig {
 

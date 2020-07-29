@@ -3,7 +3,7 @@ package com.heu.finance.controller;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.OnlineUserService;
-import com.heu.finance.service.admin.userinfo.UserService;
+import com.heu.finance.service.userinfo.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
 
+/**
+ * 在线用户管理
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 public class OnlineUserController {
     private static OnlineUserService onlineUserService;
@@ -30,6 +35,10 @@ public class OnlineUserController {
         OnlineUserController.userService = userService;
     }
 
+    /**
+     * 接收浏览器的定时消息，记录已登录用户信息
+     * @return Msg
+     */
     @RequestMapping("/verifyOnline")
     @ResponseBody
     public Msg verifyOnline(){
@@ -53,6 +62,9 @@ public class OnlineUserController {
         return Msg.success();
     }
 
+    /**
+     * 并发定时检测超过两分钟没有发送验证的在线用户，更新用户状态并且删除保存在服务器的用户信息
+     */
     public static void deleteOfflineUser(){
         if (OnlineUsers == null){
             OnlineUsers = new HashMap<>();

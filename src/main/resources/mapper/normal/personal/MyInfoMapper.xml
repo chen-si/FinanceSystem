@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heu.finance.mapper.normal.personal.MyInfoMapper">
+<mapper namespace="com.heu.finance.mapper.personal.MyInfoMapper">
 
     <select id="selectMyInfo" resultType="com.heu.finance.pojo.personal.MyInfo" parameterType="java.lang.Integer">
         select info.id,title,infoDesc,username,createTime,info.status

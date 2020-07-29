@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.FundProduct;
-import com.heu.finance.service.admin.finance.FundProductService;
+import com.heu.finance.service.finance.FundProductService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * 对应 admin端 基金理财界面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/admin")
 public class FundProductController {
@@ -27,10 +31,17 @@ public class FundProductController {
         this.fundProductService = fundProductService;
     }
 
+    /**
+     * 展示admin端的基金理财管理页面
+     * @param pageNum 当前页码 默认为 1
+     * @param pageSize 每页显示的数据量，默认为 5
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/fundProductList")
     public String selectAllFundProduct(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
-                                       Model model, HttpServletRequest request){
+                                       Model model){
         PageHelper.startPage(pageNum,pageSize);
 
         List<FundProduct> list = fundProductService.selectAllFundProduct();
@@ -53,6 +64,18 @@ public class FundProductController {
         return "admin/finance/fundproduct";
     }
 
+    /**
+     * 添加基金理财项
+     * @param code code
+     * @param type type
+     * @param fundDesc fundDesc
+     * @param dailyGrowth dailyGrowth
+     * @param monthlyGrowth monthlyGrowth
+     * @param annualGrowth annualGrowth
+     * @param leastMoney leastMoney
+     * @param invesTerm invesTerm
+     * @return Msg
+     */
     @RequestMapping("/addFundProduct")
     @ResponseBody
     public Msg addFundProduct(@RequestParam(value = "code") Integer code,
@@ -81,6 +104,12 @@ public class FundProductController {
             return Msg.failed();
         }
     }
+
+    /**
+     * 获取并返回修改基金理财回显数据
+     * @param id 需要回显的基金理财项id
+     * @return Msg
+     */
     @RequestMapping("/getFundProductInfoById/{id}")
     @ResponseBody
     public Msg getFundProductById(@PathVariable("id") Integer id){
@@ -92,6 +121,18 @@ public class FundProductController {
         }
     }
 
+    /**
+     * 更新/修改 基金理财项
+     * @param code code
+     * @param type type
+     * @param fundDesc fundDesc
+     * @param dailyGrowth dailyGrowth
+     * @param monthlyGrowth monthlyGrowth
+     * @param annualGrowth annualGrowth
+     * @param leastMoney leastMoney
+     * @param invesTerm invesTerm
+     * @return Msg
+     */
     @RequestMapping("/updateFundProduct/{id}")
     @ResponseBody
     public Msg updateFundProduct(@PathVariable("id") Integer id,
@@ -120,6 +161,11 @@ public class FundProductController {
         return Msg.failed();
     }
 
+    /**
+     * 删除对应ID的基金理财项
+     * @param id ID
+     * @return Msg
+     */
     @RequestMapping("/deleteFundProductById/{id}")
     @ResponseBody
     public Msg deleteFundProductById(@PathVariable("id") Integer id){

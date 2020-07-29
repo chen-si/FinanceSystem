@@ -3,9 +3,9 @@ package com.heu.finance.controller.normal.finance;
 import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.UserPayMoney;
 import com.heu.finance.pojo.tools.RecordFlow;
-import com.heu.finance.service.admin.finance.PayMoneyService;
-import com.heu.finance.service.normal.finance.UserPayMoneyService;
-import com.heu.finance.service.normal.tools.RecordFlowService;
+import com.heu.finance.service.finance.PayMoneyService;
+import com.heu.finance.service.finance.UserPayMoneyService;
+import com.heu.finance.service.tools.RecordFlowService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 用户工资理财页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class UserPayMoneyController {
@@ -40,6 +45,12 @@ public class UserPayMoneyController {
         this.payMoneyService = payMoneyService;
     }
 
+    /**
+     * 显示工资理财页面
+     * @param orderBy 查询字段，默认为'default'
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/payMoneyList")
     public ModelAndView selectChangeMoneyAll(@RequestParam(value = "orderBy",defaultValue = "default") String orderBy,Model model){
         //防止orderBy为空设置
@@ -59,7 +70,14 @@ public class UserPayMoneyController {
                 payMoneyService.selectPayMoneyOrderBy(orderBy));
     }
 
-    //投资
+    /**
+     * 投资基金理财
+     * @param userId userId
+     * @param monthMoney  monthMoney
+     * @param payMoneyId  payMoneyId
+     * @param name name
+     * @return Msg
+     */
     @RequestMapping("/buyPayMoney")
     @ResponseBody
     public Msg buyChangeMoney(@RequestParam("payMoneyId") Integer payMoneyId,

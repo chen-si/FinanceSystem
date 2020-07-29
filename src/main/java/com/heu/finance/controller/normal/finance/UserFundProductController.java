@@ -5,9 +5,9 @@ import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.FundProduct;
 import com.heu.finance.pojo.finance.UserFundProduct;
 import com.heu.finance.pojo.tools.RecordFlow;
-import com.heu.finance.service.admin.finance.FundProductService;
-import com.heu.finance.service.normal.finance.UserFundProductService;
-import com.heu.finance.service.normal.tools.RecordFlowService;
+import com.heu.finance.service.finance.FundProductService;
+import com.heu.finance.service.finance.UserFundProductService;
+import com.heu.finance.service.tools.RecordFlowService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -18,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * 用户基金理财页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class UserFundProductController {
@@ -44,8 +48,13 @@ public class UserFundProductController {
         this.fundProductService = fundProductService;
     }
 
+    /**
+     * 展示用户基金理财界面
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/fundProductList")
-    public String selectAllFundProducts(Model model, HttpServletRequest request){
+    public String selectAllFundProducts(Model model){
 
         List<FundProduct> list = fundProductService.selectAllFundProduct();
 
@@ -62,6 +71,15 @@ public class UserFundProductController {
         return "user/finance/fundproduct";
     }
 
+    /**
+     * 投资基金理财
+     * @param fundProductId fundProductId
+     * @param userId userId
+     * @param averYield averYield
+     * @param leastMoney leastMoney
+     * @param fundDesc fundDesc
+     * @return Msg
+     */
     @RequestMapping("/buyFundProduct")
     @ResponseBody
     public Msg buyFundProduct(@RequestParam("fundProductId") Integer fundProductId,

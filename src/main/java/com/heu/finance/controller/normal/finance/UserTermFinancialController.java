@@ -4,8 +4,8 @@ import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.finance.TermFinancial;
 import com.heu.finance.pojo.finance.UserTermFinancial;
 import com.heu.finance.pojo.userinfo.User;
-import com.heu.finance.service.admin.finance.TermFinancialService;
-import com.heu.finance.service.normal.finance.UserTermFinancialService;
+import com.heu.finance.service.finance.TermFinancialService;
+import com.heu.finance.service.finance.UserTermFinancialService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 用户期限理财页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class UserTermFinancialController {
@@ -36,7 +40,11 @@ public class UserTermFinancialController {
         this.termFinancialService = termFinancialService;
     }
 
-    //期限理财
+    /**
+     * 展示用户期限理财界面
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/termFinancial")
     public String termFinancial(Model model){
         List<TermFinancial> list = termFinancialService.selectAllTermFinancial();
@@ -50,7 +58,14 @@ public class UserTermFinancialController {
 
         return  "/user/finance/termfinancial";
     }
-    //期限理财购买
+
+    /**
+     * 投资期限理财
+     * @param termFinancialId termFinancialId
+     * @param leastMoney  leastMoney
+     * @param annualIncome  annualIncome
+     * @return Msg
+     */
     @RequestMapping("/buyTermFinancial")
     @ResponseBody
     public Msg buyTermFinancial(@RequestParam("termFinancialId") Integer termFinancialId,

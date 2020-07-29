@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heu.finance.mapper.admin.userinfo.BankCardMapper">
+<mapper namespace="com.heu.finance.mapper.userinfo.BankCardMapper">
     <resultMap type="com.heu.finance.pojo.userinfo.BankCard" id="BankCardResultMap">
         <!-- 先配置 BankCard 的属性 -->
         <id column="id" property="id" />

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heu.finance.mapper.admin.userinfo.UserMapper">
+<mapper namespace="com.heu.finance.mapper.userinfo.UserMapper">
     <resultMap type="com.heu.finance.pojo.userinfo.User" id="UserResultMap">
         <!-- 先配置 User 的属性 -->
         <id column="id" property="id" />

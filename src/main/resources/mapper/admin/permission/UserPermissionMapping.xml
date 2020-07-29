@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heu.finance.mapper.admin.permission.UserPermissionMapper">
+<mapper namespace="com.heu.finance.mapper.permission.UserPermissionMapper">
     <resultMap id="UserPermissionResultMap" type="com.heu.finance.pojo.permission.UserPermissions">
         <id column="id" property="id"/>
         <result column="userId" property="userId"/>

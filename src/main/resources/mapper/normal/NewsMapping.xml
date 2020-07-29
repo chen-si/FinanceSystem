@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heu.finance.mapper.normal.NewsMapper">
+<mapper namespace="com.heu.finance.mapper.NewsMapper">
 
     <select id="selectAllNews" resultType="com.heu.finance.pojo.News">
         select id, title, newsDesc, createTime from news

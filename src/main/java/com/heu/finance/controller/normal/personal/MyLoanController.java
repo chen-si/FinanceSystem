@@ -3,11 +3,10 @@ package com.heu.finance.controller.normal.personal;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heu.finance.common.Msg;
-import com.heu.finance.pojo.Admin;
 
 import com.heu.finance.pojo.personal.MyLoan;
 import com.heu.finance.pojo.userinfo.User;
-import com.heu.finance.service.admin.loan.LoanExamService;
+import com.heu.finance.service.loan.LoanExamService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +17,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 用户我的借贷页面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 @RequestMapping("/user")
 public class MyLoanController {
     @Autowired
     private LoanExamService loanExamService;
 
-
+    /**
+     * 展示我的借贷页面
+     * @param pageNum 当前页码 默认为 1
+     * @param pageSize 每页显示的数据量，默认为 5
+     * @param orderBy 查询字段，默认为'default'
+     * @param model 给模板文件添加数据项
+     * @return 模板文件对应位置
+     */
     @RequestMapping("/myloan")
     public String selectChangeMoneyAll(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                        @RequestParam(value = "orderBy",defaultValue = "default") String orderBy,
-                                       Model model, HttpServletRequest request) {
+                                       Model model) {
         if (orderBy.equals("")){
             orderBy = "default";
         }
@@ -61,7 +71,11 @@ public class MyLoanController {
     }
 
 
-    //还款
+    /**
+     * 还款
+     * @param id ID
+     * @return Msg
+     */
     @RequestMapping("/repayment/{id}")
     @ResponseBody
     public Msg repayment(@PathVariable("id") Integer id){

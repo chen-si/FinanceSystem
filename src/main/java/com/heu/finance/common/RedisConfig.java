@@ -1,5 +1,10 @@
 package com.heu.finance.common;
 
+/**
+ * Redis的key字段的配置文件
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 public class RedisConfig {
     public static final String UserAuthorization = "USER_AUTHORIZATION";
     public static final String AdminAuthorization = "ADMIN_AUTHORIZATION";

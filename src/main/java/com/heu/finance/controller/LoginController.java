@@ -5,8 +5,7 @@ import com.heu.finance.common.Msg;
 import com.heu.finance.pojo.Admin;
 import com.heu.finance.pojo.userinfo.User;
 import com.heu.finance.service.LoginService;
-import com.heu.finance.service.OnlineUserService;
-import com.heu.finance.service.admin.userinfo.UserService;
+import com.heu.finance.service.userinfo.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -17,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 登录界面
+ * @version 1.0
+ * @author Liu,Qin,Zhou
+ */
 @Controller
 public class LoginController {
     private LoginService loginService;
@@ -38,11 +42,20 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    /**
+     * 去登录界面
+     * @return 登录模板所在位置
+     */
     @RequestMapping("/")
     public String login(){
         return "login";
     }
 
+    /**
+     * 验证用户名是否已经存在
+     * @param username username
+     * @return Msg
+     */
     @RequestMapping("/loginVerifyUsername/{username}")
     @ResponseBody
     public Msg loginVerifyUsername(@PathVariable("username") String username){
@@ -58,6 +71,12 @@ public class LoginController {
         return Msg.failed();
     }
 
+    /**
+     * 登录校验
+     * @param username username
+     * @param password password
+     * @return Msg
+     */
     @RequestMapping("/verifyLogin")
     @ResponseBody
     public Msg verifyLogin(@RequestParam(value = "username") String username,
